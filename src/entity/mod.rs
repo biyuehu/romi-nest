@@ -4,6 +4,7 @@ pub mod romi_characters;
 pub mod romi_comments;
 pub mod romi_fields;
 pub mod romi_hitokotos;
+pub mod romi_hitokotos2;
 pub mod romi_metas;
 pub mod romi_news;
 pub mod romi_news_comments;
