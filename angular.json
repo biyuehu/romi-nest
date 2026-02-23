@@ -24,6 +24,16 @@
               {
                 "glob": "**/*",
                 "input": "client/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/katex/dist/fonts",
+                "output": "/fonts"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/katex/dist",
+                "output": "/katex"
               }
             ],
             "styles": [
