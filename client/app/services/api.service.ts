@@ -9,6 +9,7 @@ import type {
   LanguageColors,
   LoginResponse,
   ReqCharacterData,
+  ReqHitokoto2Data,
   ReqHitokotoData,
   ReqMetaData,
   ReqNewsData,
@@ -17,6 +18,7 @@ import type {
   ResCharacterData,
   ResCommentData,
   ResDashboardData,
+  ResHitokoto2Data,
   ResHitokotoData,
   ResMetaData,
   ResMusicData,
@@ -189,6 +191,28 @@ export class ApiService {
 
   public createHitokoto(data: ReqHitokotoData) {
     return this.http.post<void>(`${environment.api_base_url}/hitokoto`, data)
+  }
+
+  public getHitokoto2() {
+    return this.http.get<ResHitokoto2Data>(`${environment.api_base_url}/hitokoto/new`, {
+      headers: this.genHeaders([HEADER_CONTEXT.ERROR_REDIRECT])
+    })
+  }
+
+  public getHitokotos2() {
+    return this.http.get<ResHitokoto2Data[]>(`${environment.api_base_url}/hitokoto/new/all`)
+  }
+
+  public createHitokoto2(data: ReqHitokoto2Data) {
+    return this.http.post<void>(`${environment.api_base_url}/hitokoto/new`, data)
+  }
+
+  public updateHitokoto2(uuid: string, data: ReqHitokoto2Data) {
+    return this.http.put<void>(`${environment.api_base_url}/hitokoto/new/${uuid}`, data)
+  }
+
+  public deleteHitokoto2(uuid: string) {
+    return this.http.delete<void>(`${environment.api_base_url}/hitokoto/new/${uuid}`)
   }
 
   public updateHitokoto(id: number, data: ReqHitokotoData) {
