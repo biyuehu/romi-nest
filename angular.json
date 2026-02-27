@@ -24,16 +24,6 @@
               {
                 "glob": "**/*",
                 "input": "client/public"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/katex/dist/fonts",
-                "output": "/fonts"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/katex/dist",
-                "output": "/katex"
               }
             ],
             "styles": [
@@ -47,7 +37,13 @@
             "prerender": false,
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+         "loader": {
+              ".woff": "file",
+              ".woff2": "file",
+              ".ttf": "file",
+              ".eot": "file"
+         }
           },
           "configurations": {
             "production": {
