@@ -7,8 +7,8 @@ on:
       - '**.ts'
       - '**.rs'
       - 'Cargo.toml'
-      - './*.json'
-      - '.github/**'
+      - '**.json'
+      - '.github/**/*'
 
 jobs:
   build:
