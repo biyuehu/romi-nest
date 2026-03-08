@@ -25,7 +25,8 @@ export class PostComponent implements OnInit {
     pipe(+this.id, (id) =>
       Number.isNaN(id) ? this.apiService.getPostByStrId(this.id) : this.apiService.getPost(id)
     ).subscribe((post) => {
-      this.post = post
+      // TODO： 解密按钮 以及后端如果是有验证的admin就照旧返回text 否则后端编辑文章会有问题
+      this.post = { ...post, text: post.password ? '文章已加密' : post.text }
       this.appTitleStrategy.setTitle(post.title)
       this.appTitleStrategy.updateHeader({
         title: post.title,
