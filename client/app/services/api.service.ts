@@ -9,6 +9,7 @@ import type {
   LanguageColors,
   LoginResponse,
   ReqCharacterData,
+  ReqDecryptPostData,
   ReqHitokoto2Data,
   ReqHitokotoData,
   ReqMetaData,
@@ -18,6 +19,7 @@ import type {
   ResCharacterData,
   ResCommentData,
   ResDashboardData,
+  ResDecryptPostData,
   ResHitokoto2Data,
   ResHitokotoData,
   ResMetaData,
@@ -90,6 +92,14 @@ export class ApiService {
     return this.http.put<void>(`${environment.api_base_url}/post/view/${id}`, null)
   }
 
+  public decryptPost(id: number, data: ReqDecryptPostData) {
+    return this.http
+      .post<ResDecryptPostData>(`${environment.api_base_url}/post/decrypt/${id}`, data, {
+        headers: this.genHeaders([HEADER_CONTEXT.SKIP_ERROR_HANDLING, HEADER_CONTEXT.NO_CLEAR_ON_ERROR])
+      })
+      .pipe(catchError(() => of(null)))
+  }
+
   public deletePost(id: number) {
     return this.http.delete<void>(`${environment.api_base_url}/post/${id}`)
   }
@@ -117,19 +127,18 @@ export class ApiService {
           password
         },
         {
-          headers: this.genHeaders([HEADER_CONTEXT.SKIP_ERROR_HANDLING])
+          headers: this.genHeaders([HEADER_CONTEXT.SKIP_ERROR_HANDLING, HEADER_CONTEXT.NO_CLEAR_ON_ERROR])
         }
       )
       .pipe(
-        map((res) => {
-          return {
-            ...jwtDecode<AuthUser>(res.token),
-            token: res.token
-          } as UserAuthData
-        }),
-        catchError(() => {
-          return of(null)
-        })
+        map(
+          (res) =>
+            ({
+              ...jwtDecode<AuthUser>(res.token),
+              token: res.token
+            }) as UserAuthData
+        ),
+        catchError(() => of(null))
       )
   }
 

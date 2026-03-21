@@ -10,7 +10,8 @@ export const ROMI_METADATA = { pkg, build: buildMeta } //
 
 export enum HEADER_CONTEXT {
   SKIP_BRING_TOKEN = 'Bring-Token',
-  SKIP_ERROR_HANDLING = 'Error-Handling',
+  SKIP_ERROR_HANDLING = 'Skip-Error-Handling',
+  NO_CLEAR_ON_ERROR = 'No-Clear-On-Error',
   ERROR_REDIRECT = 'Error-Redirect'
 }
 

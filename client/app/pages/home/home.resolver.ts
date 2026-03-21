@@ -18,13 +18,13 @@ export const homeResolver: ResolveFn<HomeData> = () => {
 
   return forkJoin({
     posts: apiService.getPosts().pipe(
+      map((data) => sortByCreatedTime(data)),
       map((data) =>
         data
           .filter(({ hide }) => !hide)
           .slice(0, 4)
           .map((post) => (post.password ? { ...post, summary: '文章已加密' } : post))
-      ),
-      map((data) => sortByCreatedTime(data))
+      )
     ),
     news: apiService.getNewses().pipe(map((data) => data.sort((a, b) => b.created - a.created).slice(0, 4))),
     videos: apiService.getVideos().pipe(map((data) => data.sort((a, b) => b.created - a.created).slice(0, 4))),
