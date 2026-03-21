@@ -188,7 +188,11 @@ async fn fetch(
                 title: model.title.clone(),
                 created: model.created,
                 modified: model.modified,
-                text: if password.is_none() { model.text.clone() } else { "".into() },
+                text: if password.is_none() || access.level.eq(&AccessLevel::Admin) {
+                    model.text.clone()
+                } else {
+                    "".into()
+                },
                 languages: if password.is_none() {
                     collect_markdown_languages(model.text.clone().as_str())
                 } else {

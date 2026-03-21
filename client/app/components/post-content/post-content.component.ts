@@ -14,9 +14,10 @@ import { ApiService } from '../../services/api.service'
 import { AuthService } from '../../services/auth.service'
 import { BrowserService } from '../../services/browser.service'
 import { HighlighterService } from '../../services/highlighter.service'
+import { LoggerService } from '../../services/logger.service'
 import { NotifyService } from '../../services/notify.service'
 import { STORE_KEYS, StoreService } from '../../services/store.service'
-import { randomRTagType } from '../../shared/utils'
+import { randomRTagType, showErr } from '../../shared/utils'
 import { MessageBoxType } from '../message/message.component'
 import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component'
 
@@ -45,6 +46,7 @@ interface CommentItem extends ResCommentData {
 })
 export class PostContentComponent implements OnInit, OnDestroy {
   @Input({ required: true }) public post!: ResPostSingleData
+  @Input() public password = false
   @Input() public hideToc = false
   @Input() public hideComments = false
   @Input() public hideRelatedPosts = false
@@ -84,6 +86,7 @@ export class PostContentComponent implements OnInit, OnDestroy {
     private readonly sanitizer: DomSanitizer,
     private readonly highlighterService: HighlighterService,
     public readonly browserService: BrowserService,
+    public readonly loggerService: LoggerService,
     public readonly authService: AuthService
   ) {}
 
@@ -149,6 +152,45 @@ export class PostContentComponent implements OnInit, OnDestroy {
     } catch (_) {
       this.notifyService.showMessage('链接复制失败', MessageBoxType.Error)
     }
+  }
+
+  public decryptPost() {
+    if (!this.post.password) {
+      this.notifyService.showMessage('文章未加密')
+      return
+    }
+    const password = prompt('请输入密码', this.post.password === 'password' ? undefined : this.post.password)?.trim()
+    if (password === void 0) return
+    if (password === '') {
+      this.notifyService.showMessage('密码不能为空', MessageBoxType.Warning)
+      return
+    }
+    this.apiService
+      .decryptPost(this.post.id, { password })
+      .pipe()
+      .subscribe({
+        error: (data) => {
+          this.loggerService.error('Decrypto error', data)
+          this.notifyService.showMessage(`解密失败，意外的错误：${showErr(data)}`, MessageBoxType.Error)
+        },
+        next: (data) => {
+          if (data) {
+            this.post.text = data.text
+            this.post.languages = data.languages
+            this.post.password = null
+            this.renderContent(true)
+              .then(() => {
+                this.notifyService.showMessage('解密成功', MessageBoxType.Success)
+              })
+              .catch((err) => {
+                this.loggerService.error('Rerender to fail', err)
+                this.notifyService.showMessage(`重渲染失败：${showErr(err)}`, MessageBoxType.Error)
+              })
+          } else {
+            this.notifyService.showMessage('密码错误', MessageBoxType.Error)
+          }
+        }
+      })
   }
 
   public async addComment() {
@@ -249,8 +291,8 @@ export class PostContentComponent implements OnInit, OnDestroy {
     })
   }
 
-  private async renderContent() {
-    if (!this.highlighter) this.highlighter = await this.highlighterService.getHighlighter(this.post.languages)
+  private async renderContent(force = false) {
+    if (!this.highlighter || force) this.highlighter = await this.highlighterService.getHighlighter(this.post.languages)
 
     this.extra = {
       url: this.browserService.on(() => `${location.origin}/post/${this.post.id}`) ?? '',

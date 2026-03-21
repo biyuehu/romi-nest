@@ -20,8 +20,10 @@ export const errorInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, n
   let headers = req.headers
   const SkipErrorHandling = req.headers.has(HEADER_CONTEXT.SKIP_ERROR_HANDLING)
   const ErrorRedirect = req.headers.has(HEADER_CONTEXT.ERROR_REDIRECT)
+  const NoClearOnError = req.headers.has(HEADER_CONTEXT.NO_CLEAR_ON_ERROR)
   if (SkipErrorHandling) headers = headers.delete(HEADER_CONTEXT.SKIP_ERROR_HANDLING)
   if (ErrorRedirect) headers = headers.delete(HEADER_CONTEXT.ERROR_REDIRECT)
+  if (NoClearOnError) headers = headers.delete(HEADER_CONTEXT.NO_CLEAR_ON_ERROR)
 
   return next(req.clone({ headers })).pipe(
     catchError((err) => {
@@ -47,12 +49,10 @@ export const errorInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, n
         return EMPTY
       }
 
-      if (browser.is && err.status === 401) {
-        if (/*router.url.startsWith('/admin/') && */ router.url !== '/admin/login') {
-          layout.showMessage('登录已过期，请重新登录', MessageBoxType.Error)
-          auth.logout()
-          return EMPTY
-        }
+      if (browser.is && err.status === 401 && !NoClearOnError) {
+        layout.showMessage('登录已过期，请重新登录', MessageBoxType.Error)
+        auth.logout()
+        return EMPTY
       }
 
       if (SkipErrorHandling) return throwError(() => err)

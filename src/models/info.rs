@@ -3,6 +3,30 @@ use ts_rs::TS;
 
 #[derive(Clone, Serialize, Deserialize, TS, Debug)]
 #[ts(export, export_to = "../client/output.ts")]
+pub struct ResSettingsDataHomeLink(String, String, Option<String>);
+
+#[derive(Clone, Serialize, Deserialize, TS, Debug)]
+#[ts(export, export_to = "../client/output.ts")]
+pub struct ResSettingsDataDependentPage {
+    pub name: String,
+    pub title: String,
+    pub id: u64,
+    pub routine: bool,
+    pub hide_toc: bool,
+    pub hide_comments: bool,
+}
+
+#[derive(Clone, Serialize, Deserialize, TS, Debug)]
+#[ts(export, export_to = "../client/output.ts")]
+pub struct ResSettingsDataFriendLink {
+    pub name: String,
+    pub link: String,
+    pub avatar: String,
+    pub description: String,
+}
+
+#[derive(Clone, Serialize, Deserialize, TS, Debug)]
+#[ts(export, export_to = "../client/output.ts")]
 pub struct ResSettingsData {
     pub site_title: String,
     pub site_description: String,
@@ -11,7 +35,12 @@ pub struct ResSettingsData {
     // pub site_url: String,
     pub site_favicon: String,
     pub site_logo: String,
-    // pub site_author: String,
+    pub avatar_url: String,
+    pub home_title: String,
+    pub home_subtitle: String,
+    pub home_links: Vec<ResSettingsDataHomeLink>,
+    pub dependent_pages: Vec<ResSettingsDataDependentPage>,
+    pub links: Vec<ResSettingsDataFriendLink>, // pub site_author: String,
 }
 
 #[derive(Serialize, TS)]

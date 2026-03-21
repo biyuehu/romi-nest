@@ -2,12 +2,12 @@
 
 <!-- - [ ] Support more markdown-it plugins -->
 
-- [ ] 前端实现加密文章解密
 
 [//]: # (- [ ] Building-ify some configure files（Website default title, nav, favicon, highlighter language）)
 
 - [ ] Blog content search
 - [x] Support private news
+- [x] 前端实现加密文章解密
 - [ ] Settings and customization
 - [ ] Website color scheme
 - [ ] Rust rendering html to implement custom footer, header scripts and meta description, tags

@@ -4,8 +4,13 @@
       <div class="flex-1 w-full">
         <ng-content select="[post-brefore]"></ng-content>
         <div class="max-w-full w-230 post-body mt-2 p-5 rounded-xl" [innerHTML]="renderedContent"></div>
-
         <ng-content select="[post-after]"></ng-content>
+
+        @if (password) {
+          <div class="text-center mt-2">
+            <r-button (click)="decryptPost()" size="large">解密文章</r-button>
+          </div>
+        }
 
         @if (!hideComments || !hideCopyright || !hideOptions || !hideRelatedPosts) {
           <div class="w-35% mx-auto my-8">
