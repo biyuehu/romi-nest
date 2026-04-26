@@ -29,7 +29,7 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
     msg: '',
     from: '',
     type: 1,
-    is_public: false
+    public: false
   }
 
   public readonly types = [
@@ -89,13 +89,13 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
       msg: hitokoto.msg,
       from: hitokoto.from,
       type: hitokoto.type,
-      is_public: hitokoto.is_public
+      public: hitokoto.public
     }
   }
 
   public cancelEdit() {
     this.editingHitokoto = null
-    this.newHitokoto = { msg: '', from: '', type: 1, is_public: false }
+    this.newHitokoto = { msg: '', from: '', type: 1, public: false }
   }
 
   public updateHitokoto() {

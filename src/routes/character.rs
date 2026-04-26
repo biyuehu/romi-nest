@@ -195,38 +195,41 @@ async fn update(
             ApiError::not_found(format!("Character {} not found", id))
         })?;
 
-    let mut active: romi_characters::ActiveModel = existing.into_active_model();
+    let mut active_model: romi_characters::ActiveModel = existing.into_active_model();
 
-    active.name = ActiveValue::set(character.name.clone());
-    active.color = ActiveValue::set(character.color.clone());
-    active.romaji = ActiveValue::set(character.romaji.clone());
-    active.gender = ActiveValue::set(character.gender.clone());
-    active.alias = ActiveValue::set(vec_to_opt_str(character.alias));
-    active.age = ActiveValue::set(character.age);
-    active.images = ActiveValue::set(character.images.join("|"));
-    active.url = ActiveValue::set(vec_to_opt_str(character.url));
-    active.description = ActiveValue::set(character.description.clone());
-    active.comment = ActiveValue::set(character.comment.clone());
-    active.hitokoto = ActiveValue::set(character.hitokoto.clone());
-    active.birthday = ActiveValue::set(character.birthday);
-    active.voice = ActiveValue::set(character.voice.clone());
-    active.series = ActiveValue::set(character.series.clone());
-    active.series_genre = ActiveValue::set(character.series_genre.clone());
-    active.tags = ActiveValue::set(vec_to_opt_str(character.tags));
-    active.hair_color = ActiveValue::set(character.hair_color.clone());
-    active.eye_color = ActiveValue::set(character.eye_color.clone());
-    active.blood_type = ActiveValue::set(character.blood_type.clone());
-    active.height = ActiveValue::set(character.height);
-    active.weight = ActiveValue::set(character.weight);
-    active.bust = ActiveValue::set(character.bust);
-    active.waist = ActiveValue::set(character.waist);
-    active.hip = ActiveValue::set(character.hip);
-    active.order = ActiveValue::set(character.order.unwrap_or(50));
-    active.hide =
+    active_model.name = ActiveValue::set(character.name.clone());
+    active_model.color = ActiveValue::set(character.color.clone());
+    active_model.romaji = ActiveValue::set(character.romaji.clone());
+    active_model.gender = ActiveValue::set(character.gender.clone());
+    active_model.alias = ActiveValue::set(vec_to_opt_str(character.alias));
+    active_model.age = ActiveValue::set(character.age);
+    active_model.images = ActiveValue::set(character.images.join("|"));
+    active_model.url = ActiveValue::set(vec_to_opt_str(character.url));
+    active_model.description = ActiveValue::set(character.description.clone());
+    active_model.comment = ActiveValue::set(character.comment.clone());
+    active_model.hitokoto = ActiveValue::set(character.hitokoto.clone());
+    active_model.birthday = ActiveValue::set(character.birthday);
+    active_model.voice = ActiveValue::set(character.voice.clone());
+    active_model.series = ActiveValue::set(character.series.clone());
+    active_model.series_genre = ActiveValue::set(character.series_genre.clone());
+    active_model.tags = ActiveValue::set(vec_to_opt_str(character.tags));
+    active_model.hair_color = ActiveValue::set(character.hair_color.clone());
+    active_model.eye_color = ActiveValue::set(character.eye_color.clone());
+    active_model.blood_type = ActiveValue::set(character.blood_type.clone());
+    active_model.height = ActiveValue::set(character.height);
+    active_model.weight = ActiveValue::set(character.weight);
+    active_model.bust = ActiveValue::set(character.bust);
+    active_model.waist = ActiveValue::set(character.waist);
+    active_model.hip = ActiveValue::set(character.hip);
+    active_model.order = ActiveValue::set(character.order.unwrap_or(50));
+    active_model.hide =
         ActiveValue::set(if character.hide.unwrap_or(false) { "1" } else { "0" }.to_string());
-    active.song_id = ActiveValue::set(character.song_id);
+    active_model.song_id = ActiveValue::set(character.song_id);
 
-    active.update(conn).await.with_context(|| format!("Failed to update character {}", id))?;
+    active_model
+        .update(conn)
+        .await
+        .with_context(|| format!("Failed to update character {}", id))?;
 
     l_info!(
         logger,

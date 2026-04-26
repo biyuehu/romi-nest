@@ -452,7 +452,7 @@ async fn update(
             active_model.modified = ActiveValue::set(post.modified);
             active_model.banner = ActiveValue::set(post.banner.clone());
             active_model
-                .save(&txn)
+                .update(&txn)
                 .await
                 .with_context(|| format!("Failed to update post {}", id))?;
         }
@@ -559,7 +559,10 @@ async fn like(
         Some(model) => {
             let mut active_model = model.clone().into_active_model();
             active_model.likes = ActiveValue::set(model.likes + 1);
-            active_model.save(conn).await.with_context(|| format!("Failed to like post {}", id))?;
+            active_model
+                .update(conn)
+                .await
+                .with_context(|| format!("Failed to like post {}", id))?;
             l_info!(logger, "Liked post {} ({})", id, model.title);
         }
         None => {
@@ -583,7 +586,10 @@ async fn view(
         Some(model) => {
             let mut active_model = model.clone().into_active_model();
             active_model.views = ActiveValue::set(model.views + 1);
-            active_model.save(conn).await.with_context(|| format!("Failed to view post {}", id))?;
+            active_model
+                .update(conn)
+                .await
+                .with_context(|| format!("Failed to view post {}", id))?;
             l_info!(logger, "Viewed post {} ({})", id, model.title);
         }
         None => {

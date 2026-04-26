@@ -1,19 +1,22 @@
 use std::fs;
 
+use anyhow::Context;
 use axum::{
     Router,
     extract::{Path, Query, State},
     http::{HeaderMap, StatusCode},
     response::{IntoResponse, Redirect},
-    routing::get,
+    routing::{get, post},
 };
 use rand::random;
+use sea_orm::{ActiveModelTrait, ActiveValue, EntityTrait, IntoActiveModel};
 
 use crate::{
     app::{RomiConfig, RomiState},
     constant::DATA_DIR,
-    models::utils::QueryAgent,
-    utils::api::ApiError,
+    entity::romi_views,
+    models::utils::{QueryAgentData, ResViewData},
+    utils::api::{ApiError, ApiResult, api_ok},
 };
 
 const DEFAULT_BACKGROUNDS: &'static str = include_str!("../../data/background_2.txt");
@@ -25,6 +28,9 @@ pub fn routes() -> Router<RomiState> {
         .route("/qqavatar/{qid}/{size}", get(qqavatar_qid_size))
         .route("/background", get(background_default))
         .route("/background/{id}", get(background_id))
+        .route("/view/{slug}", get(get_views))
+        .route("/view/{slug}", post(post_views))
+        .route("/view/i/{slug}", get(post_views))
         .route("/agent", get(agent))
 }
 
@@ -79,7 +85,7 @@ async fn background_id(Path(id): Path<String>) -> impl IntoResponse {
     background(id).await
 }
 
-async fn agent(Query(params): Query<QueryAgent>) -> impl IntoResponse {
+async fn agent(Query(params): Query<QueryAgentData>) -> impl IntoResponse {
     if let Some(url) = params.url {
         match reqwest::get(&url).await {
             Ok(resp) => {
@@ -95,4 +101,48 @@ async fn agent(Query(params): Query<QueryAgent>) -> impl IntoResponse {
     } else {
         (StatusCode::BAD_REQUEST, "missing url param").into_response()
     }
+}
+
+async fn get_views(
+    Path(slug): Path<String>,
+    State(RomiState { ref conn, .. }): State<RomiState>,
+) -> ApiResult<ResViewData> {
+    match romi_views::Entity::find_by_id(slug.clone())
+        .one(conn)
+        .await
+        .with_context(|| format!("Failed to select view {}", slug.clone()))?
+    {
+        Some(model) => api_ok(ResViewData { slug, count: model.count }),
+        None => api_ok(ResViewData { slug, count: 0 }),
+    }
+}
+
+async fn post_views(
+    Path(slug): Path<String>,
+    State(RomiState { ref conn, .. }): State<RomiState>,
+) -> ApiResult {
+    match romi_views::Entity::find_by_id(slug.clone())
+        .one(conn)
+        .await
+        .with_context(|| format!("Failed to select view {}", slug.clone()))?
+    {
+        Some(model) => {
+            let mut active_model = model.clone().into_active_model();
+            active_model.count = ActiveValue::Set(model.count + 1);
+            active_model
+                .update(conn)
+                .await
+                .with_context(|| format!("Failed to update view {}", slug.clone()))?;
+        }
+        None => {
+            romi_views::ActiveModel {
+                slug: ActiveValue::Set(slug.clone()),
+                count: ActiveValue::Set(1),
+            }
+            .insert(conn)
+            .await
+            .with_context(|| format!("Failed to create view {}", slug.clone()))?;
+        }
+    }
+    api_ok(())
 }

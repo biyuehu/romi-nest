@@ -26,13 +26,13 @@ pub struct ResUserData {
 
 #[derive(Deserialize, TS)]
 #[ts(export, export_to = "../client/output.ts")]
-pub struct LoginRequest {
+pub struct ReqLoginData {
     pub username: String,
     pub password: String,
 }
 
 #[derive(Serialize, TS)]
 #[ts(export, export_to = "../client/output.ts")]
-pub struct LoginResponse {
+pub struct ResLoginData {
     pub token: String,
 }

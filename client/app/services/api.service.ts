@@ -7,7 +7,7 @@ import type {
   AuthUser,
   BangumiData,
   LanguageColors,
-  LoginResponse,
+  ResLoginData,
   ReqCharacterData,
   ReqDecryptPostData,
   ReqHitokoto2Data,
@@ -120,7 +120,7 @@ export class ApiService {
 
   public login(username: string, password: string) {
     return this.http
-      .post<LoginResponse>(
+      .post<ResLoginData>(
         `${environment.api_base_url}/user/login`,
         {
           username,

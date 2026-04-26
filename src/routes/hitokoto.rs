@@ -67,7 +67,7 @@ async fn get_hitokoto(
             from: model.from,
             r#type: model.r#type.parse().unwrap_or(0),
             likes: model.likes,
-            is_public: model.is_public == "1".to_string(),
+            public: model.public == "1".to_string(),
         }),
         None => {
             if length.is_some() && is_first {
@@ -100,7 +100,7 @@ async fn fetch2(
             from_who: model.from_who,
             r#type: model.r#type,
             likes: model.likes,
-            is_public: model.is_public == "1".to_string(),
+            public: model.public == "1".to_string(),
             created: model.created.timestamp_subsec_micros(),
         }),
         None => Err(ApiError::not_found("No hitokoto found")),
@@ -129,7 +129,7 @@ async fn fetch_by_id(
             from: model.from,
             r#type: model.r#type.parse().unwrap_or(0),
             likes: model.likes,
-            is_public: model.is_public == "1".to_string(),
+            public: model.public == "1".to_string(),
         }),
         None => {
             l_warn!(logger, "Hitokoto {} not found", id);
@@ -143,7 +143,7 @@ async fn fetch_public(
 ) -> ApiResult<Vec<ResHitokotoData>> {
     api_ok(
         romi_hitokotos::Entity::find()
-            .filter(romi_hitokotos::Column::IsPublic.eq(&1.to_string()))
+            .filter(romi_hitokotos::Column::Public.eq(&1.to_string()))
             .all(conn)
             .await
             .context("Failed to fetch hitokoto")?
@@ -154,7 +154,7 @@ async fn fetch_public(
                 from: model.from,
                 r#type: model.r#type.parse().unwrap_or(0),
                 likes: model.likes,
-                is_public: true,
+                public: true,
             })
             .collect(),
     )
@@ -178,7 +178,7 @@ async fn fetch_all2(
                 from_who: model.from_who,
                 r#type: model.r#type,
                 likes: model.likes,
-                is_public: model.is_public == "1".to_string(),
+                public: model.public == "1".to_string(),
                 created: model.created.timestamp_subsec_micros(),
             })
             .collect(),
@@ -201,7 +201,7 @@ async fn fetch_all(
                 from: model.from,
                 r#type: model.r#type.parse().unwrap_or(0),
                 likes: model.likes,
-                is_public: model.is_public == "1".to_string(),
+                public: model.public == "1".to_string(),
             })
             .collect(),
     )
@@ -218,7 +218,7 @@ async fn create(
         from: ActiveValue::set(hitokoto.from.clone()),
         r#type: ActiveValue::set(hitokoto.r#type.clone().to_string()),
         likes: ActiveValue::set(0),
-        is_public: ActiveValue::set((if hitokoto.is_public { 1 } else { 0 }).to_string()),
+        public: ActiveValue::set((if hitokoto.public { 1 } else { 0 }).to_string()),
     }
     .insert(conn)
     .await
@@ -250,7 +250,7 @@ async fn create2(
         from_who: ActiveValue::set(hitokoto.from_who.clone()),
         r#type: ActiveValue::set(hitokoto.r#type),
         likes: ActiveValue::set(0),
-        is_public: ActiveValue::set((if hitokoto.is_public { 1 } else { 0 }).to_string()),
+        public: ActiveValue::set((if hitokoto.public { 1 } else { 0 }).to_string()),
         created: ActiveValue::not_set(),
     }
     .insert(conn)
@@ -286,11 +286,11 @@ async fn update2(
             active_model.from = ActiveValue::set(hitokoto.from.clone());
             active_model.from_who = ActiveValue::set(hitokoto.from_who.clone());
             active_model.r#type = ActiveValue::set(hitokoto.r#type);
-            active_model.is_public =
-                ActiveValue::set((if hitokoto.is_public { 1 } else { 0 }).to_string());
+            active_model.public =
+                ActiveValue::set((if hitokoto.public { 1 } else { 0 }).to_string());
 
             active_model
-                .save(conn)
+                .update(conn)
                 .await
                 .with_context(|| format!("Failed to update hitokoto {}", id))?;
 
@@ -326,11 +326,11 @@ async fn update(
             active_model.msg = ActiveValue::set(hitokoto.msg.clone());
             active_model.from = ActiveValue::set(hitokoto.from.clone());
             active_model.r#type = ActiveValue::set(hitokoto.r#type.clone().to_string());
-            active_model.is_public =
-                ActiveValue::set((if hitokoto.is_public { 1 } else { 0 }).to_string());
+            active_model.public =
+                ActiveValue::set((if hitokoto.public { 1 } else { 0 }).to_string());
 
             active_model
-                .save(conn)
+                .update(conn)
                 .await
                 .with_context(|| format!("Failed to update hitokoto {}", id))?;
 
@@ -364,7 +364,7 @@ async fn like(
             active_model.likes = ActiveValue::set(model.likes + 1);
 
             active_model
-                .save(conn)
+                .update(conn)
                 .await
                 .with_context(|| format!("Failed to like hitokoto {}", id))?;
 

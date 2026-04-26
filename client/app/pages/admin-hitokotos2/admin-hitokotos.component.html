@@ -16,7 +16,16 @@
     </div>
 
     @if (!editingHitokoto) {
-    <div class="border-t border-text-300 pt-4 space-y-4">
+    <div class="border-t pt-4 space-y-4">
+      <div class="bg-text-300 border-accent-300 text-gray-600 rounded-sm border border-solid border-r-1 p-1 w-99% m-auto break-words font-bold text-2xl">
+        @for (char of (newHitokoto.msg || "这是一段文字").split(''); track $index) {
+          @if (char === ' ') {
+            <span class="bg-red-300 text-transparent">·</span>
+          } @else {
+            <span>{{ char }}</span>
+          }
+        }
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <r-input type="text" [(ngModel)]="newHitokoto.msg" placeholder="内容" />
         <r-input type="text" [(ngModel)]="newHitokoto.msg_origin" placeholder="原文" />
@@ -31,8 +40,8 @@
             <option [value]="type[0]">{{ type[1] }}</option>
             }
           </select>
-          {{ newHitokoto.is_public ? '公开' : '私密' }}
-          <r-switch [(ngModel)]="newHitokoto.is_public" label="公开"></r-switch>
+          {{ newHitokoto.public ? '公开' : '私密' }}
+          <r-switch [(ngModel)]="newHitokoto.public" label="公开"></r-switch>
         </div>
         <r-button (click)="createHitokoto()" type="primary">
           添加一言
@@ -61,7 +70,7 @@
               <option [value]="type[0]">{{ type[0] }}</option>
               }
             </select>
-            <r-switch [(ngModel)]="newHitokoto.is_public" label="公开"></r-switch>
+            <r-switch [(ngModel)]="newHitokoto.public" label="公开"></r-switch>
           </div>
           <div class="flex items-center gap-2">
             <r-button (click)="cancelEdit()">
@@ -85,11 +94,11 @@
               {{ hitokoto.from_who }}
             </span>
             @if (hitokoto.from) {
-              <span class="text-accent-100">
+              <span class="text-accent-300">
               {{ hitokoto.from }}
             </span>
             }
-            @if (hitokoto.is_public) {
+            @if (hitokoto.public) {
             <span class="px-2 py-0.5 text-xs rounded-full bg-primary-100 text-text-100">公开</span>
             }
             <span>

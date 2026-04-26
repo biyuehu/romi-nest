@@ -22,7 +22,7 @@ export class LinksComponent {
 
   public links: ResFriendData[] = [
     {
-      name: 'Romi Blog',
+      name: 'Romi Nest',
       link: 'https://hotaru.icu',
       avatar: '/favicon.ico',
       description: 'ArimuraSena 的个人网站，基于 Angular & Rust'

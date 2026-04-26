@@ -33,7 +33,7 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
     from: null,
     from_who: null,
     type: 1,
-    is_public: false
+    public: false
   }
 
   public readonly types = Object.entries({
@@ -86,7 +86,7 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
       this.notifyService.showMessage('请输入一言内容', MessageBoxType.Warning)
       return
     }
-    const { msg, msg_origin, is_public, from, from_who } = this.newHitokoto
+    const { msg, msg_origin, public: isPublic, from, from_who } = this.newHitokoto
 
     // TODO: better handle msg and check msg format
     this.apiService
@@ -96,7 +96,7 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
         from: from?.trim() || null,
         from_who: from_who?.trim() || null,
         type: Number(this.newHitokoto.type),
-        is_public
+        public: isPublic
       })
       .subscribe(() => {
         this.loadItems()
@@ -113,13 +113,13 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
       from: hitokoto.from,
       from_who: hitokoto.from_who,
       type: hitokoto.type,
-      is_public: hitokoto.is_public
+      public: hitokoto.public
     }
   }
 
   public cancelEdit() {
     this.editingHitokoto = null
-    this.newHitokoto = { msg: '', msg_origin: null, from: null, from_who: null, type: 1, is_public: false }
+    this.newHitokoto = { msg: '', msg_origin: null, from: null, from_who: null, type: 1, public: false }
   }
 
   public updateHitokoto() {

@@ -9,17 +9,15 @@ pub struct Model {
     pub id: u32,
     #[sea_orm(column_type = "Text")]
     pub msg: String,
-    #[sea_orm(column_name = "msgOrigin", column_type = "Text", nullable)]
+    #[sea_orm(column_type = "Text", nullable)]
     pub msg_origin: Option<String>,
     #[sea_orm(unique)]
     pub uuid: String,
     pub from: Option<String>,
-    #[sea_orm(column_name = "fromWho")]
     pub from_who: Option<String>,
     pub r#type: i8,
     pub likes: i32,
-    #[sea_orm(column_name = "isPublic")]
-    pub is_public: String,
+    pub public: String,
     pub created: DateTimeUtc,
 }
 
