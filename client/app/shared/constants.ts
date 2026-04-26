@@ -81,7 +81,7 @@ export const DEFAULT_LINT_CONFIG: Configuration = {
     `Version: ${pkg.version} Hash: ${buildMeta.HASH} Build Time: ${new Date(buildMeta.BUILD_TIME).toISOString()}`
   )
   logger.info(`License: ${pkg.license} Author: ${pkg.author}`)
-  logger.info('Open source: https://github.com/biyuehu/romi-blog')
+  logger.info('Open source: https://github.com/biyuehu/romi-nest')
   logger.debug(`API Base URL: ${environment.api_base_url}`)
   logger.record('<blueBright>Romi Nest is from the future, it shall end the old Web Blog era!</blueBright>')
   logger.record('<yellowBright>Fucking WordPress, Typecho, Hexo and more! PHP and templates is shit!</yellowBright>')

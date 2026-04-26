@@ -21,41 +21,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02489307-c035-4c67-9461-f0c26aeaa784" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/src/entity/romi_views.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/app/styles/new-world.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/admin-hitokotos/admin-hitokotos.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-hitokotos/admin-hitokotos.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/admin-hitokotos/admin-hitokotos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-hitokotos/admin-hitokotos.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/admin-hitokotos2/admin-hitokotos.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-hitokotos2/admin-hitokotos.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/admin-hitokotos2/admin-hitokotos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-hitokotos2/admin-hitokotos.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/services/api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/services/api.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/music_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/music_cache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/migration/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/library/migration/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/prelude.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/prelude.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_characters.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_characters.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_comments.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_comments.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_fields.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_fields.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_hitokotos.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_hitokotos.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_hitokotos2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_hitokotos2.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_metas.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_metas.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_news.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_news.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_news_comments.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_news_comments.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_posts.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_posts.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_relationships.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_relationships.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_seimgs.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_seimgs.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_users.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_users.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/hitokoto.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hitokoto.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/user.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/utils.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/character.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/character.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/comment.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/comment.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/hitokoto.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/hitokoto.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/news.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/news.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/post.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/post.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/seimg.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/seimg.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/utils.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/utils.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/pages/music/music.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/music/music.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/shared/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/shared/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/roga/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/library/roga/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ui/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +41,7 @@
         <option value="HTML File" />
         <option value="TypeScript File" />
         <option value="Rust File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -175,6 +148,7 @@
     "js.last.introduce.type": "LET",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "G:/Repos/romichan/src/entity",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -399,7 +373,9 @@
       <workItem from="1772951288201" duration="1105000" />
       <workItem from="1774077725713" duration="4553000" />
       <workItem from="1777182886295" duration="1159000" />
-      <workItem from="1777184065300" duration="7754000" />
+      <workItem from="1777184065300" duration="9106000" />
+      <workItem from="1777215912417" duration="494000" />
+      <workItem from="1777217729333" duration="1113000" />
     </task>
     <servers />
   </component>
