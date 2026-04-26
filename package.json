@@ -30,11 +30,11 @@
     "backend"
   ],
   "bugs": {
-    "url": "https://github.com/biyuehu/romi-blog/issues"
+    "url": "https://github.com/biyuehu/romi-nest/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/biyuehu/romi-blog.git"
+    "url": "git+https://github.com/biyuehu/romi-nest.git"
   },
   "dependencies": {
     "@angular/animations": "^20.3.14",
