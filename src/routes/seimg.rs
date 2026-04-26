@@ -88,7 +88,7 @@ async fn create(
     AdminUser(admin_user): AdminUser,
     State(RomiState { ref logger, ref conn, .. }): State<RomiState>,
     Json(seimg): Json<ReqSeimgData>,
-) -> ApiResult<romi_seimgs::Model> {
+) -> ApiResult {
     let result = romi_seimgs::ActiveModel {
         id: ActiveValue::not_set(),
         pixiv_pid: ActiveValue::set(seimg.pixiv_pid),
@@ -114,7 +114,7 @@ async fn create(
         admin_user.id,
         admin_user.username
     );
-    api_ok(result)
+    api_ok(())
 }
 
 async fn update(

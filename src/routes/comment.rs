@@ -132,7 +132,7 @@ async fn create(
         ua: ActiveValue::set(get_req_user_agent(&headers).unwrap_or_default().to_string()),
         text: ActiveValue::set(comment.text.clone()),
     }
-    .save(&txn)
+    .update(&txn)
     .await
     .context("Failed to create comment")?;
 

@@ -17,7 +17,7 @@ use crate::{
     app::RomiState,
     entity::romi_users,
     guards::{admin::AdminUser, auth::AuthUser},
-    models::user::{LoginRequest, LoginResponse, ReqUserData, ResUserData},
+    models::user::{ReqLoginData, ReqUserData, ResLoginData, ResUserData},
     utils::api::{ApiError, ApiResult, api_ok},
 };
 
@@ -33,8 +33,8 @@ pub fn routes() -> Router<RomiState> {
 
 async fn login(
     State(RomiState { ref logger, ref conn, ref secret, .. }): State<RomiState>,
-    Json(credentials): Json<LoginRequest>,
-) -> ApiResult<LoginResponse> {
+    Json(credentials): Json<ReqLoginData>,
+) -> ApiResult<ResLoginData> {
     l_info!(logger, "Login attempt for user: {}", credentials.username);
 
     let user = match romi_users::Entity::find()
@@ -73,14 +73,14 @@ async fn login(
             active_model.last_login = ActiveValue::Set(
                 SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_secs() as u32,
             );
-            let _ = active_model.save(&conn_clone).await;
+            let _ = active_model.update(&conn_clone).await;
         }
     });
 
     let token = encode(&Header::default(), &claims, &EncodingKey::from_secret(secret.as_bytes()))
         .context("Failed to generate token")?;
 
-    api_ok(LoginResponse { token })
+    api_ok(ResLoginData { token })
 }
 
 async fn fetch_all(
@@ -218,7 +218,7 @@ async fn update(
                 );
             }
             active_model
-                .save(conn)
+                .update(conn)
                 .await
                 .with_context(|| format!("Failed to update user {}", id))?;
 

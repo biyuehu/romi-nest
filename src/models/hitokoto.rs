@@ -7,7 +7,7 @@ pub struct ReqHitokotoData {
     pub msg: String,
     pub from: String,
     pub r#type: u32,
-    pub is_public: bool,
+    pub public: bool,
 }
 
 #[derive(Serialize, TS)]
@@ -18,7 +18,7 @@ pub struct ResHitokotoData {
     pub from: String,
     pub r#type: u32,
     pub likes: i32,
-    pub is_public: bool,
+    pub public: bool,
 }
 
 #[derive(Deserialize, TS)]
@@ -29,7 +29,7 @@ pub struct ReqHitokoto2Data {
     pub from: Option<String>,
     pub from_who: Option<String>,
     pub r#type: i8,
-    pub is_public: bool,
+    pub public: bool,
 }
 
 #[derive(Serialize, TS)]
@@ -42,6 +42,6 @@ pub struct ResHitokoto2Data {
     pub from_who: Option<String>,
     pub r#type: i8,
     pub likes: i32,
-    pub is_public: bool,
+    pub public: bool,
     pub created: u32,
 }

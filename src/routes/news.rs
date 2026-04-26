@@ -156,7 +156,7 @@ async fn update(
             active_model.imgs = ActiveValue::set(Some(news.imgs.join(",")));
 
             active_model
-                .save(conn)
+                .update(conn)
                 .await
                 .with_context(|| format!("Failed to update news {}", id))?
         }
@@ -182,7 +182,10 @@ async fn like(
         Some(model) => {
             let mut active_model = model.clone().into_active_model();
             active_model.likes = ActiveValue::set(model.likes + 1);
-            active_model.save(conn).await.with_context(|| format!("Failed to like news {}", id))?;
+            active_model
+                .update(conn)
+                .await
+                .with_context(|| format!("Failed to like news {}", id))?;
             l_info!(logger, "Liked news {}", id);
         }
         None => {
@@ -206,7 +209,10 @@ async fn view(
         Some(model) => {
             let mut active_model = model.clone().into_active_model();
             active_model.views = ActiveValue::set(model.views + 1);
-            active_model.save(conn).await.with_context(|| format!("Failed to view news {}", id))?;
+            active_model
+                .update(conn)
+                .await
+                .with_context(|| format!("Failed to view news {}", id))?;
             l_info!(logger, "Viewed news {}", id);
         }
         None => {

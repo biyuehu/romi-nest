@@ -26,6 +26,7 @@
 - [ ] Refactory music player
 - [ ] I18n
 - [ ] 更多的页面细化处理 meta 更好的 seo
+- [ ] 更优雅的更灵活（不要局限于 var css）的网站黑白主题模式切换
 - [x] Posts status: 0 published; 1 hide; ~~2 draft~~
 - [x] Post view, like, share
 - [x] News view, like
