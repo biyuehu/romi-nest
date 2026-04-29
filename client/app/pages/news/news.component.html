@@ -1,8 +1,8 @@
 <div class="max-w-98% w-6xl mx-auto flex-1">
-  <div class="bg-text-200 rounded-lg overflow-hidden border-text-300 border hover:shadow-md  transition-shadow">
+  <div class="bg-bg-surface rounded-lg overflow-hidden border border-border-base hover:shadow-md transition-shadow">
     <div class="pt-8 px-8">
       <div class="flex items-center justify-between mb-6">
-        <div class="text-accent-100">
+        <div class="text-accent">
           发布于 {{ news.created * 1000 | date:'yyyy-MM-dd HH:mm' }}
           @if (news.modified !== news.created) {
             <span class="ml-2">
@@ -15,7 +15,7 @@
         }
       </div>
 
-      <div class="text-bg-100 whitespace-pre-wrap break-all text-4">{{ news.text }}</div>
+      <div class="text-text-base whitespace-pre-wrap break-all text-4">{{ news.text }}</div>
 
       <div class="mx-auto flex gap-2 mt-6">
         <r-button size="lg" type="warning" (click)="likeNews()">

@@ -9,7 +9,7 @@
     </div>
 
     <a [routerLink]="'/'"
-       class="text-7 absolute font-bold space-inline-xs text-primary-100 left-1/2 -translate-x-1/2 lg:left-0 lg:-translate-x-1">
+       class="text-7 absolute font-bold space-inline-xs text-brand left-1/2 -translate-x-1/2 lg:left-0 lg:-translate-x-1 hover:text-accent">
       Romi Nest
     </a>
 
@@ -17,7 +17,7 @@
       @for (item of navItems; track $index) {
         @if (item.children) {
           <div class="relative group">
-        <span class="text-primary-100 hover:text-text-200 cursor-pointer py-4">
+        <span class="text-brand hover:text-accent cursor-pointer py-4">
           {{ item.text }}
           <i class="i-mdi:chevron-down ml-1 text-xs"></i>
         </span>
@@ -25,14 +25,14 @@
                     class="absolute top-full left-0 hidden group-hover:block bg-black/50 backdrop-blur-10 rounded-md min-w-16 py-2">
               @for (child of item.children; track child.text) {
                 <a [routerLink]="child.link"
-                   class="block px-4 py-2 text-primary-100 hover:text-text-200 hover:bg-black/40">
+                   class="block px-4 py-2 text-brand hover:text-accent hover:bg-black/40">
                   {{ child.text }}
                 </a>
               }
             </div>
           </div>
         } @else {
-          <a [routerLink]="item.link" class="text-primary-100 hover:text-text-200">
+          <a [routerLink]="item.link" class="text-brand hover:text-accent">
             {{ item.text }}
           </a>
         }
@@ -46,7 +46,7 @@
           @for (item of navItems; track $index) {
             @if (!item.children) {
               <a [routerLink]="item.link"
-                 class="block text-center outline-0 border-none text-primary-200 hover:text-text-200 py-3 px-4 text-lg"
+                 class="block text-center outline-0 border-none text-brand hover:text-accent py-3 px-4 text-lg"
                  (click)="toggleMenu()">
                 {{ item.text }}
               </a>
@@ -57,11 +57,11 @@
         @for (item of navItems; track $index) {
           @if (item.children) {
             <div class="mb-4 px-3">
-              <h3 class="text-primary-200 text-lg mb-2 text-center">{{ item.text }}</h3>
+              <h3 class="text-brand text-lg mb-2 text-center">{{ item.text }}</h3>
               <div class="grid grid-cols-2 gap-4">
                 @for (child of item.children; track child.text) {
                   <a [routerLink]="child.link"
-                     class="block text-center outline-0 border-none text-primary-200 hover:text-text-200 py-3 px-4 text-lg"
+                     class="block text-center outline-0 border-none text-brand hover:text-accent py-3 px-4 text-lg"
                      (click)="toggleMenu()">
                     {{ child.text }}
                   </a>

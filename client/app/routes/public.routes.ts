@@ -157,7 +157,7 @@ export const publicRoutes: Routes = [
     path: 'hitokoto',
     component: HitokotoComponent,
     resolve: {
-      hitokotos: hitokotosResolver
+      hitokoto: hitokotoResolver
     }
   },
   {

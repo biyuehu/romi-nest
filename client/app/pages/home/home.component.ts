@@ -8,7 +8,7 @@ import { ProjectListComponent } from '../../components/project-list/project-list
 import { ApiService } from '../../services/api.service'
 import { BrowserService } from '../../services/browser.service'
 import { APlayer } from '../../shared/types'
-import type { homeResolver } from './home.resolver'
+import { homeResolver } from './home.resolver'
 
 @Component({
   selector: 'app-home',

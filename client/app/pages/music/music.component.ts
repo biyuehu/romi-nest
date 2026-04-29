@@ -2,7 +2,6 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit } from '@angular/c
 import { SkeletonLoaderComponent } from '../../components/skeleton-loader/skeleton-loader.component'
 import { ApiService } from '../../services/api.service'
 import { BrowserService } from '../../services/browser.service'
-import { NotifyService } from '../../services/notify.service'
 import { AppTitleStrategy } from '../../shared/title-strategy'
 import { APlayer } from '../../shared/types'
 

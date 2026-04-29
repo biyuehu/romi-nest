@@ -7,7 +7,6 @@ import type {
   AuthUser,
   BangumiData,
   LanguageColors,
-  ResLoginData,
   ReqCharacterData,
   ReqDecryptPostData,
   ReqHitokoto2Data,
@@ -22,6 +21,7 @@ import type {
   ResDecryptPostData,
   ResHitokoto2Data,
   ResHitokotoData,
+  ResLoginData,
   ResMetaData,
   ResMusicData,
   ResNewsData,
@@ -332,7 +332,7 @@ export class ApiService {
     return this.cacheService.wrap(
       'language-colors',
       RDay(31),
-      () => this.http.get<LanguageColors>('https://raw.githubusercontent.com/ozh/github-colors/master/colors.json'),
+      () => this.http.get<LanguageColors>('https://cdn.jsdelivr.net/gh/ozh/github-colors/colors.json'),
       () => true
     )
   }

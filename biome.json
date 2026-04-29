@@ -20,9 +20,14 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "recommended": true,
       "style": {
         "useImportType": "off",
-        "noNonNullAssertion": "off"
+        "useReadonlyClassProperties": "warn",
+        "useConsistentArrayType": "warn",
+        "useConsistentArrowReturn": "warn",
+        "noUselessElse": "warn",
+        "useShorthandAssign": "warn"
       }
     }
   },
@@ -33,22 +38,6 @@
       "trailingCommas": "none",
       "semicolons": "asNeeded",
       "quoteStyle": "single"
-    },
-    "parser": {
-      "unsafeParameterDecoratorsEnabled": true
-    }
-  },
-  "html": {
-    "formatter": {
-      "enabled": true
-    }
-  },
-  "assist": {
-    "enabled": true,
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
     }
   }
 }
