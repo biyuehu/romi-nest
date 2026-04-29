@@ -6,7 +6,7 @@
 
 # RomiChan - Blog
 
-**A blog system built with Angular and Rust.**
+**A powerful website system — blog, lists, notes, api, and more. Powered by Axum + Angular.**
 
 [![Build](https://github.com/BIYUEHU/romichan/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/BIYUEHU/romichan/actions/workflows/build.yml)
 ![License](https://img.shields.io/badge/license-GPL3.0-purple)
@@ -49,6 +49,11 @@ idiot without technical power!</span>
 - Git
 - rustfmt (nightly)
 - cargo-watch: `cargo install cargo-watch`
+
+## Public APIs
+
+Some endpoints are exposed for general use — random hitokoto,
+random image, IP/UA info, and more.
 
 ## License
 
