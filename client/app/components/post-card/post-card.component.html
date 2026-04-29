@@ -1,8 +1,8 @@
 <app-card
-        class="group rounded-xl overflow-hidden hover:shadow-lg transition-all hover:cursor-pointer break-inside-avoid mb-6"
+        class="group break-inside-avoid mb-6"
         [routerLink]="['/post', post.str_id ? post.str_id : post.id]">
   @if (post.banner) {
-    <div class="aspect-video overflow-hidden relative">
+    <div class="aspect-video overflow-hidden relative bg-bg-elevated">
       <img fill [ngSrc]="post.banner" [alt]="post.title"
            class="object-cover group-hover:scale-105 transition-transform duration-300"/>
     </div>
@@ -10,15 +10,13 @@
 
   <div class="p-6">
     <div class="mb-4">
-      <h2 class="text-xl font-bold text-bg-100 group-hover:text-primary-100 transition-colors mb-2">
-            <span class="hover:text-primary-100">
-              {{ post.title }}
-            </span>
+      <h2 class="text-xl font-bold text-text-base group-hover:text-brand transition-colors mb-2">
+        {{ post.title }}
       </h2>
-      <p class="text-accent-100 line-clamp-2">{{ post.summary }}</p>
+      <p class="text-accent line-clamp-2">{{ post.summary }}</p>
     </div>
 
-    <div class="flex items-center gap-4 text-sm text-accent-100">
+    <div class="flex items-center gap-4 text-sm text-accent">
           <span class="flex items-center gap-1">
             <i class="i-mdi-clock-outline"></i>
             {{ post.created * 1000 | date:'yyyy-MM-dd' }}

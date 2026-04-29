@@ -2,7 +2,7 @@
 
   <div class="columns-1 md:columns-2 gap-6">
     @for (post of displayedPosts; track post.id) {
-      <app-post-card [post]="post" />
+      <app-post-card [post]="post"/>
     }
   </div>
 
@@ -19,7 +19,7 @@
             →
           </r-button>
         } @else if (item === '...') {
-          <span class="px-2 text-accent-100">...</span>
+          <span class="px-2 text-text-muted">...</span>
         } @else {
           <r-button (click)="goToPage(item)" [type]="currentPage === item ? 'primary' : 'default'"
                     class="w-10 h-10 rounded-lg">

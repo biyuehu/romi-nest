@@ -139,7 +139,8 @@ async fn update_settings(
 }
 
 async fn fetch_projects() -> ApiResult<Vec<ResProjectData>> {
-    api_ok(get_projects_cache().await.context("Failed to fetch projects data")?)
+    api_ok(vec![])
+    // api_ok(get_projects_cache().await.context("Failed to fetch projects data")?)
 }
 
 async fn fetch_music() -> ApiResult<Vec<ResMusicData>> {

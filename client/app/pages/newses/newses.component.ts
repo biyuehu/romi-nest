@@ -10,6 +10,7 @@ import { ApiService } from '../../services/api.service'
 import { AuthService } from '../../services/auth.service'
 import { NotifyService } from '../../services/notify.service'
 import { sortByCreatedTime } from '../../shared/utils'
+import {CardComponent} from "../../components/card/card.component";
 
 interface TocItem {
   year: number
@@ -27,7 +28,7 @@ interface GroupedNews {
 
 @Component({
   selector: 'app-newses',
-  imports: [RouterLink, DatePipe, FormsModule, WebComponentInputAccessorDirective, NgOptimizedImage],
+  imports: [RouterLink, DatePipe, FormsModule, WebComponentInputAccessorDirective, NgOptimizedImage, CardComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './newses.component.html'
 })

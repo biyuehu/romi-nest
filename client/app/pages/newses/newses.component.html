@@ -2,7 +2,7 @@
   <div class="flex gap-8">
     <div class="flex-1">
       @if (isAdmin) {
-        <div class="mb-6 bg-text-200 p-4 rounded-xl hover:shadow-sm">
+        <div class="mb-6 bg-bg-elevated p-4 rounded-xl hover:shadow-sm border border-border-base">
           <r-input as="textarea" class="text-lg" rows="4" [(ngModel)]="newText"
                    placeholder="分享新动态..."></r-input>
           <div class="flex justify-end mt-4">
@@ -12,22 +12,22 @@
       }
 
       @if (groupedNews.length === 0) {
-        <div class="text-center text-accent-100 py-8">暂无动态</div>
+        <div class="text-center text-text-muted py-8">暂无动态</div>
       } @else {
         <div class="space-y-12">
           @for (group of groupedNews; track group.year + '-' + group.month) {
             <div [id]="group.year + '-' + group.month" class="scroll-mt-24">
-              <h2 class="text-2xl font-bold text-primary-100 mb-6">
+              <h2 class="text-2xl font-bold text-brand mb-6">
                 {{ group.year }}年{{ group.month }}月
               </h2>
 
               <div class="space-y-6">
                 @for (news of group.news; track news.id) {
-                  <div
-                          class="bg-text-200 rounded-xl overflow-hidden border border-text-300 hover:shadow-md transition-shadow">
-                    <div class="p-6">
+                  <app-card
+                          class="overflow-hidden mb-6">
+                    <div class="p-1">
                       <div class="flex items-center justify-between mb-4">
-                        <div class="text-sm text-accent-100">
+                        <div class="text-sm text-text-sub">
                           {{ news.created * 1000 | date:'yyyy-MM-dd HH:mm' }}
                         </div>
                         @if (news.private) {
@@ -35,7 +35,7 @@
                         }
                       </div>
 
-                      <div class="text-bg-100 break-all">
+                      <div class="text-text-base break-all">
                         @if (news.text.length > 200) {
                           {{ news.text.slice(0, 200) }}...
                           <r-button [routerLink]="['/news', news.id]" type="primary"
@@ -59,7 +59,7 @@
                         </div>
                       }
                     </div>
-                  </div>
+                  </app-card>
                 }
               </div>
             </div>
@@ -73,16 +73,16 @@
     </div>
 
     <div class="hidden 2xl:block w-60 flex-shrink-0">
-      <div class="sticky top-12% p-4 bg-text-200 rounded-lg">
-        <h3 class="text-lg font-medium text-bg-200 mb-4">时间线</h3>
+      <div class="sticky top-12% p-4 bg-bg-elevated rounded-lg border border-border-base">
+        <h3 class="text-lg font-medium text-text-base mb-4">时间线</h3>
         <nav class="space-y-2 max-h-70vh overflow-auto">
           @for (year of toc; track year.year) {
             <div class="mb-4">
-              <div class="text-primary-100 font-medium mb-2">{{ year.year }}年</div>
+              <div class="text-brand font-medium mb-2">{{ year.year }}年</div>
               @for (month of year.months; track month.month) {
                 <a [routerLink]="[]"
                    [fragment]="year.year + '-' + month.month"
-                   class="block text-accent-100 hover:text-primary-100 transition-colors ml-4">
+                   class="block text-text-sub hover:text-brand transition-colors ml-4">
                   {{ month.month }}月
                 </a>
               }

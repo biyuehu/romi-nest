@@ -19,6 +19,8 @@ export class HitokotosComponent implements OnInit {
 
   @Input() public hitokotos: ResHitokotoData[] = []
 
+  public displayedHitokotos: ResHitokotoData[] = []
+
   public constructor(
     private readonly notifyService: NotifyService,
     private readonly apiService: ApiService,
