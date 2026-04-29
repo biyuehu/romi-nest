@@ -18,7 +18,7 @@ pub const PROJECTS_CACHE_TIMEOUT: u64 = 15 * 60; // 15 minutes
 
 pub const NODEJS_LOGGER_LABEL: &'static str = "Node.js";
 
-pub const GITHUB_USER: &'static str = "BIYUEHU";
+pub const GITHUB_USER: &'static str = "biyuehu";
 
 pub const HTTP_CLIENT_AGENT: &'static str = "RomiChan-App";
 

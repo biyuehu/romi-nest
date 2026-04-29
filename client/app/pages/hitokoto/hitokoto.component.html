@@ -1,16 +1,16 @@
 <app-layout [fullBackground]="true" [disabledFooter]="true">
   <div background class="flex flex-col items-center justify-center px-4 my-auto">
-    <h1 class="text-6xl font-bold text-bg-200 mb-12 hidden md:block"></h1>
+    <h1 class="text-6xl font-bold mb-12 hidden md:block"></h1>
     @if (isLoading) {
       <div class="text-center">
         <r-loading label="加载中..."/>
       </div>
     } @else {
       <div class="text-center space-y-6">
-        <p class="text-xl text-primary-200">
+        <p class="text-xl text-brand">
           {{ hitokoto.msg }}
           @if (hitokoto.from.trim()) {
-            <span class="text-accent-100"> ——{{ hitokoto.from }}</span>
+            <span class="text-accent"> ——{{ hitokoto.from }}</span>
           }
         </p>
 
