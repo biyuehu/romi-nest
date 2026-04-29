@@ -37,12 +37,11 @@ export class HitokotosComponent implements OnInit {
   }
 
   public loadMore() {
-    if (!this.hitokotos) return
     if (this.hitokotos.length === 0) {
       this.notifyService.showMessage('没有更多了', MessageBoxType.Warning)
       return
     }
-    this.hitokotos = [...this.hitokotos, ...this.hitokotos.slice(0, 20)]
+    this.displayedHitokotos = [...this.displayedHitokotos, ...this.hitokotos.slice(0, 20)]
     this.hitokotos = this.hitokotos.slice(20)
   }
 
