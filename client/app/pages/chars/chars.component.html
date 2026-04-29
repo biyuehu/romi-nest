@@ -4,12 +4,12 @@
   </div>
 
   @if (filteredChars.length === 0) {
-    <div class="text-center text-accent-100 py-8">未找到角色</div>
+    <div class="text-center text-text-muted py-8">未找到角色</div>
   } @else {
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
       @for (char of filteredChars; track char.id) {
         <a [routerLink]="['/char', char.id]"
-           class="bg-text-200 rounded-xl overflow-hidden hover:shadow-sm transition-all hover:-translate-y-1"
+           class="bg-bg-surface rounded-xl overflow-hidden hover:shadow-sm transition-all hover:-translate-y-1 border border-border-base"
            [style.border-color]="'#' + char.color" style="border-width: 2px; border-style: solid;">
           <div class="aspect-[3/4] overflow-hidden relative">
             <img fill [ngSrc]="char.images[0]" [alt]="char.name"
@@ -18,14 +18,14 @@
 
           <div class="p-4">
             <div class="flex items-center justify-between gap-2 mb-2">
-              <h3 class="text-lg font-bold text-bg-100 line-clamp-1"
+              <h3 class="text-lg font-bold text-text-base line-clamp-1"
                   [style]="'color:#' + char.color">{{ char.name }}</h3>
               <r-tag>
                 {{ char.gender === 'FEMALE' ? '♀' : '♂' }}
               </r-tag>
             </div>
 
-            <div class="text-sm text-accent-100 mb-2">{{ char.romaji }}</div>
+            <div class="text-sm text-accent mb-2">{{ char.romaji }}</div>
 
             <div class="flex flex-wrap gap-1 mt-2">
               @for (tag of char.tags.slice(0, 3); track tag) {

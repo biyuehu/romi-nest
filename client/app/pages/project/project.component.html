@@ -1,25 +1,25 @@
 <div class="max-w-98% w-6xl mx-auto flex-1">
   <div class="mb-6 flex flex-wrap gap-4">
-    <r-input type="search" [(ngModel)]="searchQuery" placeholder=" 搜索项目名、描述或标签..." class="flex-1" />
+    <r-input type="search" [(ngModel)]="searchQuery" placeholder="搜索项目名、描述或标签..." class="flex-1"/>
 
-    <select [(ngModel)]="selectedLanguage" class=" px-4 py-2 bg-text-200 border border-text-300 rounded-lg focus:border-primary-100 focus:ring-1
-      focus:ring-primary-100 outline-none">
+    <select [(ngModel)]="selectedLanguage"
+            class="px-4 py-2 bg-bg-surface border border-border-base rounded-lg focus:border-brand focus:ring-1 focus:ring-brand outline-none text-text-base">
       <option value="">全部语言</option>
       @for (lang of languages; track lang) {
-      <option [value]="lang">{{ lang }}</option>
+        <option [value]="lang">{{ lang }}</option>
       }
     </select>
   </div>
 
   @if (filteredRepos.length === 0) {
-  <div class="text-center text-accent-100 py-8">
-    @if (searchQuery || selectedLanguage) {
-    未找到匹配的项目
-    } @else {
-    暂无项目
-    }
-  </div>
+    <div class="text-center text-text-muted py-8">
+      @if (searchQuery || selectedLanguage) {
+        未找到匹配的项目
+      } @else {
+        暂无项目
+      }
+    </div>
   } @else {
-  <app-project-list [repos]="filteredRepos" />
+    <app-project-list [repos]="filteredRepos"/>
   }
 </div>
