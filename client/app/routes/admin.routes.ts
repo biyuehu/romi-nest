@@ -72,6 +72,11 @@ export const adminRoutes: Routes = [
         loadComponent: () =>
           import('../pages/admin-char-edit/admin-char-edit.component').then((m) => m.AdminCharEditComponent),
         title: '角色编辑'
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import('../pages/admin-settings/admin-settings.component').then((m) => m.AdminSettingsComponent)
       }
     ]
   },

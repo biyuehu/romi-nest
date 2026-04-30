@@ -7,7 +7,7 @@ import { STORE_KEYS, StoreService } from './store.service'
   providedIn: 'root'
 })
 export class AuthService {
-  private user = signal<UserAuthData | null>(null)
+  private readonly user = signal<UserAuthData | null>(null)
   public user$ = this.user.asReadonly()
 
   public constructor(

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { COPYRIGHT_YEAR } from '../../shared/constants'
 
 @Component({
   selector: 'app-admin-footer',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core'
   templateUrl: './admin-footer.component.html'
 })
 export class AdminFooterComponent {
-  public currentYear = new Date().getFullYear()
+  public readonly copyrightYear = COPYRIGHT_YEAR
 }

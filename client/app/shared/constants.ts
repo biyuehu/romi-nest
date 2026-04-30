@@ -4,6 +4,8 @@ import buildMeta from '../../environments/build-meta'
 import { environment } from '../../environments/environment'
 import { LoggerService } from '../services/logger.service'
 
+export const COPYRIGHT_YEAR = 2026
+
 // export const DEFAULT_TITLE = 'Romi Nest' // TODO
 
 export const ROMI_METADATA = { pkg, build: buildMeta } //

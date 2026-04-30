@@ -1,32 +1,32 @@
-<aside class="w-57 h-full bg-primary-100 text-bg-100">
-  <div class="h-14 flex items-center px-6 border-b border-primary-200/30">
-    <a [routerLink]="'/admin'" class="text-xl font-bold text-bg-100 hover:text-primary-200 transition-colors">
+<aside class="w-57 h-full bg-brand text-text-on-brand">
+  <div class="h-14 flex items-center px-6 border-b border-border-base">
+    <a [routerLink]="'/admin'" class="text-xl font-bold text-text-on-brand hover:text-brand-hover transition-colors">
       Romi Admin
     </a>
   </div>
 
-  <nav class="py-4  overflow-y-auto">
+  <nav class="py-4 overflow-y-auto">
     @for (item of menuItems; track item.text) {
-    <div class="mb-2">
-      @if (item.children) {
-      <div class="px-4 py-2 text-sm text-bg-200/80">{{ item.text }}</div>
-      <div class="space-y-1">
-        @for (child of item.children; track child.text) {
-        <a [routerLink]="child.link" routerLinkActive="bg-primary-200/20" (click)="onMenuClick()"
-          class="flex items-center gap-3 px-6 py-2 text-bg-100/90 hover:bg-primary-200/10 transition-colors">
-          <i [class]="[child.icon, 'text-xl']"></i>
-          <span>{{ child.text }}</span>
-        </a>
+      <div class="mb-2">
+        @if (item.children) {
+          <div class="px-4 py-2 text-sm text-text-on-brand/80">{{ item.text }}</div>
+          <div class="space-y-1">
+            @for (child of item.children; track child.text) {
+              <a [routerLink]="child.link" routerLinkActive="bg-brand-hover/20" (click)="onMenuClick()"
+                 class="flex items-center gap-3 px-6 py-2 text-text-on-brand/90 hover:bg-brand-hover/10 transition-colors">
+                <i [class]="[child.icon, 'text-xl']"></i>
+                <span>{{ child.text }}</span>
+              </a>
+            }
+          </div>
+        } @else {
+          <a [routerLink]="item.link" routerLinkActive="bg-brand-hover/20" (click)="onMenuClick()"
+             class="flex items-center gap-3 px-6 py-2 text-text-on-brand/90 hover:bg-brand-hover/10 transition-colors">
+            <i [class]="[item.icon, 'text-xl']"></i>
+            <span>{{ item.text }}</span>
+          </a>
         }
       </div>
-      } @else {
-      <a [routerLink]="item.link" routerLinkActive="bg-primary-200/20" (click)="onMenuClick()"
-        class="flex items-center gap-3 px-6 py-2 text-bg-100/90 hover:bg-primary-200/10 transition-colors">
-        <i [class]="[item.icon, 'text-xl']"></i>
-        <span>{{ item.text }}</span>
-      </a>
-      }
-    </div>
     }
   </nav>
 </aside>

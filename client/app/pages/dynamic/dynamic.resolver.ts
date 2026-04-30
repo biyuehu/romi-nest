@@ -29,7 +29,7 @@ const DEPENDENT_PAGES: DependentPage[] = [
     routine: false,
     template: 'links'
   }
-]
+] // TODO
 
 export const dynamicResolver: ResolveFn<[DependentPage, ResPostSingleData]> = (route) => {
   const apiService = inject(ApiService)

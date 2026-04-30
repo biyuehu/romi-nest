@@ -21,6 +21,7 @@ export class LinksComponent {
   @Input({ required: true }) public post!: ResPostSingleData
 
   public links: ResFriendData[] = [
+    // TODO
     {
       name: 'Romi Nest',
       link: 'https://hotaru.icu',
