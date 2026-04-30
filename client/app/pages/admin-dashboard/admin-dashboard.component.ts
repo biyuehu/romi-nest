@@ -21,56 +21,56 @@ export class AdminDashboardComponent implements OnInit {
     return [
       {
         title: '文章数量',
-        value: this.dashboardData?.posts_count ?? 0,
+        value: this.dashboardData?.postsCount ?? 0,
         icon: 'i-mdi:file-document',
         color: 'bg-primary-100',
         link: '/admin/posts'
       },
       {
         title: '分类数量',
-        value: this.dashboardData?.categories_count ?? 0,
+        value: this.dashboardData?.categoriesCount ?? 0,
         icon: 'i-mdi:folder',
         color: 'bg-green-500',
         link: '/admin/metas'
       },
       {
         title: '标签数量',
-        value: this.dashboardData?.tags_count ?? 0,
+        value: this.dashboardData?.tagsCount ?? 0,
         icon: 'i-mdi:tag',
         color: 'bg-yellow-500',
         link: '/admin/metas'
       },
       {
         title: '评论数量',
-        value: this.dashboardData?.comments_count ?? 0,
+        value: this.dashboardData?.commentsCount ?? 0,
         icon: 'i-mdi:comment',
         color: 'bg-blue-500',
         link: '/admin/comments'
       },
       {
         title: '用户数量',
-        value: this.dashboardData?.users_count ?? 0,
+        value: this.dashboardData?.usersCount ?? 0,
         icon: 'i-mdi:account',
         color: 'bg-purple-500',
         link: '/admin/users'
       },
       {
         title: '一言数量',
-        value: this.dashboardData?.hitokotos_count ?? 0,
+        value: this.dashboardData?.hitokotosCount ?? 0,
         icon: 'i-mdi:yin-yang',
         color: 'bg-pink-500',
         link: '/admin/hitokotos'
       },
       {
         title: '色图数量',
-        value: this.dashboardData?.seimgs_count ?? 0,
+        value: this.dashboardData?.seimgsCount ?? 0,
         icon: 'i-mdi:palette',
         color: 'bg-red-500',
         link: '/admin/seimgs'
       },
       {
         title: '动态数量',
-        value: this.dashboardData?.news_count ?? 0,
+        value: this.dashboardData?.newsCount ?? 0,
         icon: 'i-mdi:newspaper',
         color: 'bg-gray-500',
         link: '/admin/news'
@@ -82,9 +82,9 @@ export class AdminDashboardComponent implements OnInit {
     return [
       { label: '前端版本', value: ROMI_METADATA.pkg.version },
       { label: '系统版本', value: this.dashboardData?.version ?? '' },
-      { label: 'Node.js 版本', value: this.dashboardData?.nodejs_version ?? '' },
-      { label: '服务器系统', value: this.dashboardData?.os_info ?? '' },
-      { label: '用户目录', value: this.dashboardData?.home_dir ?? '' }
+      { label: 'Node.js 版本', value: this.dashboardData?.nodejsVersion ?? '' },
+      { label: '服务器系统', value: this.dashboardData?.osInfo ?? '' },
+      { label: '用户目录', value: this.dashboardData?.homeDir ?? '' }
     ]
   }
 

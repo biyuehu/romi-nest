@@ -31,7 +31,7 @@ export class AdminCharEditComponent implements OnInit {
     name: '',
     romaji: '',
     color: '',
-    song_id: null,
+    songId: null,
     gender: 'FEMALE',
     alias: [],
     age: null,
@@ -43,11 +43,11 @@ export class AdminCharEditComponent implements OnInit {
     birthday: null,
     voice: null,
     series: '',
-    series_genre: 'GALGAME',
+    seriesGenre: 'GALGAME',
     tags: [],
-    hair_color: null,
-    eye_color: null,
-    blood_type: null,
+    hairColor: null,
+    eyeColor: null,
+    bloodType: null,
     height: null,
     weight: null,
     bust: null,
@@ -76,8 +76,8 @@ export class AdminCharEditComponent implements OnInit {
   }
 
   public get songName() {
-    return this.charForm.song_id
-      ? this.allSongs.find(({ url }) => url.includes(`id=${this.charForm.song_id}.mp3`))?.name
+    return this.charForm.songId
+      ? this.allSongs.find(({ url }) => url.includes(`id=${this.charForm.songId}.mp3`))?.name
       : ''
   }
 
@@ -186,11 +186,11 @@ export class AdminCharEditComponent implements OnInit {
       this.notifyService.showMessage(`歌曲链接格式不正确：${song.url}`, MessageBoxType.Error)
       return
     }
-    this.charForm.song_id = id
+    this.charForm.songId = id
   }
 
   public clearSong() {
-    this.charForm.song_id = null
+    this.charForm.songId = null
   }
 
   public addUrl() {

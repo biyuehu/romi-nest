@@ -19,6 +19,7 @@ pub struct ResUserData {
     pub email: String,
     pub created: u32,
     pub last_login: u32,
+    #[serde(rename = "isAdmin")]
     pub is_admin: bool,
     pub status: u8,
     pub url: Option<String>,

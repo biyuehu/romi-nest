@@ -5,6 +5,7 @@ use ts_rs::TS;
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ReqMetaData {
     pub name: String,
+    #[serde(rename = "isCategory")]
     pub is_category: bool,
 }
 
@@ -14,5 +15,6 @@ pub struct ResMetaData {
     pub mid: u32,
     pub name: String,
     pub count: u64,
+    #[serde(rename = "isCategory")]
     pub is_category: bool,
 }

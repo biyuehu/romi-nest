@@ -7,6 +7,7 @@ pub struct ReqCharacterData {
     pub name: String,
     pub romaji: String,
     pub color: Option<String>,
+    #[serde(rename = "songId")]
     pub song_id: Option<u32>,
     pub gender: String,
     pub alias: Vec<String>,
@@ -19,10 +20,14 @@ pub struct ReqCharacterData {
     pub birthday: Option<u32>,
     pub voice: Option<String>,
     pub series: String,
+    #[serde(rename = "seriesGenre")]
     pub series_genre: String,
     pub tags: Vec<String>,
+    #[serde(rename = "hairColor")]
     pub hair_color: Option<String>,
+    #[serde(rename = "eyeColor")]
     pub eye_color: Option<String>,
+    #[serde(rename = "bloodType")]
     pub blood_type: Option<String>,
     pub height: Option<u32>,
     pub weight: Option<u32>,
@@ -40,6 +45,7 @@ pub struct ResCharacterData {
     pub name: String,
     pub romaji: String,
     pub color: Option<String>,
+    #[serde(rename = "songId")]
     pub song_id: Option<u32>,
     pub gender: String,
     pub alias: Vec<String>,
@@ -52,10 +58,14 @@ pub struct ResCharacterData {
     pub birthday: Option<u32>,
     pub voice: Option<String>,
     pub series: String,
+    #[serde(rename = "seriesGenre")]
     pub series_genre: String,
     pub tags: Vec<String>,
+    #[serde(rename = "hairColor")]
     pub hair_color: Option<String>,
+    #[serde(rename = "eyeColor")]
     pub eye_color: Option<String>,
+    #[serde(rename = "bloodType")]
     pub blood_type: Option<String>,
     pub height: Option<u32>,
     pub weight: Option<u32>,

@@ -29,9 +29,9 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
 
   public newHitokoto: ReqHitokoto2Data = {
     msg: '',
-    msg_origin: null,
+    msgOrigin: null,
     from: null,
-    from_who: null,
+    fromWho: null,
     type: 1,
     public: false
   }
@@ -63,9 +63,9 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
     const filterType = Number(this.filterType)
     const matchesSearch =
       hitokoto.msg.toLowerCase().includes(query) ||
-      !!hitokoto.msg_origin?.toLowerCase().includes(query) ||
+      !!hitokoto.msgOrigin?.toLowerCase().includes(query) ||
       !!hitokoto.from?.toLowerCase().includes(query) ||
-      !!hitokoto.from_who?.toLowerCase().includes(query)
+      !!hitokoto.fromWho?.toLowerCase().includes(query)
     return filterType ? hitokoto.type === filterType && matchesSearch : matchesSearch
   }
 
@@ -86,15 +86,15 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
       this.notifyService.showMessage('请输入一言内容', MessageBoxType.Warning)
       return
     }
-    const { msg, msg_origin, public: isPublic, from, from_who } = this.newHitokoto
+    const { msg, msgOrigin, public: isPublic, from, fromWho } = this.newHitokoto
 
     // TODO: better handle msg and check msg format
     this.apiService
       .createHitokoto2({
         msg: msg.trim(),
-        msg_origin: msg_origin?.trim() || null,
+        msgOrigin: msgOrigin?.trim() || null,
         from: from?.trim() || null,
-        from_who: from_who?.trim() || null,
+        fromWho: fromWho?.trim() || null,
         type: Number(this.newHitokoto.type),
         public: isPublic
       })
@@ -109,9 +109,9 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
     this.editingHitokoto = hitokoto
     this.newHitokoto = {
       msg: hitokoto.msg,
-      msg_origin: hitokoto.msg_origin,
+      msgOrigin: hitokoto.msgOrigin,
       from: hitokoto.from,
-      from_who: hitokoto.from_who,
+      fromWho: hitokoto.fromWho,
       type: hitokoto.type,
       public: hitokoto.public
     }
@@ -119,7 +119,7 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
 
   public cancelEdit() {
     this.editingHitokoto = null
-    this.newHitokoto = { msg: '', msg_origin: null, from: null, from_who: null, type: 1, public: false }
+    this.newHitokoto = { msg: '', msgOrigin: null, from: null, fromWho: null, type: 1, public: false }
   }
 
   public updateHitokoto() {

@@ -38,13 +38,13 @@ export class AdminMetasComponent implements OnInit {
 
   public get categories() {
     return this.metas.filter(
-      (meta) => meta.is_category && meta.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      (meta) => meta.isCategory && meta.name.toLowerCase().includes(this.searchQuery.toLowerCase())
     )
   }
 
   public get tags() {
     return this.metas.filter(
-      (meta) => !meta.is_category && meta.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      (meta) => !meta.isCategory && meta.name.toLowerCase().includes(this.searchQuery.toLowerCase())
     )
   }
 
@@ -54,14 +54,14 @@ export class AdminMetasComponent implements OnInit {
       return
     }
 
-    if (this.metas.some((meta) => meta.name === this.newMetaName && meta.is_category === this.isAddingCategory)) {
+    if (this.metas.some((meta) => meta.name === this.newMetaName && meta.isCategory === this.isAddingCategory)) {
       this.notifyService.showMessage('名称已存在', MessageBoxType.Warning)
       return
     }
 
     const data = {
       name: this.newMetaName.trim(),
-      is_category: this.isAddingCategory
+      isCategory: this.isAddingCategory
     }
 
     this.apiService.createMeta(data).subscribe(() => {

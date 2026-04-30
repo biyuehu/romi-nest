@@ -40,10 +40,10 @@ export class AdminEditComponent implements OnInit {
   public readonly postForm: Omit<ReqPostData, 'created'> & { created: string } = {
     title: '',
     text: '',
-    str_id: null,
+    strId: null,
     password: null,
     hide: false,
-    allow_comment: true,
+    allowComment: true,
     created: '',
     modified: 0,
     tags: [],
@@ -151,8 +151,8 @@ export class AdminEditComponent implements OnInit {
     }
 
     this.apiService.getMetas().subscribe((metas) => {
-      this.allTags = metas.filter(({ is_category }) => !is_category).map(({ name }) => name)
-      this.allCategories = metas.filter(({ is_category }) => is_category).map(({ name }) => name)
+      this.allTags = metas.filter(({ isCategory }) => !isCategory).map(({ name }) => name)
+      this.allCategories = metas.filter(({ isCategory }) => isCategory).map(({ name }) => name)
     })
   }
 
@@ -227,7 +227,7 @@ export class AdminEditComponent implements OnInit {
     }
 
     // biome-ignore lint: *
-    if (this.postForm.str_id && !/^[a-zA-Z][\x00-\x7F]*$/.test(this.postForm.str_id)) {
+    if (this.postForm.strId && !/^[a-zA-Z][\x00-\x7F]*$/.test(this.postForm.strId)) {
       this.notifyService.showMessage('语义化地址不符合要求：仅 ASCII 字符且开头非数字', MessageBoxType.Error)
       return
     }

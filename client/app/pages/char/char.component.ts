@@ -32,7 +32,7 @@ export class CharComponent implements OnInit, OnChanges, OnDestroy {
 
   private getMusic(musicList: ResMusicData[]) {
     if (musicList.length === 0) return []
-    const music = musicList.find((music) => music.url.includes(`id=${this.char.song_id}.mp3`))
+    const music = musicList.find((music) => music.url.includes(`id=${this.char.songId}.mp3`))
     return music ? [music] : null
   }
 
