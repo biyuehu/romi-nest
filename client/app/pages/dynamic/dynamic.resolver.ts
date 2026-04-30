@@ -3,9 +3,9 @@ import { ResolveFn, Router } from '@angular/router'
 import { EMPTY, forkJoin, of } from 'rxjs'
 import { ResPostSingleData } from '../../../output'
 import { ApiService } from '../../services/api.service'
-import { DependentPage } from '../../shared/types'
+import { IndependentPage } from '../../shared/types'
 
-const DEPENDENT_PAGES: DependentPage[] = [
+const DEPENDENT_PAGES: IndependentPage[] = [
   {
     name: 'about',
     title: '关于',
@@ -31,7 +31,7 @@ const DEPENDENT_PAGES: DependentPage[] = [
   }
 ] // TODO
 
-export const dynamicResolver: ResolveFn<[DependentPage, ResPostSingleData]> = (route) => {
+export const dynamicResolver: ResolveFn<[IndependentPage, ResPostSingleData]> = (route) => {
   const apiService = inject(ApiService)
   const router = inject(Router)
   const slug = route.paramMap.get('slug')

@@ -73,31 +73,38 @@
                 ></button>
               </div>
             }
-            @if (settingsForm.homeLinks.length === 0) {
-              <div class="text-text-muted text-sm">暂无链接</div>
-            }
           </div>
         </div>
 
         <div class="border-t border-border-base pt-6">
-          <h3 class="text-lg font-medium text-text-base mb-4">依赖页面</h3>
+          <h3 class="text-lg font-medium text-text-base mb-4">独立页面</h3>
           <div class="bg-bg-elevated rounded-lg p-4 mb-4 space-y-3">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <r-input label="标识名" [(ngModel)]="dependentPageForm.name" placeholder="例如 about"/>
-              <r-input label="页面标题" [(ngModel)]="dependentPageForm.title" placeholder="关于我们"/>
-              <r-input label="文章ID" type="number" [(ngModel)]="dependentPageForm.id" placeholder="必填"/>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <r-input label="标识名" [(ngModel)]="independentPageForm.name" placeholder="例如 about"/>
+              <r-input label="页面标题" [(ngModel)]="independentPageForm.title" placeholder="关于我们"/>
+              <r-input label="文章ID" type="number" [(ngModel)]="independentPageForm.id" placeholder="必填"/>
             </div>
             <div class="flex flex-wrap items-center gap-4">
-              <r-checkbox [(ngModel)]="dependentPageForm.routine" type="primary">常驻 (routine)</r-checkbox>
-              <r-checkbox [(ngModel)]="dependentPageForm.hideToc" type="primary">隐藏目录</r-checkbox>
-              <r-checkbox [(ngModel)]="dependentPageForm.hideComments" type="primary">隐藏评论</r-checkbox>
+              <r-checkbox [(ngModel)]="independentPageForm.routine" type="primary">常规</r-checkbox>
+              @if (independentPageForm.routine) {
+                <r-checkbox [(ngModel)]="independentPageForm.hideToc" type="primary">隐藏目录</r-checkbox>
+                <r-checkbox [(ngModel)]="independentPageForm.hideComments" type="primary">隐藏评论</r-checkbox>
+              } @else {
+                <label class="block text-sm font-medium text-text-base mb-1">模板</label>
+                <select [(ngModel)]="independentPageForm.template"
+                        class="px-4 py-2 bg-bg-surface border border-border-base rounded-lg focus:border-brand focus:ring-1 focus:ring-brand outline-none text-text-base">
+                  @for (template of templateList; track template[0]) {
+                    <option [value]="template[0]">{{ template[1] }}</option>
+                  }
+                </select>
+              }
             </div>
             <div class="flex gap-2">
-              <r-button type="primary" (click)="saveDependentPage()">
-                {{ editingDependentPageId !== null ? '更新' : '添加' }}
+              <r-button type="primary" (click)="saveIndependentPage()">
+                {{ editingIndependentPageId !== null ? '更新' : '添加' }}
               </r-button>
-              @if (editingDependentPageId !== null) {
-              <r-button (click)="cancelEditDependentPage()">取消</r-button>
+              @if (editingIndependentPageId !== null) {
+                <r-button (click)="cancelEditIndependentPage()">取消</r-button>
               }
             </div>
           </div>
@@ -108,27 +115,27 @@
                   <div class="font-medium text-text-base">{{ page.title }}</div>
                   <div class="text-sm text-text-sub">标识: {{ page.name }} | 文章ID: {{ page.id }}</div>
                   <div class="flex gap-3 mt-1 text-xs text-accent">
-                    <span>常规: {{ page.routine ? '是' : '否' }}</span>
-                    <span>隐藏目录: {{ page.hideToc ? '是' : '否' }}</span>
-                    <span>隐藏评论: {{ page.hideComments ? '是' : '否' }}</span>
+                    @if (page.routine) {
+                      <span>隐藏目录: {{ page.hideToc ? '是' : '否' }}</span>
+                      <span>隐藏评论: {{ page.hideComments ? '是' : '否' }}</span>
+                    } @else {
+                      <span>模板: {{ page.template }}</span>
+                    }
                   </div>
                 </div>
                 <div class="flex gap-2">
                   <button
                           type="button"
-                          (click)="startEditDependentPage(page)"
+                          (click)="startEditIndependentPage(page)"
                           class="i-mdi:pencil text-text-muted hover:text-brand cursor-pointer"
                   ></button>
                   <button
                           type="button"
-                          (click)="removeDependentPage(page.id)"
+                          (click)="removeIndependentPage(page.id)"
                           class="i-mdi:close text-red-500 hover:text-red-600 cursor-pointer"
                   ></button>
                 </div>
               </div>
-            }
-            @if (settingsForm.independentPages.length === 0) {
-              <div class="text-center text-text-muted py-4">暂无依赖页面</div>
             }
           </div>
         </div>
@@ -136,11 +143,11 @@
         <div class="border-t border-border-base pt-6">
           <h3 class="text-lg font-medium text-text-base mb-4">友链</h3>
           <div class="bg-bg-elevated rounded-lg p-4 mb-4 space-y-3">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
               <r-input label="名称" [(ngModel)]="friendLinkForm.name" placeholder="站点名称"/>
               <r-input label="链接" [(ngModel)]="friendLinkForm.link" placeholder="https://..."/>
-              <r-input label="头像地址" [(ngModel)]="friendLinkForm.avatar" placeholder="可选"/>
-              <r-input label="描述" [(ngModel)]="friendLinkForm.description" placeholder="可选"/>
+              <r-input label="头像地址" [(ngModel)]="friendLinkForm.avatar" placeholder="https://..."/>
+              <r-input label="描述" [(ngModel)]="friendLinkForm.description" placeholder="这是一个网站"/>
             </div>
             <div class="flex gap-2">
               <r-button type="primary" (click)="saveFriendLink()">
@@ -149,11 +156,11 @@
               @if (editingFriendLinkIndex !== null) {
                 <r-button (click)="cancelEditFriendLink()">取消</r-button>
               }
-             </div>
+            </div>
           </div>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @for (item of settingsForm.links; track $index) {
-              <div class="flex items-center gap-3 p-3 border border-border-base rounded-lg hover:bg-bg-subtle">
+              <div class="flex grid-cols-1 md:grid-cols-2 items-center gap-3 p-3 border border-border-base rounded-lg hover:bg-bg-subtle w-full">
                 @if (item.avatar) {
                   <img alt="item" [src]="item.avatar" class="w-10 h-10 rounded-full object-cover"/>
                 }
@@ -178,9 +185,6 @@
                   ></button>
                 </div>
               </div>
-            }
-            @if (settingsForm.links.length === 0) {
-              <div class="text-center text-text-muted py-4 col-span-2">暂无友链</div>
             }
           </div>
         </div>

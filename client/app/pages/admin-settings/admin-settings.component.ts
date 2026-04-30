@@ -20,6 +20,10 @@ import { NotifyService } from '../../services/notify.service'
   templateUrl: './admin-settings.component.html'
 })
 export class AdminSettingsComponent implements OnInit {
+  public readonly templateList = [['links', '友情链接']]
+
+  public postIds: number[] = []
+
   public isLoading = true
   public settingsForm!: ResSettingsData
 
@@ -28,14 +32,15 @@ export class AdminSettingsComponent implements OnInit {
   public editingHomeLinkIndex: number | null = null
   public homeLinkForm: ResSettingsDataHomeLink = ['', '', '']
 
-  public editingDependentPageId: number | null = null
-  public dependentPageForm: ResSettingsDataIndependentPage = {
+  public editingIndependentPageId: number | null = null
+  public independentPageForm: ResSettingsDataIndependentPage = {
     name: '',
     title: '',
     id: 0n,
-    routine: false,
+    routine: true,
     hideToc: false,
-    hideComments: false
+    hideComments: false,
+    template: ''
   }
 
   public editingFriendLinkIndex: number | null = null
@@ -62,6 +67,9 @@ export class AdminSettingsComponent implements OnInit {
       this.settingsForm = data
       this.keywordsInput = data.siteKeywords.join(', ')
       this.isLoading = false
+    })
+    this.apiService.getPosts().subscribe((data) => {
+      this.postIds = data.map((p) => p.id)
     })
   }
 
@@ -100,51 +108,55 @@ export class AdminSettingsComponent implements OnInit {
     if (this.editingHomeLinkIndex === index) this.cancelEditHomeLink()
   }
 
-  // ========== DependentPage 相关 ==========
-  public startEditDependentPage(page: ResSettingsDataIndependentPage): void {
-    this.editingDependentPageId = Number(page.id)
-    this.dependentPageForm = { ...page }
+  // ========== IndependentPage 相关 ==========
+  public startEditIndependentPage(page: ResSettingsDataIndependentPage): void {
+    this.editingIndependentPageId = Number(page.id)
+    this.independentPageForm = { ...page }
   }
 
-  public cancelEditDependentPage(): void {
-    this.editingDependentPageId = null
-    this.dependentPageForm = {
+  public cancelEditIndependentPage(): void {
+    this.editingIndependentPageId = null
+    this.independentPageForm = {
       name: '',
       title: '',
       id: 0n,
-      routine: false,
+      routine: true,
       hideToc: false,
-      hideComments: false
+      hideComments: false,
+      template: ''
     }
   }
 
-  public saveDependentPage(): void {
-    if (!this.dependentPageForm.name || !this.dependentPageForm.title || !this.dependentPageForm.id) {
-      this.notifyService.showMessage('标识名、标题和文章ID都不能为空', MessageBoxType.Warning)
+  public saveIndependentPage(): void {
+    if (!this.independentPageForm.name || !this.independentPageForm.title || !this.independentPageForm.id) {
+      this.notifyService.showMessage('标识名、标题和文章 ID 都不能为空', MessageBoxType.Warning)
       return
     }
-    const targetId = Number(this.dependentPageForm.id)
-    if (this.editingDependentPageId !== null) {
-      const index = this.settingsForm.independentPages.findIndex((p) => Number(p.id) === this.editingDependentPageId)
+    const targetId = Number(this.independentPageForm.id)
+    if (this.editingIndependentPageId !== null) {
+      const index = this.settingsForm.independentPages.findIndex((p) => Number(p.id) === this.editingIndependentPageId)
       if (index !== -1) {
-        this.settingsForm.independentPages[index] = { ...this.dependentPageForm, id: BigInt(targetId) }
+        this.settingsForm.independentPages[index] = { ...this.independentPageForm, id: BigInt(targetId) }
       }
     } else {
-      if (this.settingsForm.independentPages.some((p) => Number(p.id) === targetId)) {
-        this.notifyService.showMessage('文章ID已存在', MessageBoxType.Error)
+      if (!this.postIds.includes(targetId)) {
+        this.notifyService.showMessage(`文章 ${targetId} 不存在`, MessageBoxType.Error)
         return
       }
-      this.settingsForm.independentPages.push({ ...this.dependentPageForm, id: BigInt(targetId) })
+      if (!this.independentPageForm.routine && this.independentPageForm.template.trim() === '') {
+        this.notifyService.showMessage('请选择模板', MessageBoxType.Warning)
+        return
+      }
+      this.settingsForm.independentPages.push({ ...this.independentPageForm, id: BigInt(targetId) })
     }
-    this.cancelEditDependentPage()
+    this.cancelEditIndependentPage()
   }
 
-  public removeDependentPage(id: bigint): void {
+  public removeIndependentPage(id: bigint): void {
     this.settingsForm.independentPages = this.settingsForm.independentPages.filter((p) => p.id !== id)
-    if (this.editingDependentPageId === Number(id)) this.cancelEditDependentPage()
+    if (this.editingIndependentPageId === Number(id)) this.cancelEditIndependentPage()
   }
 
-  // ========== FriendLink 相关 ==========
   public startEditFriendLink(index: number): void {
     this.editingFriendLinkIndex = index
     this.friendLinkForm = { ...this.settingsForm.links[index] }
@@ -157,7 +169,7 @@ export class AdminSettingsComponent implements OnInit {
 
   public saveFriendLink(): void {
     if (!this.friendLinkForm.name || !this.friendLinkForm.link) {
-      this.notifyService.showMessage('名称和链接不能为空', MessageBoxType.Warning)
+      this.notifyService.showMessage('名称、链接、头像地址、描述都不能为空', MessageBoxType.Warning)
       return
     }
     if (this.editingFriendLinkIndex !== null) {
