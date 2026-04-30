@@ -54,6 +54,11 @@ export class AdminMetasComponent implements OnInit {
       return
     }
 
+    if (this.metas.some((meta) => meta.name === this.newMetaName && meta.is_category === this.isAddingCategory)) {
+      this.notifyService.showMessage('名称已存在', MessageBoxType.Warning)
+      return
+    }
+
     const data = {
       name: this.newMetaName.trim(),
       is_category: this.isAddingCategory
