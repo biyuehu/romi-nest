@@ -1,70 +1,71 @@
 <div class="space-y-6">
-  <div class="bg-text-200 rounded-lg p-6 border ">
-    <h2 class="text-xl font-bold text-gray-800 mb-2">
+  <app-card class="bg-bg-surface">
+    <h2 class="text-xl font-bold text-text-base mb-2">
       👋 Welcome back, {{ username }}
     </h2>
-    <p class="text-gray-500">
+    <p class="text-text-sub">
       当前系统时间：{{ currentTime | date: 'yyyy-MM-dd HH:mm:ss' }}
     </p>
-  </div>
+  </app-card>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     @for (card of statCards; track card.title) {
-    <a [routerLink]="card.link" class="block p-6 bg-text-200 rounded-lg border hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-4">
-        <div [class]="[
+      <app-card [routerLink]="card.link"
+                class="">
+        <div class="flex items-center gap-4">
+          <div [class]="[
             'w-12 h-12 rounded-lg flex items-center justify-center',
             card.color
           ]">
-          <i [class]="[card.icon, 'text-2xl text-text-100']"></i>
+            <i [class]="[card.icon, 'text-2xl text-text-on-brand']"></i>
+          </div>
+          <div>
+            <div class="text-sm text-text-sub">{{ card.title }}</div>
+            <div class="text-2xl font-bold text-text-base">{{ card.value }}</div>
+          </div>
         </div>
-        <div>
-          <div class="text-sm text-gray-500">{{ card.title }}</div>
-          <div class="text-2xl font-bold text-gray-800">{{ card.value }}</div>
-        </div>
-      </div>
-    </a>
+      </app-card>
     }
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <div class="bg-text-200 rounded-lg border border-accent-300 overflow-hidden">
-      <div class="px-6 py-4 border-b border-accent-300 flex justify-between items-center">
-        <h3 class="font-bold text-gray-800">最近文章</h3>
-        <a [routerLink]="'/admin/posts'" class="text-sm text-primary-100 hover:text-primary-200">
+    <app-card class="bg-bg-surface overflow-hidden">
+      <div class="px-6 py-4 border-b border-border-base flex justify-between items-center">
+        <h3 class="font-bold text-text-base">最近文章</h3>
+        <a [routerLink]="'/admin/posts'" class="text-sm text-brand hover:text-brand-hover">
           查看全部
         </a>
       </div>
-      <div class="divide-y divide-text-300">
+      <div class="divide-y divide-border-base">
         @for (post of recentPosts; track post.id) {
-        <div class="px-6 py-4 flex items-center justify-between">
-          <div class="flex-1 max-w-75%">
-            <h4 class="text-gray-800 font-medium truncate">{{ post.title }}</h4>
-            <div class="text-sm text-gray-500 mt-1">
-              {{ post.created * 1000 | date: 'yyyy-MM-dd HH:mm' }}
+          <div class="px-6 py-4 flex items-center justify-between">
+            <div class="flex-1 max-w-75%">
+              <h4 class="text-text-base font-medium truncate">{{ post.title }}</h4>
+              <div class="text-sm text-text-sub mt-1">
+                {{ post.created * 1000 | date: 'yyyy-MM-dd HH:mm' }}
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-text-sub">{{ post.views }} 阅读</span>
+              <span class="text-sm text-text-sub">{{ post.comments }} 评论</span>
             </div>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-sm text-gray-500">{{ post.views }} 阅读</span>
-            <span class="text-sm text-gray-500">{{ post.comments }} 评论</span>
-          </div>
-        </div>
         }
       </div>
-    </div>
+    </app-card>
 
-    <div class="bg-text-200 rounded-lg border overflow-hidden">
-      <div class="px-6 py-4 border-b">
-        <h3 class="font-bold text-gray-800">系统信息</h3>
+    <app-card class="overflow-hidden h-full">
+      <div class="px-6 py-4 border-b border-border-base">
+        <h3 class="font-bold text-text-base">系统信息</h3>
       </div>
       <div class="px-6 py-4 space-y-4">
         @for (info of systemInfo; track info.label) {
-        <div class="flex justify-between">
-          <span class="text-gray-500">{{ info.label }}</span>
-          <span class="text-gray-800">{{ info.value }}</span>
-        </div>
+          <div class="flex justify-between">
+            <span class="text-text-sub">{{ info.label }}</span>
+            <span class="text-text-base">{{ info.value }}</span>
+          </div>
         }
       </div>
-    </div>
+    </app-card>
   </div>
 </div>

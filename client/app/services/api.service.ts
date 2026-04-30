@@ -311,8 +311,8 @@ export class ApiService {
     return this.http.get<ResSettingsData>(`${environment.api_base_url}/info/settings`)
   }
 
-  public updateSettings() {
-    return this.http.put<ResSettingsData>(`${environment.api_base_url}/info/settings`, {})
+  public updateSettings(settings: ResSettingsData) {
+    return this.http.put<ResSettingsData>(`${environment.api_base_url}/info/settings`, settings)
   }
 
   public getDashboard() {

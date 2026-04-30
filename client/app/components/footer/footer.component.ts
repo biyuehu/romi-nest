@@ -6,7 +6,7 @@ import { ResHitokotoData } from '../../../output'
 import { ApiService } from '../../services/api.service'
 import { BrowserService } from '../../services/browser.service'
 import { STORE_KEYS, StoreService } from '../../services/store.service'
-import { ROMI_METADATA } from '../../shared/constants'
+import { COPYRIGHT_YEAR, ROMI_METADATA } from '../../shared/constants'
 
 @Component({
   selector: 'app-footer',
@@ -17,6 +17,8 @@ export class FooterComponent implements OnInit {
   public get metadata() {
     return this.storeService.getItem(STORE_KEYS.IS_DEBUG) === 'true' ? ROMI_METADATA : null
   }
+
+  public readonly copyrightYear = COPYRIGHT_YEAR
 
   public currentTime = this.getTimeString()
 

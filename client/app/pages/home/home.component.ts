@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       ['i-mdi:xbox', 'Xbox', '']
     ],
     avatarUrl: '/api/utils/qqavatar'
-  }
+  } // TODO
 
   public constructor(
     private readonly apiService: ApiService,

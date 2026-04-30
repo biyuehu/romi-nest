@@ -38,7 +38,7 @@ export class AdminSidebarComponent {
     {
       text: '系统管理',
       children: [
-        { text: '站点设置', link: '/admin/settings', icon: 'i-mdi:cog' },
+        { text: '系统设置', link: '/admin/settings', icon: 'i-mdi:cog' },
         { text: '安全设置', link: '/admin/security', icon: 'i-mdi:shield-key' },
         { text: '个人资料', link: '/admin/profile', icon: 'i-mdi:account' },
         { text: '网站日志', link: '/admin/logs', icon: 'i-mdi:file-document-outline' }

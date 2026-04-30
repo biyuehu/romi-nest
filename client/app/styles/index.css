@@ -133,7 +133,7 @@
 .md-editor-wrapper {
     display: flex;
     flex-direction: column;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
     background: white;

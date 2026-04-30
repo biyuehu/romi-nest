@@ -11,83 +11,84 @@
   </div>
 
   <div list-content>
-    <table class="min-w-full divide-y divide-text-200 overflow-x-auto">
-      <thead class="bg-text-200">
+    <table class="min-w-full divide-y divide-border-base overflow-x-auto">
+      <thead class="bg-bg-elevated">
       <tr>
-        <th class="px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">名字</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">名字</th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           别名
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           罗马字
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           类型
         </th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+        <th class="px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           作品
         </th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+        <th class="px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           性别
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           描述
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           一言
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           评价
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           血型
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           三围
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           瞳色
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           发色
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           身高
         </th>
         <th
-                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">
+                class="hidden 2xl:table-cell px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">
           体重
         </th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-bg-200 uppercase tracking-wider">可见性</th>
-        <th class="px-6 py-3 text-right text-xs font-medium text-bg-200 uppercase tracking-wider">操作</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-text-base uppercase tracking-wider">可见性</th>
+        <th class="px-6 py-3 text-right text-xs font-medium text-text-base uppercase tracking-wider">操作</th>
       </tr>
       </thead>
-      <tbody class="bg-text-200 divide-y divide-text-200">
+      <tbody class="bg-bg-surface divide-y divide-border-base">
         @for (char of pagedItems; track char.id) {
-          <tr class="hover:bg-text-200">
+          <tr class="hover:bg-bg-subtle">
             <td class="px-6 py-4">
               <div class="flex items-center">
                 @if (char.images.length > 0) {
-                    <img height="48"  width="48" [ngSrc]="char.images[0]" class="hidden 2xl:inline h-12 object-cover rounded mr-3"
-                         alt="Character images"/>
+                  <img height="48" width="48" [ngSrc]="char.images[0]"
+                       class="hidden 2xl:inline h-12 object-cover rounded mr-3"
+                       alt="Character images"/>
                 }
                 <div>
                   <a [routerLink]="['/char/', char.id]" target="_blank"
-                     class="text-sm font-medium text-bg-200 truncate">
+                     class="text-sm font-medium text-text-base truncate">
                     {{ char.name }}
                   </a>
-                  <div class="text-sm text-gray-500">
+                  <div class="text-sm text-text-sub">
                     @if (char && char.birthday !== null) {
                       {{ char.birthday * 1000 | date:'MM-dd' : 'UTC' }}
                     } @else {
@@ -98,22 +99,22 @@
               </div>
             </td>
             <td class="hidden 2xl:table-cell px-3 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words" [title]="char.alias.join('、')">
+              <p class="text-sm text-text-sub line-clamp-2 break-words" [title]="char.alias.join('、')">
                 {{ char.alias.join('、') }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-2 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words">
+              <p class="text-sm text-text-sub line-clamp-2 break-words">
                 {{ char.romaji }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-12 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words" [title]="char.series_genre">
+              <p class="text-sm text-text-sub line-clamp-2 break-words" [title]="char.series_genre">
                 {{ char.series_genre }}
               </p>
             </td>
             <td class="px-3 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words" [title]="char.series">
+              <p class="text-sm text-text-sub line-clamp-2 break-words" [title]="char.series">
                 {{ char.series }}
               </p>
             </td>
@@ -123,47 +124,47 @@
               </r-tag>
             </td>
             <td class="hidden 2xl:table-cell px-12 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words" [title]="char.description">
+              <p class="text-sm text-text-sub line-clamp-2 break-words" [title]="char.description">
                 {{ char.description }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-8 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words" [title]="char.hitokoto ?? ''">
+              <p class="text-sm text-text-sub line-clamp-2 break-words" [title]="char.hitokoto ?? ''">
                 {{ char.hitokoto ?? '' }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-8 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words" [title]="char.comment ?? ''">
+              <p class="text-sm text-text-sub line-clamp-2 break-words" [title]="char.comment ?? ''">
                 {{ char.comment ?? '' }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-4 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words">
+              <p class="text-sm text-text-sub line-clamp-2 break-words">
                 {{ char.blood_type ?? '' }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-6 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words" [title]="renderBWH(char)">
+              <p class="text-sm text-text-sub line-clamp-2 break-words" [title]="renderBWH(char)">
                 {{ renderBWH(char) }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-3 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words">
+              <p class="text-sm text-text-sub line-clamp-2 break-words">
                 {{ char.eye_color }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-3 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words">
+              <p class="text-sm text-text-sub line-clamp-2 break-words">
                 {{ char.hair_color }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-3 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words">
+              <p class="text-sm text-text-sub line-clamp-2 break-words">
                 {{ char.height }}
               </p>
             </td>
             <td class="hidden 2xl:table-cell px-3 py-4">
-              <p class="text-sm text-gray-500 line-clamp-2 break-words">
+              <p class="text-sm text-text-sub line-clamp-2 break-words">
                 {{ char.weight }}
               </p>
             </td>

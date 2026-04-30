@@ -1,13 +1,14 @@
 import { DatePipe } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { RouterLink } from '@angular/router'
+import { CardComponent } from '../../components/card/card.component'
 import { ResDashboardData, ResPostData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { ROMI_METADATA } from '../../shared/constants'
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, RouterLink, CardComponent],
   templateUrl: './admin-dashboard.component.html'
 })
 export class AdminDashboardComponent implements OnInit {

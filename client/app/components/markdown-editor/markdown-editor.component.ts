@@ -354,7 +354,7 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
   }
 
   public cycleMode() {
-    const modes: Array<EditorMode> = [EditorMode.Preview, EditorMode.Source, EditorMode.Both]
+    const modes: EditorMode[] = [EditorMode.Preview, EditorMode.Source, EditorMode.Both]
     const currentIndex = modes.indexOf(this.currentMode())
     const nextIndex = (currentIndex + 1) % modes.length
     this.currentMode.set(modes[nextIndex])

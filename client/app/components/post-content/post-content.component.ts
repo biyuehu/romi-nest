@@ -57,7 +57,7 @@ export class PostContentComponent implements OnInit, OnDestroy {
   private viewedTimeoutId?: number
   private mdParser?: MarkdownIt
   private highlighter?: HighlighterGeneric<BundledLanguage, BundledTheme>
-  private destroy$ = new Subject<void>()
+  private readonly destroy$ = new Subject<void>()
 
   public renderedContent?: SafeHtml
   public commentText = ''
