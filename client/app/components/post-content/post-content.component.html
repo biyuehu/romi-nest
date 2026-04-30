@@ -71,7 +71,7 @@
         @if (!hideRelatedPosts && !post.hide && (post.prev || post.next)) {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-7">
             @if (post.prev) {
-              <a [routerLink]="['/post/', post.prev.str_id ? post.prev.str_id : post.prev.id]"
+              <a [routerLink]="['/post/', post.prev.strId ? post.prev.strId : post.prev.id]"
                  class="group p-4 bg-bg-elevated hover:bg-bg-subtle rounded-lg transition-colors border border-border-base">
                 <div class="flex items-center gap-2 text-text-sub mb-2">
                   <span>上一篇</span>
@@ -85,7 +85,7 @@
             }
 
             @if (post.next) {
-              <a [routerLink]="['/post/', post.next.str_id ? post.next.str_id : post.next.id]"
+              <a [routerLink]="['/post/', post.next.strId ? post.next.strId : post.next.id]"
                  class="group p-4 bg-bg-elevated hover:bg-bg-subtle rounded-lg transition-colors border border-border-base">
                 <div class="flex items-center gap-2 text-text-sub mb-2 justify-end">
                   <span>下一篇</span>
@@ -99,7 +99,7 @@
         }
 
         @if (!hideComments) {
-          @if (post.allow_comment) {
+          @if (post.allowComment) {
             <div class="mt-8 mb-6 p-3 rounded-lg">
               <h3 class="text-2xl font-bold mb-6 flex items-center gap-2 text-text-base">评论区</h3>
 
@@ -149,8 +149,8 @@
                              class="rounded-full bg-bg-subtle flex-shrink-0 overflow-hidden"/>
                         <div class="flex-1">
                           <div class="flex flex-wrap items-center gap-2 truncate whitespace-nowrap">
-                            @if (comment.user_url) {
-                              <a [href]="comment.user_url" target="_blank"
+                            @if (comment.userUrl) {
+                              <a [href]="comment.userUrl" target="_blank"
                                  class="text-sm text-brand hover:text-brand-hover">
                                 {{ '@' + comment.username }}
                               </a>

@@ -7,12 +7,14 @@ pub struct ResSettingsDataHomeLink(String, String, Option<String>);
 
 #[derive(Clone, Serialize, Deserialize, TS, Debug)]
 #[ts(export, export_to = "../client/output.ts")]
-pub struct ResSettingsDataDependentPage {
+pub struct ResSettingsDataIndependentPage {
     pub name: String,
     pub title: String,
     pub id: u64,
     pub routine: bool,
+    #[serde(rename = "hideToc")]
     pub hide_toc: bool,
+    #[serde(rename = "hideComments")]
     pub hide_comments: bool,
 }
 
@@ -28,35 +30,56 @@ pub struct ResSettingsDataFriendLink {
 #[derive(Clone, Serialize, Deserialize, TS, Debug)]
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResSettingsData {
+    #[serde(rename = "siteTitle")]
     pub site_title: String,
+    #[serde(rename = "siteDescription")]
     pub site_description: String,
+    #[serde(rename = "siteKeywords")]
     pub site_keywords: Vec<String>,
+    #[serde(rename = "siteName")]
     pub site_name: String,
-    // pub site_url: String,
+    #[serde(rename = "siteFavicon")]
     pub site_favicon: String,
+    #[serde(rename = "siteLogo")]
     pub site_logo: String,
+    #[serde(rename = "avatarUrl")]
     pub avatar_url: String,
+    #[serde(rename = "homeTitle")]
     pub home_title: String,
+    #[serde(rename = "homeSubtitle")]
     pub home_subtitle: String,
+    #[serde(rename = "homeLinks")]
     pub home_links: Vec<ResSettingsDataHomeLink>,
-    pub dependent_pages: Vec<ResSettingsDataDependentPage>,
-    pub links: Vec<ResSettingsDataFriendLink>, // pub site_author: String,
+    #[serde(rename = "independentPages")]
+    pub independent_pages: Vec<ResSettingsDataIndependentPage>,
+    pub links: Vec<ResSettingsDataFriendLink>,
 }
 
 #[derive(Serialize, TS)]
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResDashboardData {
+    #[serde(rename = "postsCount")]
     pub posts_count: u64,
+    #[serde(rename = "categoriesCount")]
     pub categories_count: u64,
+    #[serde(rename = "tagsCount")]
     pub tags_count: u64,
+    #[serde(rename = "commentsCount")]
     pub comments_count: u64,
+    #[serde(rename = "usersCount")]
     pub users_count: u64,
+    #[serde(rename = "hitokotosCount")]
     pub hitokotos_count: u64,
+    #[serde(rename = "newsCount")]
     pub news_count: u64,
+    #[serde(rename = "seimgsCount")]
     pub seimgs_count: u64,
     pub version: String,
+    #[serde(rename = "osInfo")]
     pub os_info: String,
+    #[serde(rename = "homeDir")]
     pub home_dir: String,
+    #[serde(rename = "nodejsVersion")]
     pub nodejs_version: String,
 }
 
@@ -88,7 +111,6 @@ pub struct ResProjectData {
 #[derive(Clone, Debug, Deserialize, Serialize, TS)]
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResBangumiData {
-    // origin_id: u64,
     pub name: String,
     pub tags: Vec<String>,
     pub image: String,
@@ -105,6 +127,7 @@ pub struct OriginBangumiData {
 
 #[derive(Clone, Debug, Deserialize, Serialize, TS)]
 pub struct OriginBangumiDataItem {
+    #[serde(rename = "subjectId")]
     pub subject_id: u64,
     pub tags: Vec<String>,
     pub subject: OriginBangumiSubject,
@@ -114,6 +137,7 @@ pub struct OriginBangumiDataItem {
 pub struct OriginBangumiSubject {
     pub name: String,
     pub images: OriginBangumiSubjectImages,
+    #[serde(rename = "shortSummary")]
     pub short_summary: String,
     pub eps: Option<u64>,
     pub date: String,

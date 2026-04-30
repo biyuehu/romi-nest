@@ -25,8 +25,10 @@ pub struct ResHitokotoData {
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ReqHitokoto2Data {
     pub msg: String,
+    #[serde(rename = "msgOrigin")]
     pub msg_origin: Option<String>,
     pub from: Option<String>,
+    #[serde(rename = "fromWho")]
     pub from_who: Option<String>,
     pub r#type: i8,
     pub public: bool,
@@ -37,8 +39,10 @@ pub struct ReqHitokoto2Data {
 pub struct ResHitokoto2Data {
     pub uuid: String,
     pub msg: String,
+    #[serde(rename = "msgOrigin")]
     pub msg_origin: Option<String>,
     pub from: Option<String>,
+    #[serde(rename = "fromWho")]
     pub from_who: Option<String>,
     pub r#type: i8,
     pub likes: i32,

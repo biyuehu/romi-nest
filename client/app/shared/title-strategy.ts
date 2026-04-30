@@ -72,8 +72,8 @@ export class AppTitleStrategy extends TitleStrategy {
   }
 
   public setTitle(title?: string) {
-    const { site_title } = this.apiService.settings()
-    this.title.setTitle(title?.trim() ? `${title.slice(0, 30)} - ${site_title}` : site_title)
+    const { siteTitle } = this.apiService.settings()
+    this.title.setTitle(title?.trim() ? `${title.slice(0, 30)} - ${siteTitle}` : siteTitle)
   }
 
   public override updateTitle(snapshot: RouterStateSnapshot) {

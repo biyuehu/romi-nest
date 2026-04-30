@@ -296,11 +296,13 @@ export class PostContentComponent implements OnInit, OnDestroy {
 
     this.extra = {
       url: this.browserService.on(() => `${location.origin}/post/${this.post.id}`) ?? '',
-      url2: this.post.str_id ? this.browserService.on(() => `${location.origin}/post/${this.post.str_id}`) : null,
+      url2: this.post.strId ? this.browserService.on(() => `${location.origin}/post/${this.post.strId}`) : null,
       tags: this.post.tags.map((tag) => [tag, randomRTagType()])
     }
 
-    const rawHtml = this.mdParser!.render(this.post.text)
+    if (!this.mdParser) return
+
+    const rawHtml = this.mdParser.render(this.post.text)
     this.renderedContent = this.sanitizer.bypassSecurityTrustHtml(rawHtml)
 
     if (!this.hideToc) this.toc = this.generateToc(this.post.text)

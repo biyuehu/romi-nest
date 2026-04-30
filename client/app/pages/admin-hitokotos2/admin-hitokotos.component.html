@@ -28,9 +28,9 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <r-input type="text" [(ngModel)]="newHitokoto.msg" placeholder="内容"/>
-          <r-input type="text" [(ngModel)]="newHitokoto.msg_origin" placeholder="原文"/>
+          <r-input type="text" [(ngModel)]="newHitokoto.msgOrigin" placeholder="原文"/>
           <r-input type="text" [(ngModel)]="newHitokoto.from" placeholder="来源"/>
-          <r-input type="text" [(ngModel)]="newHitokoto.from_who" placeholder="来者"/>
+          <r-input type="text" [(ngModel)]="newHitokoto.fromWho" placeholder="来者"/>
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
@@ -58,9 +58,9 @@
           <div class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <r-input type="text" [(ngModel)]="newHitokoto.msg" placeholder="内容"/>
-              <r-input type="text" [(ngModel)]="newHitokoto.msg_origin" placeholder="原文"/>
+              <r-input type="text" [(ngModel)]="newHitokoto.msgOrigin" placeholder="原文"/>
               <r-input type="text" [(ngModel)]="newHitokoto.from" placeholder="来源"/>
-              <r-input type="text" [(ngModel)]="newHitokoto.from_who" placeholder="来者"/>
+              <r-input type="text" [(ngModel)]="newHitokoto.fromWho" placeholder="来者"/>
             </div>
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
@@ -86,12 +86,12 @@
           <div class="flex items-start justify-between gap-4">
             <div class="flex-1 space-y-2">
               <p class="text-text-base">{{ hitokoto.msg }}</p>
-              @if (hitokoto.msg_origin) {
-                <p class="text-text-base">{{ hitokoto.msg_origin }}</p>
+              @if (hitokoto.msgOrigin) {
+                <p class="text-text-base">{{ hitokoto.msgOrigin }}</p>
               }
               <div class="flex items-center gap-4 text-sm">
               <span class="text-accent">
-              {{ hitokoto.from_who }}
+              {{ hitokoto.fromWho }}
             </span>
                 @if (hitokoto.from) {
                   <span class="text-text-sub">

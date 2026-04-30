@@ -4,6 +4,7 @@ use ts_rs::TS;
 #[derive(Deserialize, TS)]
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ReqPostData {
+    #[serde(rename = "strId")]
     pub str_id: Option<String>,
     pub title: String,
     pub text: String,
@@ -12,6 +13,7 @@ pub struct ReqPostData {
     pub tags: Vec<String>,
     pub categories: Vec<String>,
     pub banner: Option<String>,
+    #[serde(rename = "allowComment")]
     pub allow_comment: bool,
     pub created: u32,
     pub modified: u32,
@@ -27,6 +29,7 @@ pub struct ReqDecryptPostData {
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResPostData {
     pub id: u32,
+    #[serde(rename = "strId")]
     pub str_id: Option<String>,
     pub title: String,
     pub created: u32,
@@ -34,6 +37,7 @@ pub struct ResPostData {
     pub summary: String,
     pub password: Option<String>,
     pub hide: bool,
+    #[serde(rename = "allowComment")]
     pub allow_comment: bool,
     pub tags: Vec<String>,
     pub categories: Vec<String>,
@@ -47,6 +51,7 @@ pub struct ResPostData {
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResPostSingleDataRelatedPost {
     pub id: u32,
+    #[serde(rename = "strId")]
     pub str_id: Option<String>,
     pub title: String,
 }
@@ -55,6 +60,7 @@ pub struct ResPostSingleDataRelatedPost {
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResPostSingleData {
     pub id: u32,
+    #[serde(rename = "strId")]
     pub str_id: Option<String>,
     pub title: String,
     pub created: u32,
@@ -63,6 +69,7 @@ pub struct ResPostSingleData {
     pub languages: Vec<String>,
     pub password: Option<String>,
     pub hide: bool,
+    #[serde(rename = "allowComment")]
     pub allow_comment: bool,
     pub tags: Vec<String>,
     pub categories: Vec<String>,

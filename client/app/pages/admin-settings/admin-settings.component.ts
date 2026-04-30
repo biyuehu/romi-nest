@@ -6,9 +6,9 @@ import { WebComponentCheckboxAccessorDirective } from '../../directives/web-comp
 import { WebComponentInputAccessorDirective } from '../../directives/web-component-input-accessor.directive'
 import type {
   ResSettingsData,
-  ResSettingsDataDependentPage,
   ResSettingsDataFriendLink,
-  ResSettingsDataHomeLink
+  ResSettingsDataHomeLink,
+  ResSettingsDataIndependentPage
 } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { NotifyService } from '../../services/notify.service'
@@ -29,13 +29,13 @@ export class AdminSettingsComponent implements OnInit {
   public homeLinkForm: ResSettingsDataHomeLink = ['', '', '']
 
   public editingDependentPageId: number | null = null
-  public dependentPageForm: ResSettingsDataDependentPage = {
+  public dependentPageForm: ResSettingsDataIndependentPage = {
     name: '',
     title: '',
     id: 0n,
     routine: false,
-    hide_toc: false,
-    hide_comments: false
+    hideToc: false,
+    hideComments: false
   }
 
   public editingFriendLinkIndex: number | null = null
@@ -60,13 +60,13 @@ export class AdminSettingsComponent implements OnInit {
     this.isLoading = true
     this.apiService.getSettings().subscribe((data) => {
       this.settingsForm = data
-      this.keywordsInput = data.site_keywords.join(', ')
+      this.keywordsInput = data.siteKeywords.join(', ')
       this.isLoading = false
     })
   }
 
   public onKeywordsInputChange(): void {
-    this.settingsForm.site_keywords = this.keywordsInput
+    this.settingsForm.siteKeywords = this.keywordsInput
       .split(',')
       .map((k) => k.trim())
       .filter((k) => k !== '')
@@ -74,7 +74,7 @@ export class AdminSettingsComponent implements OnInit {
 
   public startEditHomeLink(index: number): void {
     this.editingHomeLinkIndex = index
-    this.homeLinkForm = [...this.settingsForm.home_links[index]]
+    this.homeLinkForm = [...this.settingsForm.homeLinks[index]]
   }
 
   public cancelEditHomeLink(): void {
@@ -88,20 +88,20 @@ export class AdminSettingsComponent implements OnInit {
       return
     }
     if (this.editingHomeLinkIndex !== null) {
-      this.settingsForm.home_links[this.editingHomeLinkIndex] = [...this.homeLinkForm]
+      this.settingsForm.homeLinks[this.editingHomeLinkIndex] = [...this.homeLinkForm]
     } else {
-      this.settingsForm.home_links.push([...this.homeLinkForm])
+      this.settingsForm.homeLinks.push([...this.homeLinkForm])
     }
     this.cancelEditHomeLink()
   }
 
   public removeHomeLink(index: number): void {
-    this.settingsForm.home_links.splice(index, 1)
+    this.settingsForm.homeLinks.splice(index, 1)
     if (this.editingHomeLinkIndex === index) this.cancelEditHomeLink()
   }
 
   // ========== DependentPage 相关 ==========
-  public startEditDependentPage(page: ResSettingsDataDependentPage): void {
+  public startEditDependentPage(page: ResSettingsDataIndependentPage): void {
     this.editingDependentPageId = Number(page.id)
     this.dependentPageForm = { ...page }
   }
@@ -113,8 +113,8 @@ export class AdminSettingsComponent implements OnInit {
       title: '',
       id: 0n,
       routine: false,
-      hide_toc: false,
-      hide_comments: false
+      hideToc: false,
+      hideComments: false
     }
   }
 
@@ -125,22 +125,22 @@ export class AdminSettingsComponent implements OnInit {
     }
     const targetId = Number(this.dependentPageForm.id)
     if (this.editingDependentPageId !== null) {
-      const index = this.settingsForm.dependent_pages.findIndex((p) => Number(p.id) === this.editingDependentPageId)
+      const index = this.settingsForm.independentPages.findIndex((p) => Number(p.id) === this.editingDependentPageId)
       if (index !== -1) {
-        this.settingsForm.dependent_pages[index] = { ...this.dependentPageForm, id: BigInt(targetId) }
+        this.settingsForm.independentPages[index] = { ...this.dependentPageForm, id: BigInt(targetId) }
       }
     } else {
-      if (this.settingsForm.dependent_pages.some((p) => Number(p.id) === targetId)) {
+      if (this.settingsForm.independentPages.some((p) => Number(p.id) === targetId)) {
         this.notifyService.showMessage('文章ID已存在', MessageBoxType.Error)
         return
       }
-      this.settingsForm.dependent_pages.push({ ...this.dependentPageForm, id: BigInt(targetId) })
+      this.settingsForm.independentPages.push({ ...this.dependentPageForm, id: BigInt(targetId) })
     }
     this.cancelEditDependentPage()
   }
 
   public removeDependentPage(id: bigint): void {
-    this.settingsForm.dependent_pages = this.settingsForm.dependent_pages.filter((p) => p.id !== id)
+    this.settingsForm.independentPages = this.settingsForm.independentPages.filter((p) => p.id !== id)
     if (this.editingDependentPageId === Number(id)) this.cancelEditDependentPage()
   }
 

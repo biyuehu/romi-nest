@@ -33,7 +33,7 @@ export class PostComponent implements OnInit {
         subTitle: [
           `创建时间：${formatDate(new Date(post.created * 1000))}`,
           `更新时间：${formatDate(new Date(post.modified * 1000))}`,
-          `${post.views} 次阅读 ${post.allow_comment ? `•  ${post.comments} 条评论 ` : ''}•  ${post.likes} 人喜欢`
+          `${post.views} 次阅读 ${post.allowComment ? `•  ${post.comments} 条评论 ` : ''}•  ${post.likes} 人喜欢`
         ],
         ...(post.banner ? { imageUrl: post.banner } : {})
       })

@@ -141,7 +141,7 @@
           </div>
           <div>
             <label class="block text-sm text-text-base mb-2">系列类型</label>
-            <select [(ngModel)]="charForm.series_genre"
+            <select [(ngModel)]="charForm.seriesGenre"
                     class="w-full px-4 py-2 bg-bg-surface border border-border-base rounded-lg focus:border-brand focus:ring-1 focus:ring-brand outline-none text-text-base">
               <option value="GALGAME">GalGame</option>
               <option value="NOVEL">轻小说</option>
@@ -159,7 +159,7 @@
           <div class="grid grid-cols-5 gap-1">
             <div class="col-span-4">
               <label class="block text-sm text-text-base mb-2">血型</label>
-              <select [(ngModel)]="charForm.blood_type"
+              <select [(ngModel)]="charForm.bloodType"
                       class="w-full px-4 py-2 bg-bg-surface border border-border-base rounded-lg focus:border-brand focus:ring-1 focus:ring-brand outline-none text-text-base">
                 <option value="A">A</option>
                 <option value="B">B</option>
@@ -169,7 +169,7 @@
             </div>
             <div>
               <div class="text-transparent mb-2">hide</div>
-              <r-button type="error" (click)="charForm.blood_type = null">清除</r-button>
+              <r-button type="error" (click)="charForm.bloodType = null">清除</r-button>
             </div>
           </div>
           <div>
@@ -182,10 +182,10 @@
             <r-input label="臀围" type="number" [(ngModel)]="charForm.hip" class="w-full"/>
           </div>
           <div>
-            <r-input label="发色" [(ngModel)]="charForm.hair_color" class="w-full"/>
+            <r-input label="发色" [(ngModel)]="charForm.hairColor" class="w-full"/>
           </div>
           <div>
-            <r-input label="瞳色" [(ngModel)]="charForm.eye_color" class="w-full"/>
+            <r-input label="瞳色" [(ngModel)]="charForm.eyeColor" class="w-full"/>
           </div>
           <div class="grid grid-cols-5 gap-1">
             <r-input label="主色" type="color" [(ngModel)]="mainColor" class="w-full col-span-4"/>
@@ -203,9 +203,9 @@
                 </div>
               }
             </div>
-            <span class="block text-sm text-text-base mb-2">已选择：@if (charForm.song_id) {
+            <span class="block text-sm text-text-base mb-2">已选择：@if (charForm.songId) {
               <a
-                      [href]="'http://music.163.com/song/media/outer/url?id=' + charForm.song_id + '.mp3'"
+                      [href]="'http://music.163.com/song/media/outer/url?id=' + charForm.songId + '.mp3'"
                       target="_blank" class="text-brand hover:text-brand-hover">{{
                       songName
                 }}</a><span (click)="clearSong()"

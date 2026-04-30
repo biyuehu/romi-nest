@@ -1,6 +1,6 @@
 <app-card
         class="group break-inside-avoid mb-6"
-        [routerLink]="['/post', post.str_id ? post.str_id : post.id]">
+        [routerLink]="['/post', post.strId ? post.strId : post.id]">
   @if (post.banner) {
     <div class="aspect-video overflow-hidden relative bg-bg-elevated">
       <img fill [ngSrc]="post.banner" [alt]="post.title"
@@ -25,7 +25,7 @@
             <i class="i-mdi-eye-outline"></i>
         {{ post.views }}
           </span>
-      @if (post.allow_comment) {
+      @if (post.allowComment) {
         <span class="flex items-center gap-1">
             <i class="i-mdi-comment-text-multiple-outline"></i>
           {{ post.comments }}

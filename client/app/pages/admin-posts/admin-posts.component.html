@@ -44,7 +44,7 @@
                   </div>
                 }
                 <div>
-                  <a [routerLink]="['/post/', post.str_id ? post.str_id : post.id]" target="_blank"
+                  <a [routerLink]="['/post/', post.strId ? post.strId : post.id]" target="_blank"
                      class="text-sm font-medium text-text-base truncate" [title]="post.title">
                     {{ post.title.slice(0, 20) }}
                   </a>
@@ -60,7 +60,7 @@
               </p>
             </td>
             <td class="px-6 py-4">
-              @if (post.allow_comment) {
+              @if (post.allowComment) {
                 <r-tag type="success">允许</r-tag>
               } @else {
                 <r-tag type="error">禁止</r-tag>

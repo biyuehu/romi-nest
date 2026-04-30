@@ -91,10 +91,10 @@
               <div class="text-text-base">{{ char.series }}</div>
             </div>
           }
-          @if (char.series_genre) {
+          @if (char.seriesGenre) {
             <div>
               <span class="text-xs text-text-sub">类型</span>
-              <div class="text-text-base">{{ char.series_genre }}</div>
+              <div class="text-text-base">{{ char.seriesGenre }}</div>
             </div>
           }
           @if (char.voice) {
@@ -103,16 +103,16 @@
               <div class="text-text-base">{{ char.voice }}</div>
             </div>
           }
-          @if (char.hair_color) {
+          @if (char.hairColor) {
             <div>
               <span class="text-xs text-text-sub">发色</span>
-              <div class="text-text-base">{{ char.hair_color }}</div>
+              <div class="text-text-base">{{ char.hairColor }}</div>
             </div>
           }
-          @if (char.eye_color) {
+          @if (char.eyeColor) {
             <div>
               <span class="text-xs text-text-sub">瞳色</span>
-              <div class="text-text-base">{{ char.eye_color }}</div>
+              <div class="text-text-base">{{ char.eyeColor }}</div>
             </div>
           }
           @if (char.height) {
@@ -127,10 +127,10 @@
               <div class="text-text-base">{{ char.weight }} kg</div>
             </div>
           }
-          @if (char.blood_type) {
+          @if (char.bloodType) {
             <div>
               <span class="text-xs text-text-sub">血型</span>
-              <div class="text-text-base">{{ char.blood_type }}</div>
+              <div class="text-text-base">{{ char.bloodType }}</div>
             </div>
           }
           @if (BWH) {
@@ -172,7 +172,7 @@
         </div>
       </app-card>
 
-      @if (char.comment || char.url.length > 0 || char.song_id) {
+      @if (char.comment || char.url.length > 0 || char.songId) {
         <app-card class="w-full">
           <div class="p-4">
             <div id="aplayer"></div>

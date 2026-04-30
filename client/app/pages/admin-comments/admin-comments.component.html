@@ -16,8 +16,8 @@
 
             <div class="flex items-center gap-4 text-sm">
               <div class="flex items-center gap-2 text-accent">
-                @if (comment.user_url) {
-                  <a [href]="comment.user_url" target="_blank" class="text-brand hover:text-brand-hover">
+                @if (comment.userUrl) {
+                  <a [href]="comment.userUrl" target="_blank" class="text-brand hover:text-brand-hover">
                     {{ comment.username }}
                   </a>
                 } @else {
