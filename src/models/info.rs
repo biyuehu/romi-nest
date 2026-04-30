@@ -16,6 +16,7 @@ pub struct ResSettingsDataIndependentPage {
     pub hide_toc: bool,
     #[serde(rename = "hideComments")]
     pub hide_comments: bool,
+    pub template: String,
 }
 
 #[derive(Clone, Serialize, Deserialize, TS, Debug)]

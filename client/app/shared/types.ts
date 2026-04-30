@@ -17,7 +17,7 @@ export type APlayer = {
 
 export const APlayer = (globalThis as unknown as { APlayer: new (options: object) => APlayer }).APlayer
 
-export type DependentPage = {
+export type IndependentPage = {
   name: string
   title: string
   id: number
