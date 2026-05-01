@@ -79,6 +79,7 @@ pub async fn get_settings_cache(db: &DatabaseConnection) -> Result<ResSettingsDa
                 site_name: settings.site_name,
                 site_favicon: settings.site_favicon,
                 site_logo: settings.site_logo,
+                header_background: settings.header_background,
                 home_avatar: settings.home_avatar,
                 home_title: settings.home_title,
                 home_subtitle: settings.home_subtitle,

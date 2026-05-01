@@ -1,7 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core'
 import { pipe } from 'fp-ts/function'
 import { ResPostSingleData } from '../../../output'
-import { PostContentComponent } from '../../components/post-content/post-content.component'
+import PostContentComponent from '../../components/post-content/post-content.component'
 import { SkeletonLoaderComponent } from '../../components/skeleton-loader/skeleton-loader.component'
 import { ApiService } from '../../services/api.service'
 import { AppTitleStrategy } from '../../shared/title-strategy'

@@ -4,12 +4,12 @@ import { Router } from '@angular/router'
 import { EMPTY, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { match } from 'ts-pattern'
-import { MessageBoxType } from '../components/message/message.component'
 import { AuthService } from '../services/auth.service'
 import { BrowserService } from '../services/browser.service'
 import { LoggerService } from '../services/logger.service'
 import { NotifyService } from '../services/notify.service'
 import { HEADER_CONTEXT } from '../shared/constants'
+import { MessageBoxType } from '../shared/types'
 
 export const errorInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const browser = inject(BrowserService)

@@ -1,11 +1,11 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core'
 import { LayoutComponent } from '../../components/layout/layout.component'
-import { MessageBoxType } from '../../components/message/message.component'
 import { ResHitokotoData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { NotifyService } from '../../services/notify.service'
 import { STORE_KEYS, StoreService } from '../../services/store.service'
 import { AppTitleStrategy } from '../../shared/title-strategy'
+import { MessageBoxType } from '../../shared/types'
 import { HitokotosComponent } from '../hitokotos/hitokotos.component'
 
 @Component({

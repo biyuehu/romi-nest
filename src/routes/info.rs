@@ -112,6 +112,7 @@ async fn update_settings(
         active_model.site_name = ActiveValue::Set(settings.site_name);
         active_model.site_favicon = ActiveValue::Set(settings.site_favicon);
         active_model.site_logo = ActiveValue::Set(settings.site_logo);
+        active_model.header_background = ActiveValue::Set(settings.header_background);
         active_model.home_avatar = ActiveValue::Set(settings.home_avatar);
         active_model.home_title = ActiveValue::Set(settings.home_title);
         active_model.home_subtitle = ActiveValue::Set(settings.home_subtitle);

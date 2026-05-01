@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { ResPostSingleData } from '../../../output'
 import { ApiService } from '../../services/api.service'
 import { CardComponent } from '../card/card.component'
-import { PostContentComponent } from '../post-content/post-content.component'
+import PostContentComponent from '../post-content/post-content.component'
 
 @Component({
   selector: 'app-links',

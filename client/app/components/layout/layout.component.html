@@ -7,8 +7,10 @@
     <div class="bg-bg-surface max-h-60vh min-h-350px pt-14 overflow-hidden relative transition-shadow duration-500 shadow-xl"
          [class]="headerImageHeight" [class.mb-6]="!fullBackground">
       <div class="brightness-60 absolute left-0 top-0 w-full h-full">
-        <img fill priority [ngSrc]="appTitleStrategy.header$().imageUrl"
-             alt="Header Image" class="object-cover left-0 top-0"/>
+        @if (appTitleStrategy.header$().imageUrl.trim()) {
+          <img fill priority [ngSrc]="appTitleStrategy.header$().imageUrl"
+               alt="Header Image" class="object-cover left-0 top-0"/>
+        }
       </div>
       <div class="absolute left-0 top-3vh w-full h-full flex items-center justify-center">
         <div class="max-w-85% text-center text-text-base">

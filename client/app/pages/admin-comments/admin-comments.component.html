@@ -10,7 +10,7 @@
     @for (comment of pagedItems; track comment.cid) {
       <div class="p-6 hover:bg-bg-subtle">
         <div class="flex items-start justify-between gap-4">
-          <div class="flex-1 space-y-2">
+          <div class="flex-1 space-y-2" [routerLink]="['/post', comment.pid]">
             <p class="text-text-base w-50 lg:w-150 break-words"
                [title]="comment.text">{{ formatText(comment.text) }}</p>
 
@@ -28,12 +28,28 @@
               <div class="text-text-sub">
                 {{ comment.created * 1000 | date:'yyyy-MM-dd HH:mm' }}
               </div>
+
+              @if (comment.status === CommentStatus.toNumber(CommentStatus.Resolved)) {
+                <r-tag size="sm" type="success">已通过</r-tag>
+              } @else if (comment.status === CommentStatus.toNumber(CommentStatus.Pending)) {
+                <r-tag size="sm" type="warning">待处理</r-tag>
+              } @else if (comment.status === CommentStatus.toNumber(CommentStatus.Spam)) {
+                <r-tag size="sm" type="info">垃圾</r-tag>
+              }
             </div>
           </div>
 
-          <div class="">
-            <r-button [routerLink]="['/post', comment.pid]" type="secondary">查看文章</r-button>
-            <r-button (click)="deleteItem(comment.cid)" type="error">删除评论</r-button>
+          <div>
+            @if (comment.status !== CommentStatus.toNumber(CommentStatus.Resolved)) {
+              <r-button type="success" (click)="remarkItem(comment.cid, CommentStatus.Resolved)">通过</r-button>
+            }
+            @if (comment.status !== CommentStatus.toNumber(CommentStatus.Pending)) {
+              <r-button type="warning" (click)="remarkItem(comment.cid, CommentStatus.Pending)">悬置</r-button>
+            }
+            @if (comment.status !== CommentStatus.toNumber(CommentStatus.Spam)) {
+              <r-button type="info" (click)="remarkItem(comment.cid, CommentStatus.Spam)">垃圾</r-button>
+            }
+            <r-button (click)="deleteItem(comment.cid)" type="error">删除</r-button>
           </div>
         </div>
       </div>

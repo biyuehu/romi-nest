@@ -1,13 +1,13 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { MessageBoxType } from '../../components/message/message.component'
 import { WebComponentCheckboxAccessorDirective } from '../../directives/web-component-checkbox-accessor.directive'
 import { WebComponentInputAccessorDirective } from '../../directives/web-component-input-accessor.directive'
 import { ApiService } from '../../services/api.service'
 import { AuthService } from '../../services/auth.service'
 import { LoggerService } from '../../services/logger.service'
 import { NotifyService } from '../../services/notify.service'
+import { MessageBoxType } from '../../shared/types'
 import { showErr } from '../../shared/utils'
 
 @Component({

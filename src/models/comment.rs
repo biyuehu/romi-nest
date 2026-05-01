@@ -19,4 +19,5 @@ pub struct ResCommentData {
     pub text: String,
     #[serde(rename = "userUrl")]
     pub user_url: Option<String>,
+    pub status: u8,
 }

@@ -6,10 +6,10 @@ import {
   AbstractAdminBaseListComponent,
   AdminBaseListComponent
 } from '../../components/admin-base-list/admin-base-list.component'
-import { MessageBoxType } from '../../components/message/message.component'
 import { WebComponentInputAccessorDirective } from '../../directives/web-component-input-accessor.directive'
 import { ResCommentData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
+import { CommentStatus, MessageBoxType } from '../../shared/types'
 import { sortByCreatedTime } from '../../shared/utils'
 
 @Component({
@@ -48,7 +48,21 @@ export class AdminCommentsComponent extends AbstractAdminBaseListComponent<ResCo
     }
   }
 
+  public remarkItem(id: number, status: CommentStatus) {
+    this.apiService.remarkComment(id, status).subscribe(() => {
+      this.notifyService.showMessage('操作成功', MessageBoxType.Secondary)
+      this.items = this.items.map((item) => {
+        if (item.cid === id) {
+          item.status = CommentStatus.toNumber(status)
+        }
+        return item
+      })
+    })
+  }
+
   public formatText(text: string) {
     return text.length > 100 ? `${text.slice(0, 100)}...` : text
   }
+
+  protected readonly CommentStatus = CommentStatus
 }

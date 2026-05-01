@@ -4,11 +4,11 @@ import {
   AbstractAdminBaseListComponent,
   AdminBaseListComponent
 } from '../../components/admin-base-list/admin-base-list.component'
-import { MessageBoxType } from '../../components/message/message.component'
 import { WebComponentInputAccessorDirective } from '../../directives/web-component-input-accessor.directive'
 import { WebComponentSwitchAccessorDirective } from '../../directives/web-component-switch-accessor.directive'
 import { ReqHitokotoData, ResHitokotoData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
+import { MessageBoxType } from '../../shared/types'
 
 @Component({
   selector: 'app-admin-hitokotos',

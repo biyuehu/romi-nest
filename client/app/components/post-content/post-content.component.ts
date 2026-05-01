@@ -17,8 +17,8 @@ import { HighlighterService } from '../../services/highlighter.service'
 import { LoggerService } from '../../services/logger.service'
 import { NotifyService } from '../../services/notify.service'
 import { STORE_KEYS, StoreService } from '../../services/store.service'
+import { MessageBoxType } from '../../shared/types'
 import { randomRTagType, showErr } from '../../shared/utils'
-import { MessageBoxType } from '../message/message.component'
 import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component'
 
 interface TocItem {
@@ -44,7 +44,7 @@ interface CommentItem extends ResCommentData {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './post-content.component.html'
 })
-export class PostContentComponent implements OnInit, OnDestroy {
+class PostContentComponent implements OnInit, OnDestroy {
   @Input({ required: true }) public post!: ResPostSingleData
   @Input() public password = false
   @Input() public hideToc = false
@@ -308,3 +308,5 @@ export class PostContentComponent implements OnInit, OnDestroy {
     if (!this.hideToc) this.toc = this.generateToc(this.post.text)
   }
 }
+
+export default PostContentComponent
