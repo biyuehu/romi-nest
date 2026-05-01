@@ -15,6 +15,7 @@ pub struct Model {
     pub site_name: String,
     pub site_favicon: String,
     pub site_logo: String,
+    pub header_background: String,
     pub home_avatar: String,
     pub home_title: String,
     #[sea_orm(column_type = "Text")]

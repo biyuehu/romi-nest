@@ -5,11 +5,11 @@ import {
   AbstractAdminBaseListComponent,
   AdminBaseListComponent
 } from '../../components/admin-base-list/admin-base-list.component'
-import { MessageBoxType } from '../../components/message/message.component'
 import { WebComponentInputAccessorDirective } from '../../directives/web-component-input-accessor.directive'
 import { ReqUserData, ResUserData, UserAuthData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { AuthService } from '../../services/auth.service'
+import { MessageBoxType } from '../../shared/types'
 import { sortByCreatedTime } from '../../shared/utils'
 
 @Component({

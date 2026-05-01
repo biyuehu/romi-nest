@@ -4,35 +4,8 @@ import { filterMap, none, Option, some } from 'fp-ts/Option'
 import { iso, Newtype } from 'newtype-ts'
 import { Observable, of, tap } from 'rxjs'
 import { match, P } from 'ts-pattern'
+import { RTime } from '../shared/types'
 import { STORE_KEYS, StoreService } from './store.service'
-
-export interface RTime
-  extends Newtype<
-    { readonly RTime: unique symbol },
-    | { readonly _tag: 'RDay'; value: number }
-    | { readonly _tag: 'RHour'; value: number }
-    | { readonly _tag: 'RMinute'; value: number }
-    | { readonly _tag: 'RSecond'; value: number }
-    | { readonly _tag: 'RMerge'; value: [RTime, RTime] }
-  > {}
-
-const isoRtime = iso<RTime>()
-
-export const RDay = (value: number) => isoRtime.wrap({ _tag: 'RDay', value })
-export const RHour = (value: number) => isoRtime.wrap({ _tag: 'RHour', value })
-export const RMinute = (value: number) => isoRtime.wrap({ _tag: 'RMinute', value })
-export const RSecond = (value: number) => isoRtime.wrap({ _tag: 'RSecond', value })
-export const RMerge = (time1: RTime, time2: RTime) => isoRtime.wrap({ _tag: 'RMerge', value: [time1, time2] })
-
-export function toNumber(time: RTime): number {
-  return match(isoRtime.unwrap(time))
-    .with({ _tag: 'RDay' }, ({ value }) => value * 24 * 60 * 60 * 1000)
-    .with({ _tag: 'RHour' }, ({ value }) => value * 60 * 60 * 1000)
-    .with({ _tag: 'RMinute' }, ({ value }) => value * 60 * 1000)
-    .with({ _tag: 'RSecond' }, ({ value }) => value * 1000)
-    .with({ _tag: 'RMerge' }, ({ value: [t1, t2] }) => toNumber(t1) + toNumber(t2))
-    .exhaustive()
-}
 
 interface CacheEntry<T> {
   data: T
@@ -43,7 +16,7 @@ interface CacheEntry<T> {
   providedIn: 'root'
 })
 export class CacheService {
-  private static SHORT_TTL: RTime = RSecond(30)
+  private static SHORT_TTL: RTime = RTime.Second(30)
 
   private get<T = unknown>(key: string): Option<CacheEntry<T>> {
     return pipe(
@@ -66,7 +39,7 @@ export class CacheService {
       STORE_KEYS.cache(key),
       JSON.stringify({
         data,
-        timestamp: Date.now() + pipe(shortTtl, toNumber)
+        timestamp: Date.now() + pipe(shortTtl, RTime.toNumber)
       })
     )
   }
@@ -86,7 +59,10 @@ export class CacheService {
         ({ value: { data } }) => of(data)
       )
       .with(
-        { _tag: 'Some', value: { timestamp: P.when((timestamp) => Date.now() < timestamp + pipe(longTtl, toNumber)) } },
+        {
+          _tag: 'Some',
+          value: { timestamp: P.when((timestamp) => Date.now() < timestamp + pipe(longTtl, RTime.toNumber)) }
+        },
         ({ value: { data } }) => {
           f().subscribe((data) => {
             if (cacheCondition(data)) this.set(key, data, shortTtl)

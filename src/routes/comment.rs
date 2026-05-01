@@ -31,6 +31,7 @@ pub fn routes() -> Router<RomiState> {
         .route("/post/{pid}", get(fetch_by_post))
         .route("/", post(create))
         .route("/{id}", delete(remove))
+        .route("/remark/{id}/{status}", post(remark))
 }
 
 async fn fetch_all(
@@ -65,6 +66,7 @@ async fn fetch_all(
                     created: comment.created,
                     text: comment.text.clone(),
                     user_url: user.url.clone(),
+                    status: comment.status,
                 })
             })
             .collect(),
@@ -97,15 +99,20 @@ async fn fetch_by_post(
         comments
             .iter()
             .filter_map(|comment| {
-                user_map.get(&comment.uid).map(|user| ResCommentData {
-                    cid: comment.cid,
-                    pid: comment.pid,
-                    uid: comment.uid,
-                    username: user.username.clone(),
-                    created: comment.created,
-                    text: comment.text.clone(),
-                    user_url: user.url.clone(),
-                })
+                if (comment.status == 0) {
+                    user_map.get(&comment.uid).map(|user| ResCommentData {
+                        cid: comment.cid,
+                        pid: comment.pid,
+                        uid: comment.uid,
+                        username: user.username.clone(),
+                        created: comment.created,
+                        text: comment.text.clone(),
+                        user_url: user.url.clone(),
+                        status: comment.status,
+                    })
+                } else {
+                    None
+                }
             })
             .collect(),
     )
@@ -131,6 +138,7 @@ async fn create(
         ip: ActiveValue::set(addr.ip().to_string()),
         ua: ActiveValue::set(get_req_user_agent(&headers).unwrap_or_default().to_string()),
         text: ActiveValue::set(comment.text.clone()),
+        status: ActiveValue::set(1),
     }
     .update(&txn)
     .await
@@ -155,6 +163,39 @@ async fn create(
         auth_user.username
     );
 
+    api_ok(())
+}
+
+async fn remark(
+    AdminUser(admin_user): AdminUser,
+    Path(id): Path<u32>,
+    Path(status): Path<u8>,
+    State(RomiState { ref logger, ref conn, .. }): State<RomiState>,
+) -> ApiResult {
+    let txn = conn.begin().await.context("Failed to start transaction")?;
+    let status = match status {
+        0 => 0,
+        1 => 1,
+        2 => 2,
+        _ => return Err(ApiError::bad_request("Invalid status".to_string())),
+    };
+
+    romi_comments::Entity::update_many()
+        .col_expr(romi_comments::Column::Status, Expr::value(status))
+        .filter(romi_comments::Column::Cid.eq(id))
+        .exec(&txn)
+        .await
+        .with_context(|| format!("Failed to update comment {}", id))?;
+
+    txn.commit().await.context("Failed to commit transaction")?;
+    l_info!(
+        logger,
+        "Remarked comment {} as {} by admin {} ({})",
+        id,
+        status,
+        admin_user.id,
+        admin_user.username
+    );
     api_ok(())
 }
 

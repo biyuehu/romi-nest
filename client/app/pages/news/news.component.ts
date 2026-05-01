@@ -2,11 +2,11 @@ import { DatePipe, NgOptimizedImage } from '@angular/common'
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnDestroy, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ResNewsData } from '../../../output'
-import { MessageBoxType } from '../../components/message/message.component'
 import { ApiService } from '../../services/api.service'
 import { BrowserService } from '../../services/browser.service'
 import { NotifyService } from '../../services/notify.service'
 import { STORE_KEYS, StoreService } from '../../services/store.service'
+import { MessageBoxType } from '../../shared/types'
 
 @Component({
   selector: 'app-news',

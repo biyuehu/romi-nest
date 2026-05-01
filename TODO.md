@@ -18,7 +18,7 @@
 - [x] filter requests from Node.Js
 - [x] Refactory php ial api, such as proxy, qqavatar, etc.
 - [ ] Post and news comments and user system
-- [ ] Comments status: 0 resolved; 1 pending; 2 spam
+- [x] Comments status: 0 resolved; 1 pending; 2 spam
 - [ ] Images gallery
 - [ ] Images bed and management system
 - [ ] Refactory music player

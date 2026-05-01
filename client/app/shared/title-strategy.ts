@@ -2,50 +2,22 @@ import { Injectable, signal } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { ResolveFn, RouterStateSnapshot, TitleStrategy } from '@angular/router'
 import { pipe } from 'fp-ts/function'
-import { iso, Newtype } from 'newtype-ts'
-import { match } from 'ts-pattern'
-import { ResCharacterData, ResHitokotoData, ResNewsData, ResPostData, ResSettingsData } from '../models/api.model'
+import { ResCharacterData, ResHitokotoData, ResNewsData, ResPostData } from '../models/api.model'
 import { dynamicResolver } from '../pages/dynamic/dynamic.resolver'
 import { ApiService } from '../services/api.service'
 import { BrowserService } from '../services/browser.service'
+import { UrlPattern } from './types'
 
-export interface UrlPattern
-  extends Newtype<
-    { readonly UrlPattern: unique symbol },
-    | { readonly _tag: 'Starts'; value: string }
-    | { readonly _tag: 'Full'; value: string }
-    | { readonly _tag: 'Ends'; value: string }
-    | { readonly _tag: 'All' }
-  > {}
-
-const isoUrlPattern = iso<UrlPattern>()
-
-export const Starts = (value: string) => isoUrlPattern.wrap({ _tag: 'Starts', value })
-export const Full = (value: string) => isoUrlPattern.wrap({ _tag: 'Full', value })
-export const Ends = (value: string) => isoUrlPattern.wrap({ _tag: 'Ends', value })
-export const All = isoUrlPattern.wrap({ _tag: 'All' })
-
-export function testUrlPattern(url: string, pattern: UrlPattern): boolean {
-  return match(isoUrlPattern.unwrap(pattern))
-    .with({ _tag: 'Starts' }, ({ value }) => url.startsWith(value))
-    .with({ _tag: 'Full' }, ({ value }) => url === value)
-    .with({ _tag: 'Ends' }, ({ value }) => url.endsWith(value))
-    .with({ _tag: 'All' }, () => true)
-    .exhaustive()
-}
-
-export function dispatchUrlPattern(target: string, list: [UrlPattern, () => void][]) {
-  for (const [pattern, callback] of list) if (testUrlPattern(target, pattern)) return callback()
-}
+const { Full, Starts, All } = UrlPattern
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppTitleStrategy extends TitleStrategy {
   public static readonly DEFAULT_HEADER = {
-    title: 'Arimura Sena',
-    subTitle: ['What is mind? No matter.', 'What is matter? Never mind.'],
-    imageUrl: 'api/utils/background'
+    title: '',
+    subTitle: [''],
+    imageUrl: ''
   }
 
   public constructor(
@@ -55,20 +27,6 @@ export class AppTitleStrategy extends TitleStrategy {
     private readonly apiService: ApiService
   ) {
     super()
-    if (!browserService.is) return
-    const settings = this.apiService.settings()
-    const setMetaContent = (name: string, content: string) => {
-      let meta = document.querySelector(`meta[name="${name}"]`) as null | HTMLMetaElement
-      if (!meta) {
-        meta = document.createElement('meta')
-        meta.name = name
-        document.head.appendChild(meta)
-      }
-      meta.content = content
-    }
-    window.document.title = settings.siteTitle
-    setMetaContent('keywords', settings.siteKeywords)
-    setMetaContent('description', settings.siteDescription)
   }
 
   private readonly header = signal(AppTitleStrategy.DEFAULT_HEADER)
@@ -76,7 +34,10 @@ export class AppTitleStrategy extends TitleStrategy {
   public readonly header$ = this.header.asReadonly()
 
   public updateHeader(data: Partial<typeof AppTitleStrategy.DEFAULT_HEADER>) {
-    this.header.update((header) => ({ ...header, ...data }))
+    this.header.update((header) => ({
+      ...(header.imageUrl.trim() ? header : { ...header, imageUrl: this.apiService.settings().headerBackground }),
+      ...data
+    }))
   }
 
   private getResolvedRoute(snapshot: RouterStateSnapshot) {
@@ -93,7 +54,7 @@ export class AppTitleStrategy extends TitleStrategy {
   public override updateTitle(snapshot: RouterStateSnapshot) {
     pipe(this.buildTitle(snapshot), (title) => {
       const route = this.getResolvedRoute(snapshot)
-      dispatchUrlPattern(snapshot.url, [
+      UrlPattern.dispatch(snapshot.url, [
         [Full('/'), () => this.homePage()],
         [Full('/posts'), () => this.postsPage(title ?? '', route.data['posts'])],
         [Full('/newses'), () => this.newsesPage(title ?? '', route.data['newses'])],

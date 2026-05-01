@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BundledLanguage, BundledTheme, bundledLanguages, createHighlighter, HighlighterGeneric } from 'shiki'
-import { MessageBoxType } from '../components/message/message.component'
+import { MessageBoxType } from '../shared/types'
 import { NotifyService } from './notify.service'
 
 @Injectable({ providedIn: 'root' })

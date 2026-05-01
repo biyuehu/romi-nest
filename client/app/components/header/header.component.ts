@@ -8,8 +8,6 @@ import { ApiService } from '../../services/api.service'
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-  private lastSwitchMenu = 0
-
   public isMenuOpen = false
 
   public navItems = [
@@ -41,8 +39,8 @@ export class HeaderComponent {
   public constructor(public readonly apiService: ApiService) {}
 
   public toggleMenu() {
-    if (Date.now() - this.lastSwitchMenu < 200) return
-    this.lastSwitchMenu = Date.now()
+    // if (Date.now() - this.lastSwitchMenu < 200) return
+    // this.lastSwitchMenu = Date.now()
     this.isMenuOpen = !this.isMenuOpen
     if (this.isMenuOpen) {
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth

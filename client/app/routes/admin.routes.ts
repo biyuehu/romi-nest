@@ -31,7 +31,7 @@ export const adminRoutes: Routes = [
       },
       {
         path: 'metas',
-        loadComponent: () => import('../pages/admin-metas/admin-metas.component').then((m) => m.AdminMetasComponent),
+        loadComponent: () => import('../pages/admin-metas/admin-metas.component').then((m) => m.default),
         title: '字段管理'
       },
       {
@@ -76,7 +76,8 @@ export const adminRoutes: Routes = [
       {
         path: 'settings',
         loadComponent: () =>
-          import('../pages/admin-settings/admin-settings.component').then((m) => m.AdminSettingsComponent)
+          import('../pages/admin-settings/admin-settings.component').then((m) => m.AdminSettingsComponent),
+        title: '系统设置'
       }
     ]
   },

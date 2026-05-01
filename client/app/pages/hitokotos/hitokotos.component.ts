@@ -1,10 +1,10 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core'
 import { RouterLink } from '@angular/router'
-import { MessageBoxType } from '../../components/message/message.component'
 import { ResHitokotoData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { NotifyService } from '../../services/notify.service'
 import { STORE_KEYS, StoreService } from '../../services/store.service'
+import { MessageBoxType } from '../../shared/types'
 
 @Component({
   selector: 'app-hitokotos',

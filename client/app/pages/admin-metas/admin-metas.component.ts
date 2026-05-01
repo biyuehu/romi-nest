@@ -1,10 +1,10 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { MessageBoxType } from '../../components/message/message.component'
 import { WebComponentInputAccessorDirective } from '../../directives/web-component-input-accessor.directive'
 import { ResMetaData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { NotifyService } from '../../services/notify.service'
+import { MessageBoxType } from '../../shared/types'
 
 @Component({
   selector: 'app-admin-meta',
@@ -12,7 +12,7 @@ import { NotifyService } from '../../services/notify.service'
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './admin-metas.component.html'
 })
-export class AdminMetasComponent implements OnInit {
+class AdminMetasComponent implements OnInit {
   public metas: ResMetaData[] = []
   public isLoading = true
   public searchQuery = ''
@@ -80,3 +80,5 @@ export class AdminMetasComponent implements OnInit {
     }
   }
 }
+
+export default AdminMetasComponent

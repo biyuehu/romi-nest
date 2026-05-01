@@ -3,14 +3,14 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, Input, OnInit } from '@angul
 import { FormsModule } from '@angular/forms'
 import { RouterLink } from '@angular/router'
 import { map } from 'rxjs/operators'
-import { MessageBoxType } from '../../components/message/message.component'
+import { CardComponent } from '../../components/card/card.component'
 import { WebComponentInputAccessorDirective } from '../../directives/web-component-input-accessor.directive'
 import { ResNewsData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { AuthService } from '../../services/auth.service'
 import { NotifyService } from '../../services/notify.service'
+import { MessageBoxType } from '../../shared/types'
 import { sortByCreatedTime } from '../../shared/utils'
-import {CardComponent} from "../../components/card/card.component";
 
 interface TocItem {
   year: number

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@
 import { ResolveFn } from '@angular/router'
 import { LayoutComponent } from '../../components/layout/layout.component'
 import { LinksComponent } from '../../components/links/links.component'
-import { PostContentComponent } from '../../components/post-content/post-content.component'
+import PostContentComponent from '../../components/post-content/post-content.component'
 import { AppTitleStrategy } from '../../shared/title-strategy'
 import { NotFoundComponent } from '../not-found/not-found.component'
 import { dynamicResolver } from './dynamic.resolver'

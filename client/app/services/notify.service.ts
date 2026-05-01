@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core'
-import { MessageBoxSecond, MessageBoxType } from '../components/message/message.component'
+import { MessageBoxSecond, MessageBoxType } from '../shared/types'
 
 @Injectable({
   providedIn: 'root'

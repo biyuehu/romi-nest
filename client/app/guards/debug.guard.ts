@@ -1,8 +1,8 @@
 import { inject } from '@angular/core'
 import { CanActivateFn, Router } from '@angular/router'
-import { MessageBoxType } from '../components/message/message.component'
 import { NotifyService } from '../services/notify.service'
 import { STORE_KEYS, StoreService } from '../services/store.service'
+import { MessageBoxType } from '../shared/types'
 
 export const debugGuard: CanActivateFn = () => {
   const store = inject(StoreService)

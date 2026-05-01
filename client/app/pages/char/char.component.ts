@@ -3,12 +3,11 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnChanges, OnDestroy, OnInit,
 import { Router } from '@angular/router'
 import { interval, Subscription } from 'rxjs'
 import { CardComponent } from '../../components/card/card.component'
-import { MessageBoxType } from '../../components/message/message.component'
 import { ResCharacterData, ResMusicData } from '../../models/api.model'
 import { ApiService } from '../../services/api.service'
 import { BrowserService } from '../../services/browser.service'
 import { NotifyService } from '../../services/notify.service'
-import { APlayer } from '../../shared/types'
+import { APlayer, MessageBoxType } from '../../shared/types'
 import { randomRTagType, renderCharacterBWH } from '../../shared/utils'
 
 @Component({

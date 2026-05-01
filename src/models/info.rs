@@ -43,6 +43,8 @@ pub struct ResSettingsData {
     pub site_favicon: String,
     #[serde(rename = "siteLogo")]
     pub site_logo: String,
+    #[serde(rename = "headerBackground")]
+    pub header_background: String,
     #[serde(rename = "homeAvatar")]
     pub home_avatar: String,
     #[serde(rename = "homeTitle")]

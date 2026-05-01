@@ -34,7 +34,8 @@ import type {
   Video
 } from '../models/api.model'
 import { HEADER_CONTEXT } from '../shared/constants'
-import { CacheService, RDay, RHour } from './cache.service'
+import { CommentStatus, RTime } from '../shared/types'
+import { CacheService } from './cache.service'
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +58,7 @@ export class ApiService {
     return this.getSettings().pipe(
       tap((settings) => {
         this._settings.set(settings)
-      }),
-      map(() => null)
+      })
     )
   }
 
@@ -184,6 +184,10 @@ export class ApiService {
         headers: this.genHeaders([HEADER_CONTEXT.ERROR_REDIRECT])
       }
     )
+  }
+
+  public remarkComment(id: number, status: CommentStatus) {
+    return this.http.post<void>(`${environment.api_base_url}/comment/${id}/${CommentStatus.toNumber(status)}`, null)
   }
 
   public deleteComment(id: number) {
@@ -326,8 +330,8 @@ export class ApiService {
       'projects',
       () => this.http.get<ResProjectData[]>(`${environment.api_base_url}/info/projects`),
       (data) => data.length > 0,
-      RHour(12),
-      RHour(6)
+      RTime.Hour(12),
+      RTime.Hour(6)
     )
   }
 
@@ -337,8 +341,8 @@ export class ApiService {
 
       () => this.http.get<LanguageColors>('https://cdn.jsdelivr.net/gh/ozh/github-colors/colors.json'),
       () => true,
-      RDay(31),
-      RDay(31)
+      RTime.Day(31),
+      RTime.Day(31)
     )
   }
 
@@ -347,8 +351,8 @@ export class ApiService {
       'music',
       () => this.http.get<ResMusicData[]>(`${environment.api_base_url}/info/music`),
       (data) => data.length > 0,
-      RHour(12),
-      RHour(1)
+      RTime.Hour(12),
+      RTime.Hour(1)
     )
   }
 
@@ -357,8 +361,8 @@ export class ApiService {
       'videos',
       () => this.http.get<Video[]>('/data/bilibili.json'),
       (data) => data.length > 0,
-      RHour(12),
-      RHour(1)
+      RTime.Hour(12),
+      RTime.Hour(1)
     )
   }
 }
