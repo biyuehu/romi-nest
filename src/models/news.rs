@@ -19,8 +19,8 @@ pub struct ResNewsData {
     pub modified: u32,
     pub text: String,
     pub private: bool,
-    pub views: i32,
-    pub likes: i32,
-    pub comments: i32,
+    pub views: u32,
+    pub likes: u32,
+    pub comments: u32,
     pub imgs: Vec<String>,
 }

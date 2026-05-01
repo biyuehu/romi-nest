@@ -16,19 +16,3 @@ export type APlayer = {
 }
 
 export const APlayer = (globalThis as unknown as { APlayer: new (options: object) => APlayer }).APlayer
-
-export type IndependentPage = {
-  name: string
-  title: string
-  id: number
-} & (
-  | {
-      routine: true
-      hideToc: boolean
-      hideComments: boolean
-    }
-  | {
-      routine: false
-      template: string
-    }
-)

@@ -10,7 +10,7 @@ pub struct ResSettingsDataHomeLink(String, String, Option<String>);
 pub struct ResSettingsDataIndependentPage {
     pub name: String,
     pub title: String,
-    pub id: u64,
+    pub id: u32,
     pub routine: bool,
     #[serde(rename = "hideToc")]
     pub hide_toc: bool,
@@ -36,15 +36,15 @@ pub struct ResSettingsData {
     #[serde(rename = "siteDescription")]
     pub site_description: String,
     #[serde(rename = "siteKeywords")]
-    pub site_keywords: Vec<String>,
+    pub site_keywords: String,
     #[serde(rename = "siteName")]
     pub site_name: String,
     #[serde(rename = "siteFavicon")]
     pub site_favicon: String,
     #[serde(rename = "siteLogo")]
     pub site_logo: String,
-    #[serde(rename = "avatarUrl")]
-    pub avatar_url: String,
+    #[serde(rename = "homeAvatar")]
+    pub home_avatar: String,
     #[serde(rename = "homeTitle")]
     pub home_title: String,
     #[serde(rename = "homeSubtitle")]
@@ -93,14 +93,14 @@ pub struct ResProjectDataLicense {
 #[derive(Clone, Debug, Deserialize, Serialize, TS)]
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResProjectData {
-    pub id: u64,
+    pub id: u32,
     pub name: String,
     pub description: Option<String>,
     pub html_url: String,
     pub homepage: Option<String>,
     pub language: Option<String>,
-    pub stargazers_count: u64,
-    pub forks_count: u64,
+    pub stargazers_count: u32,
+    pub forks_count: u32,
     pub topics: Vec<String>,
     pub created_at: String,
     pub updated_at: String,
@@ -116,20 +116,20 @@ pub struct ResBangumiData {
     pub tags: Vec<String>,
     pub image: String,
     pub summary: String,
-    pub eps: Option<u64>,
+    pub eps: Option<u32>,
     pub date: String,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize, TS)]
 pub struct OriginBangumiData {
     pub data: Vec<OriginBangumiDataItem>,
-    pub total: u64,
+    pub total: u32,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize, TS)]
 pub struct OriginBangumiDataItem {
     #[serde(rename = "subjectId")]
-    pub subject_id: u64,
+    pub subject_id: u32,
     pub tags: Vec<String>,
     pub subject: OriginBangumiSubject,
 }
@@ -140,7 +140,7 @@ pub struct OriginBangumiSubject {
     pub images: OriginBangumiSubjectImages,
     #[serde(rename = "shortSummary")]
     pub short_summary: String,
-    pub eps: Option<u64>,
+    pub eps: Option<u32>,
     pub date: String,
 }
 

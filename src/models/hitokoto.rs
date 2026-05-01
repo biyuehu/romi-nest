@@ -17,7 +17,7 @@ pub struct ResHitokotoData {
     pub msg: String,
     pub from: String,
     pub r#type: u32,
-    pub likes: i32,
+    pub likes: u32,
     pub public: bool,
 }
 
@@ -30,7 +30,7 @@ pub struct ReqHitokoto2Data {
     pub from: Option<String>,
     #[serde(rename = "fromWho")]
     pub from_who: Option<String>,
-    pub r#type: i8,
+    pub r#type: u8,
     pub public: bool,
 }
 
@@ -44,8 +44,8 @@ pub struct ResHitokoto2Data {
     pub from: Option<String>,
     #[serde(rename = "fromWho")]
     pub from_who: Option<String>,
-    pub r#type: i8,
-    pub likes: i32,
+    pub r#type: u8,
+    pub likes: u32,
     pub public: bool,
     pub created: u32,
 }

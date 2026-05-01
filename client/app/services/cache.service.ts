@@ -61,12 +61,12 @@ export class CacheService {
     )
   }
 
-  private set<T = unknown>(key: string, data: T) {
+  private set<T = unknown>(key: string, data: T, shortTtl: RTime) {
     this.storeService.setItem(
       STORE_KEYS.cache(key),
       JSON.stringify({
         data,
-        timestamp: Date.now() + pipe(CacheService.SHORT_TTL, toNumber)
+        timestamp: Date.now() + pipe(shortTtl, toNumber)
       })
     )
   }
@@ -75,9 +75,10 @@ export class CacheService {
 
   public wrap<T = unknown>(
     key: string,
-    longTtl: RTime,
     f: () => Observable<T>,
-    cacheCondition: (data: T) => boolean
+    cacheCondition: (data: T) => boolean,
+    longTtl: RTime,
+    shortTtl: RTime = CacheService.SHORT_TTL
   ): Observable<T> {
     return match(this.get<T>(key))
       .with(
@@ -88,7 +89,7 @@ export class CacheService {
         { _tag: 'Some', value: { timestamp: P.when((timestamp) => Date.now() < timestamp + pipe(longTtl, toNumber)) } },
         ({ value: { data } }) => {
           f().subscribe((data) => {
-            if (cacheCondition(data)) this.set(key, data)
+            if (cacheCondition(data)) this.set(key, data, shortTtl)
           })
           return of(data)
         }
@@ -96,7 +97,7 @@ export class CacheService {
       .otherwise(() =>
         f().pipe(
           tap((data) => {
-            if (cacheCondition(data)) this.set(key, data)
+            if (cacheCondition(data)) this.set(key, data, shortTtl)
           })
         )
       )

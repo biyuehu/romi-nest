@@ -7,18 +7,16 @@
 
 - [ ] Blog content search
 - [x] Support private news
-- [x] 前端实现加密文章解密
-- [ ] Settings and customization
+- [x] Settings and customization
 - [ ] Website color scheme
-- [ ] Rust rendering html to implement custom footer, header scripts and meta description, tags
 - [ ] RSS feed
 - [ ] sitemap
+- [ ] Safety system
 - [ ] Romi UI better building
 - [ ] Characters birthdays reminder
 - [ ] File transporter logger
 - [x] filter requests from Node.Js
 - [x] Refactory php ial api, such as proxy, qqavatar, etc.
-- [ ] Post password protection (Include images and comments)
 - [ ] Post and news comments and user system
 - [ ] Comments status: 0 resolved; 1 pending; 2 spam
 - [ ] Images gallery
@@ -26,7 +24,6 @@
 - [ ] Refactory music player
 - [ ] I18n
 - [ ] 更多的页面细化处理 meta 更好的 seo
-- [ ] 更优雅的更灵活（不要局限于 var css）的网站黑白主题模式切换
 - [x] Posts status: 0 published; 1 hide; ~~2 draft~~
 - [x] Post view, like, share
 - [x] News view, like

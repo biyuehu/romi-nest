@@ -15,8 +15,8 @@ pub struct Model {
     pub uuid: String,
     pub from: Option<String>,
     pub from_who: Option<String>,
-    pub r#type: i8,
-    pub likes: i32,
+    pub r#type: u8,
+    pub likes: u32,
     pub public: String,
     pub created: DateTimeUtc,
 }

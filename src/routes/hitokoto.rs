@@ -66,7 +66,7 @@ async fn get_hitokoto(
             msg: model.msg,
             from: model.from,
             r#type: model.r#type.parse().unwrap_or(0),
-            likes: model.likes,
+            likes: model.likes as u32,
             public: model.public == "1".to_string(),
         }),
         None => {
@@ -128,7 +128,7 @@ async fn fetch_by_id(
             msg: model.msg,
             from: model.from,
             r#type: model.r#type.parse().unwrap_or(0),
-            likes: model.likes,
+            likes: model.likes as u32,
             public: model.public == "1".to_string(),
         }),
         None => {
@@ -153,7 +153,7 @@ async fn fetch_public(
                 msg: model.msg,
                 from: model.from,
                 r#type: model.r#type.parse().unwrap_or(0),
-                likes: model.likes,
+                likes: model.likes as u32,
                 public: true,
             })
             .collect(),
@@ -200,7 +200,7 @@ async fn fetch_all(
                 msg: model.msg,
                 from: model.from,
                 r#type: model.r#type.parse().unwrap_or(0),
-                likes: model.likes,
+                likes: model.likes as u32,
                 public: model.public == "1".to_string(),
             })
             .collect(),

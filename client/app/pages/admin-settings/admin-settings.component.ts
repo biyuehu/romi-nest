@@ -27,8 +27,6 @@ export class AdminSettingsComponent implements OnInit {
   public isLoading = true
   public settingsForm!: ResSettingsData
 
-  public keywordsInput = ''
-
   public editingHomeLinkIndex: number | null = null
   public homeLinkForm: ResSettingsDataHomeLink = ['', '', '']
 
@@ -36,7 +34,7 @@ export class AdminSettingsComponent implements OnInit {
   public independentPageForm: ResSettingsDataIndependentPage = {
     name: '',
     title: '',
-    id: 0n,
+    id: 0,
     routine: true,
     hideToc: false,
     hideComments: false,
@@ -65,19 +63,11 @@ export class AdminSettingsComponent implements OnInit {
     this.isLoading = true
     this.apiService.getSettings().subscribe((data) => {
       this.settingsForm = data
-      this.keywordsInput = data.siteKeywords.join(', ')
       this.isLoading = false
     })
     this.apiService.getPosts().subscribe((data) => {
       this.postIds = data.map((p) => p.id)
     })
-  }
-
-  public onKeywordsInputChange(): void {
-    this.settingsForm.siteKeywords = this.keywordsInput
-      .split(',')
-      .map((k) => k.trim())
-      .filter((k) => k !== '')
   }
 
   public startEditHomeLink(index: number): void {
@@ -119,7 +109,7 @@ export class AdminSettingsComponent implements OnInit {
     this.independentPageForm = {
       name: '',
       title: '',
-      id: 0n,
+      id: 0,
       routine: true,
       hideToc: false,
       hideComments: false,
@@ -136,7 +126,7 @@ export class AdminSettingsComponent implements OnInit {
     if (this.editingIndependentPageId !== null) {
       const index = this.settingsForm.independentPages.findIndex((p) => Number(p.id) === this.editingIndependentPageId)
       if (index !== -1) {
-        this.settingsForm.independentPages[index] = { ...this.independentPageForm, id: BigInt(targetId) }
+        this.settingsForm.independentPages[index] = { ...this.independentPageForm, id: targetId }
       }
     } else {
       if (!this.postIds.includes(targetId)) {
@@ -147,12 +137,12 @@ export class AdminSettingsComponent implements OnInit {
         this.notifyService.showMessage('请选择模板', MessageBoxType.Warning)
         return
       }
-      this.settingsForm.independentPages.push({ ...this.independentPageForm, id: BigInt(targetId) })
+      this.settingsForm.independentPages.push({ ...this.independentPageForm, id: targetId })
     }
     this.cancelEditIndependentPage()
   }
 
-  public removeIndependentPage(id: bigint): void {
+  public removeIndependentPage(id: number): void {
     this.settingsForm.independentPages = this.settingsForm.independentPages.filter((p) => p.id !== id)
     if (this.editingIndependentPageId === Number(id)) this.cancelEditIndependentPage()
   }
@@ -186,7 +176,6 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   public saveSettings(): void {
-    this.onKeywordsInputChange()
     this.apiService
       .updateSettings(this.settingsForm)
       .subscribe(() => this.notifyService.showMessage('保存成功', MessageBoxType.Success))

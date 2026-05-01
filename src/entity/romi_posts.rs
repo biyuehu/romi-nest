@@ -16,9 +16,9 @@ pub struct Model {
     pub password: Option<String>,
     pub hide: String,
     pub allow_comment: String,
-    pub views: i32,
-    pub likes: i32,
-    pub comments: i32,
+    pub views: u32,
+    pub likes: u32,
+    pub comments: u32,
     #[sea_orm(column_type = "Text", nullable)]
     pub banner: Option<String>,
 }

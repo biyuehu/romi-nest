@@ -20,22 +20,21 @@
           <r-input label="站点描述" [(ngModel)]="settingsForm.siteDescription" class="w-full"/>
           <div>
             <r-input
-                    label="站点关键词 (逗号分隔)"
-                    [(ngModel)]="keywordsInput"
-                    (ngModelChange)="onKeywordsInputChange()"
+                    label="站点关键词"
+                    [(ngModel)]="settingsForm.siteKeywords"
                     class="w-full"
             />
           </div>
           <r-input label="Favicon 地址" [(ngModel)]="settingsForm.siteFavicon" class="w-full"/>
           <r-input label="Logo 地址" [(ngModel)]="settingsForm.siteLogo" class="w-full"/>
-          <r-input label="头像地址" [(ngModel)]="settingsForm.avatarUrl" class="w-full"/>
         </div>
 
         <div class="border-t border-border-base pt-6">
           <h3 class="text-lg font-medium text-text-base mb-4">首页设置</h3>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <r-input label="首页大标题" [(ngModel)]="settingsForm.homeTitle" class="w-full"/>
-            <r-input label="首页副标题" [(ngModel)]="settingsForm.homeSubtitle" class="w-full"/>
+            <r-input label="首页头像" [(ngModel)]="settingsForm.homeAvatar" class="w-full"/>
+            <r-input label="首页标题" [(ngModel)]="settingsForm.homeTitle" class="w-full"/>
+            <r-input label="首页副标题（一行一个）" as="textarea" rows="3" [(ngModel)]="settingsForm.homeSubtitle" class="w-full"/>
           </div>
         </div>
 

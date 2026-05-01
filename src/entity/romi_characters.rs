@@ -41,6 +41,7 @@ pub struct Model {
     pub color: Option<String>,
     pub hide: String,
     pub order: u32,
+    #[sea_orm(column_name = "songId")]
     pub song_id: Option<u32>,
     pub weight: Option<u32>,
 }
