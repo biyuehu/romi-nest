@@ -76,7 +76,7 @@ export const DEFAULT_LINT_CONFIG: Configuration = {
     '%cAnyone who use ready-made blog frameworks or tools are all idiot without technical power!',
     'color: red; font-size: 1.7em; font-weight: bold;'
   )
-  logger.info('The website is running on <magentaBright>Romi Nest</magentaBright>')
+  logger.info('The website is running on <magentaBright>Romi chan</magentaBright>')
   logger.info(
     `Version: ${pkg.version} Hash: ${buildMeta.HASH} Build Time: ${new Date(buildMeta.BUILD_TIME).toISOString()}`
   )

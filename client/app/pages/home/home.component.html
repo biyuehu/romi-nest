@@ -16,7 +16,7 @@
           @for (link of apiService.settings().homeLinks; track $index) {
             <a [href]="link[2]" target="_blank"
                class="flex items-center text-accent hover:text-brand transition-colors">
-              <i [class]="link[0] + ' text-2xl'" [title]="link[1]"></i>
+              <iconify-icon [attr.icon]="link[0]" class="text-2xl"></iconify-icon>
             </a>
           }
         </div>
@@ -70,31 +70,32 @@
 
       <div class="columns-1 md:columns-2 gap-x-6">
         @for (video of home.videos; track video.aid) {
-          <app-card [href]="'https://www.bilibili.com/video/' + video.bvid" target="_blank"
-                    class="group mb-6">
-            <div class="aspect-video relative overflow-hidden">
-              <img [alt]="video.title" fill [ngSrc]="video.pic"
-                   class="w-full h-full object-cover group-hover:scale-105 transition-transform"/>
-              <div class="absolute bottom-0 right-0 bg-black/70 text-text-base px-2 py-1 text-sm rounded-tl">
-                {{ video.length }}
+          <a [href]="'https://www.bilibili.com/video/' + video.bvid" target="_blank">
+            <app-card class="group mb-6">
+              <div class="aspect-video relative overflow-hidden">
+                <img [alt]="video.title" fill [ngSrc]="video.pic"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform"/>
+                <div class="absolute bottom-0 right-0 bg-black/70 text-text-base px-2 py-1 text-sm rounded-tl">
+                  {{ video.length }}
+                </div>
               </div>
-            </div>
-            <div class="p-4">
-              <h3 class="text-text-base font-medium line-clamp-2 group-hover:text-brand transition-colors">
-                {{ video.title }}
-              </h3>
-              <div class="flex items-center gap-4 mt-2 text-sm text-accent">
-              <span class="flex items-center gap-1">
-                <i class="i-mdi:clock-outline text-2xl"></i>
-                {{ video.play }}
-              </span>
+              <div class="p-4">
+                <h3 class="text-text-base font-medium line-clamp-2 group-hover:text-brand transition-colors">
+                  {{ video.title }}
+                </h3>
+                <div class="flex items-center gap-4 mt-2 text-sm text-accent">
                 <span class="flex items-center gap-1">
-                <i class="i-mdi:eye-outline text-2xl"></i>
-                  {{ video.comment }}
-              </span>
+                  <i class="i-mdi:clock-outline text-2xl"></i>
+                  {{ video.play }}
+                </span>
+                  <span class="flex items-center gap-1">
+                  <i class="i-mdi:eye-outline text-2xl"></i>
+                    {{ video.comment }}
+                </span>
+                </div>
               </div>
-            </div>
-          </app-card>
+            </app-card>
+          </a>
         }
       </div>
     </section>

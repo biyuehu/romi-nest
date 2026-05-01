@@ -10,7 +10,7 @@ export default defineConfig({
     }
   },
   presets: [presetUno(), presetIcons(), presetRomiUI()],
-
+  rules: [[/^i-mdi.*$/, () => ({})]],
   transformers: [],
   theme: {
     colors: {

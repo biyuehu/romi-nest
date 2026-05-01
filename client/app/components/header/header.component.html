@@ -10,7 +10,7 @@
 
     <a [routerLink]="'/'"
        class="text-7 absolute font-bold space-inline-xs text-brand left-1/2 -translate-x-1/2 lg:left-0 lg:-translate-x-1 hover:text-accent">
-      Romi Nest
+      {{ apiService.settings().siteName }}
     </a>
 
     <nav class="hidden lg:flex items-center gap-6">
