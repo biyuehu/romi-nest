@@ -16,7 +16,6 @@ pub struct ReqPostData {
     #[serde(rename = "allowComment")]
     pub allow_comment: bool,
     pub created: u32,
-    pub modified: u32,
 }
 
 #[derive(Deserialize, TS)]

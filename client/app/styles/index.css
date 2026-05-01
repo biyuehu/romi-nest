@@ -1,31 +1,9 @@
-/* Global */
+@import "katex/dist/katex.min.css";
 
-/* =============================================
-   第一层：品牌色 Base + color-mix 色阶
-   只改这两个 base，整套色阶自动跟着变
-   ============================================= */
 :root {
-    --brand-base: #d87cb6; /* 主品牌色（粉） */
-    --accent-base: #9573a2; /* 副品牌色（紫） */
-}
+    --brand-base: #d87cb6;
+    --accent-base: #9573a2;
 
-/* 主题切换：只换 base，其余不动 */
-[data-theme="purple"] {
-    --brand-base: #9573a2;
-    --accent-base: #7b5ea7;
-}
-
-[data-theme="blue"] {
-    --brand-base: #5b8dee;
-    --accent-base: #3a6fd8;
-}
-
-/* =============================================
-   第二层：从 base 自动派生色阶
-   写在 :root 里，对所有主题都有效
-   ============================================= */
-:root {
-    /* 品牌色阶：亮→深 */
     --brand-50: color-mix(in srgb, var(--brand-base) 8%, #fff);
     --brand-100: color-mix(in srgb, var(--brand-base) 20%, #fff);
     --brand-200: color-mix(in srgb, var(--brand-base) 45%, #fff);
@@ -36,7 +14,6 @@
     --brand-700: color-mix(in srgb, var(--brand-base) 65%, #000);
     --brand-800: color-mix(in srgb, var(--brand-base) 40%, #000);
 
-    /* 副色阶：按需用，结构同上 */
     --accent-50: color-mix(in srgb, var(--accent-base) 8%, #fff);
     --accent-100: color-mix(in srgb, var(--accent-base) 20%, #fff);
     --accent-200: color-mix(in srgb, var(--accent-base) 45%, #fff);
@@ -47,44 +24,47 @@
     --accent-700: color-mix(in srgb, var(--accent-base) 65%, #000);
     --accent-800: color-mix(in srgb, var(--accent-base) 40%, #000);
     --accent-900: color-mix(in srgb, var(--accent-base) 15%, #000);
-}
 
-/* =============================================
-   第三层：语义 Token（亮色默认）
-   页面里只用这层，不要直接用上面的色阶
-   ============================================= */
-:root {
-    /* —— 背景 —— */
     --bg-page: #f7f7f7; /* 整页最底层背景 */
     --bg-surface: #ffffff; /* 卡片、文章容器 */
     --bg-elevated: #f0f0f0; /* 代码块、引用块、略凹陷的区域 */
     --bg-subtle: #e8e8e8; /* 分割线区域、hover 背景的底 */
 
-    /* —— 文字 —— */
     --text-base: #1a1a1a; /* 标题、正文 */
     --text-sub: #5a5a5a; /* 日期、作者、描述等次要信息 */
     --text-muted: #9a9a9a; /* tag、占位、disabled */
     --text-on-brand: #ffffff; /* 放在品牌色背景上的文字 */
 
-    /* —— 边框 —— */
     --border: #e0e0e0; /* 通用边框、分割线 */
     --border-strong: #bbbbbb; /* 强调边框 */
 
-    /* —— 品牌语义色（从色阶里取，有含义的） —— */
     --brand: var(--brand-500); /* 主按钮、链接、激活态 */
     --brand-hover: var(--brand-600); /* 上面那些的 hover 态 */
     --brand-subtle: var(--brand-50); /* tag背景、高亮块背景 */
     --brand-border: var(--brand-300); /* 引用块左边框、特殊分割线 */
     --accent: var(--accent-500); /* 次要强调，装饰用 */
 
-    /* —— 交互透明叠加 —— */
     --hover-overlay: rgba(0, 0, 0, 0.04); /* 通用 hover 背景叠加 */
     --press-overlay: rgba(0, 0, 0, 0.08); /* 点击态 */
+
+    scrollbar-color: var(--brand) var(--accent);
+    scrollbar-width: thin;
+    font: 16px / 1.5 "Microsoft Yahei",
+    "PingFang SC",
+    "Hiragino Sans GB",
+    sans-serif;
 }
 
-/* =============================================
-   暗色模式：只覆盖语义 token，品牌色不动
-   ============================================= */
+/*[data-theme="purple"] {*/
+/*    --brand-base: #9573a2;*/
+/*    --accent-base: #7b5ea7;*/
+/*}*/
+
+/*[data-theme="blue"] {*/
+/*    --brand-base: #5b8dee;*/
+/*    --accent-base: #3a6fd8;*/
+/*}*/
+
 [data-dark] {
     --bg-page: #1a1a1a;
     --bg-surface: #242424;
@@ -99,7 +79,6 @@
     --border: #383838;
     --border-strong: #555555;
 
-    /* 品牌色在暗色下可以稍微亮一点，提升对比度 */
     --brand: var(--brand-400);
     --brand-hover: var(--brand-300);
     --brand-subtle: color-mix(in srgb, var(--brand-base) 15%, #1a1a1a);
@@ -109,25 +88,17 @@
     --press-overlay: rgba(255, 255, 255, 0.1);
 }
 
-:root {
-    /*--primary-100: #d87cb6;*/
-    /*--primary-200: #e094c5;*/
-    /*--primary-300: #e7acb4;*/
-    /*--accent-100: #9573a2;*/
-    /*--accent-200: #b4a0b1;*/
-    /*--accent-300: #c3b9c1;*/
-    /*--text-100: #ffffff;*/
-    /*--text-200: #fafafa;*/
-    /*--text-300: #f7f7f7;*/
-    /*--bg-100: #1a1a1a;*/
-    /*--bg-200: #292929;*/
-    /*--bg-300: #404040;*/
-    scrollbar-color: var(--brand) var(--accent);
-    scrollbar-width: thin;
-    font: 16px / 1.5 "Microsoft Yahei",
-    "PingFang SC",
-    "Hiragino Sans GB",
-    sans-serif;
+::selection {
+    background-color: var(--brand-subtle);
+}
+
+a {
+    color: var(--brand);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent);
 }
 
 .md-editor-wrapper {
@@ -148,21 +119,6 @@
     z-index: 9999;
     border-radius: 0;
 }
-
-::selection {
-    background-color: var(--brand-subtle);
-}
-
-a {
-    color: var(--brand);
-    text-decoration: none;
-}
-
-a:hover {
-    color: var(--accent);
-}
-
-/* Markdown */
 
 @media (min-width: 768px) {
     .post-body {

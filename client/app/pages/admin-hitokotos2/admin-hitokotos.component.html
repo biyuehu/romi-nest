@@ -90,37 +90,25 @@
                 <p class="text-text-base">{{ hitokoto.msgOrigin }}</p>
               }
               <div class="flex items-center gap-4 text-sm">
-              <span class="text-accent">
-              {{ hitokoto.fromWho }}
-            </span>
+                <span class="text-accent">{{ hitokoto.fromWho }}</span>
                 @if (hitokoto.from) {
-                  <span class="text-text-sub">
-              {{ hitokoto.from }}
-            </span>
+                  <span class="text-text-sub">{{ hitokoto.from }}</span>
                 }
                 @if (hitokoto.public) {
                   <span class="px-2 py-0.5 text-xs rounded-full bg-brand text-text-on-brand">公开</span>
                 }
                 <span>
-              <r-tag [type]="['secondary','info', 'success', 'warning'][hitokoto.type - 1]">
-                {{ types[hitokoto.type - 1]?.[1] ?? "未知" }}
-               </r-tag>
-            </span>
-                <span class="text-text-sub">
-              {{ hitokoto.likes }} 次点赞
-            </span>
-                <span class="text-text-sub">
-              {{ hitokoto.created | date :'yyyy-MM-dd HH:mm:ss' }}
-            </span>
+                  <r-tag size="sm" [type]="['secondary','info', 'success', 'warning'][hitokoto.type - 1]">
+                    {{ types[hitokoto.type - 1]?.[1] ?? "未知" }}
+                   </r-tag>
+                  </span>
+                <r-tag size="sm" type="error">{{ hitokoto.likes }}</r-tag>
               </div>
+              <p class="text-text-sub">{{ Number(hitokoto.created) | date :'yyyy-MM-dd HH:mm:ss' }}</p>
             </div>
             <div class="flex items-center gap-2">
-              <r-button (click)="startEdit(hitokoto)" type="primary">
-                编辑
-              </r-button>
-              <r-button (click)="deleteItem(hitokoto.uuid)" type="error">
-                删除
-              </r-button>
+              <r-button (click)="startEdit(hitokoto)" type="primary">编辑</r-button>
+              <r-button (click)="deleteItem(hitokoto.uuid)" type="error">删除</r-button>
             </div>
           </div>
         }

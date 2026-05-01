@@ -56,6 +56,7 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
     this.apiService.getHitokotos2(/*false*/).subscribe((data) => {
       this.items = data.reverse()
       this.isLoading = false
+      console.log(data)
     })
   }
 
@@ -132,4 +133,6 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
         this.notifyService.showMessage('一言更新成功', MessageBoxType.Success)
       })
   }
+
+  protected readonly Number = Number
 }

@@ -16,6 +16,7 @@ use crate::{
     entity::{romi_hitokotos, romi_hitokotos2},
     guards::admin::AdminUser,
     models::hitokoto::{ReqHitokoto2Data, ReqHitokotoData, ResHitokoto2Data, ResHitokotoData},
+    tools::time::get_timestamp,
     utils::api::{ApiError, ApiResult, api_ok},
 };
 
@@ -101,7 +102,7 @@ async fn fetch2(
             r#type: model.r#type,
             likes: model.likes,
             public: model.public == "1".to_string(),
-            created: model.created.timestamp_subsec_micros(),
+            created: model.created.timestamp_millis() as u64,
         }),
         None => Err(ApiError::not_found("No hitokoto found")),
     }
@@ -179,7 +180,7 @@ async fn fetch_all2(
                 r#type: model.r#type,
                 likes: model.likes,
                 public: model.public == "1".to_string(),
-                created: model.created.timestamp_subsec_micros(),
+                created: model.created.timestamp_millis() as u64,
             })
             .collect(),
     )

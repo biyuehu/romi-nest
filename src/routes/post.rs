@@ -24,7 +24,10 @@ use crate::{
         ReqDecryptPostData, ReqPostData, ResDecryptPostData, ResPostData, ResPostSingleData,
         ResPostSingleDataRelatedPost,
     },
-    tools::markdown::{collect_markdown_languages, summary_markdown},
+    tools::{
+        markdown::{collect_markdown_languages, summary_markdown},
+        time::get_timestamp,
+    },
     utils::api::{ApiError, ApiResult, api_ok},
 };
 
@@ -374,7 +377,7 @@ async fn create(
         hide: ActiveValue::set((if post.hide { 1 } else { 0 }).to_string()),
         allow_comment: ActiveValue::set((if post.allow_comment { 1 } else { 0 }).to_string()),
         created: ActiveValue::set(post.created),
-        modified: ActiveValue::set(post.modified),
+        modified: ActiveValue::set(get_timestamp()),
         banner: ActiveValue::set(post.banner.clone()),
         ..Default::default()
     }
@@ -449,7 +452,7 @@ async fn update(
             active_model.allow_comment =
                 ActiveValue::set((if post.allow_comment { 1 } else { 0 }).to_string());
             active_model.created = ActiveValue::set(post.created);
-            active_model.modified = ActiveValue::set(post.modified);
+            active_model.modified = ActiveValue::set(get_timestamp());
             active_model.banner = ActiveValue::set(post.banner.clone());
             active_model
                 .update(&txn)

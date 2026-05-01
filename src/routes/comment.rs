@@ -99,7 +99,7 @@ async fn fetch_by_post(
         comments
             .iter()
             .filter_map(|comment| {
-                if (comment.status == 0) {
+                if comment.status == 0 {
                     user_map.get(&comment.uid).map(|user| ResCommentData {
                         cid: comment.cid,
                         pid: comment.pid,

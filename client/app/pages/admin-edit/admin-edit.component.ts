@@ -37,7 +37,7 @@ export class AdminEditComponent implements OnInit {
 
   public isLoading = true
 
-  public readonly postForm: Omit<ReqPostData, 'created'> & { created: string } = {
+  public readonly postForm: Omit<ReqPostData, 'created'> & { created: string; modified: number } = {
     title: '',
     text: '',
     strId: null,
@@ -45,10 +45,10 @@ export class AdminEditComponent implements OnInit {
     hide: false,
     allowComment: true,
     created: '',
-    modified: 0,
     tags: [],
     categories: [],
-    banner: null
+    banner: null,
+    modified: Date.now()
   }
 
   public lastSaveDraftTime?: number
@@ -108,7 +108,7 @@ export class AdminEditComponent implements OnInit {
       return
     }
 
-    const update = this.postForm.modified * 1000
+    const update = this.postForm.modified
     const [draftKey, draftTimeKey] = STORE_KEYS
     const draft = this.storeService.getItem(draftKey)
     const draftTime = Number(this.storeService.getItem(draftTimeKey))
@@ -239,8 +239,7 @@ export class AdminEditComponent implements OnInit {
 
     const form = {
       ...this.postForm,
-      created: Math.floor(new Date(this.postForm.created || Date.now()).getTime() / 1000),
-      modified: Math.floor(Date.now() / 1000)
+      created: Math.floor(new Date(this.postForm.created || Date.now()).getTime() / 1000)
     }
     ;(this.isEdit ? this.apiService.updatePost(this.id, form) : this.apiService.createPost(form)).subscribe(() => {
       if (!this.isEdit) {
