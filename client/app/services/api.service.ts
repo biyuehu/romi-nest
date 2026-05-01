@@ -55,7 +55,9 @@ export class ApiService {
 
   public loadSettings() {
     return this.getSettings().pipe(
-      tap((settings) => this._settings.set(settings)),
+      tap((settings) => {
+        this._settings.set(settings)
+      }),
       map(() => null)
     )
   }

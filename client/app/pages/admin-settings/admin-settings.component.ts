@@ -81,10 +81,11 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   public saveHomeLink(): void {
-    if (!this.homeLinkForm[1] || !this.homeLinkForm[2]) {
-      this.notifyService.showMessage('文字和链接不能为空', MessageBoxType.Warning)
+    if (!this.homeLinkForm[0] || !this.homeLinkForm[1]) {
+      this.notifyService.showMessage('图标和文字不能为空', MessageBoxType.Warning)
       return
     }
+    if (!this.homeLinkForm[2]) this.homeLinkForm[2] = ''
     if (this.editingHomeLinkIndex !== null) {
       this.settingsForm.homeLinks[this.editingHomeLinkIndex] = [...this.homeLinkForm]
     } else {
@@ -98,7 +99,6 @@ export class AdminSettingsComponent implements OnInit {
     if (this.editingHomeLinkIndex === index) this.cancelEditHomeLink()
   }
 
-  // ========== IndependentPage 相关 ==========
   public startEditIndependentPage(page: ResSettingsDataIndependentPage): void {
     this.editingIndependentPageId = Number(page.id)
     this.independentPageForm = { ...page }

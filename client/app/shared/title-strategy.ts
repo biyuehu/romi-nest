@@ -4,7 +4,7 @@ import { ResolveFn, RouterStateSnapshot, TitleStrategy } from '@angular/router'
 import { pipe } from 'fp-ts/function'
 import { iso, Newtype } from 'newtype-ts'
 import { match } from 'ts-pattern'
-import { ResCharacterData, ResHitokotoData, ResNewsData, ResPostData } from '../models/api.model'
+import { ResCharacterData, ResHitokotoData, ResNewsData, ResPostData, ResSettingsData } from '../models/api.model'
 import { dynamicResolver } from '../pages/dynamic/dynamic.resolver'
 import { ApiService } from '../services/api.service'
 import { BrowserService } from '../services/browser.service'
@@ -55,6 +55,20 @@ export class AppTitleStrategy extends TitleStrategy {
     private readonly apiService: ApiService
   ) {
     super()
+    if (!browserService.is) return
+    const settings = this.apiService.settings()
+    const setMetaContent = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as null | HTMLMetaElement
+      if (!meta) {
+        meta = document.createElement('meta')
+        meta.name = name
+        document.head.appendChild(meta)
+      }
+      meta.content = content
+    }
+    window.document.title = settings.siteTitle
+    setMetaContent('keywords', settings.siteKeywords)
+    setMetaContent('description', settings.siteDescription)
   }
 
   private readonly header = signal(AppTitleStrategy.DEFAULT_HEADER)

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { RouterLink } from '@angular/router'
+import { ApiService } from '../../services/api.service'
 
 @Component({
   selector: 'app-header',
@@ -36,6 +37,8 @@ export class HeaderComponent {
     { text: '项目', link: '/project' },
     { text: '日志', link: '/log' }
   ]
+
+  public constructor(public readonly apiService: ApiService) {}
 
   public toggleMenu() {
     if (Date.now() - this.lastSwitchMenu < 200) return

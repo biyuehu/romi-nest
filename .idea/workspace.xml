@@ -22,39 +22,17 @@
   <component name="ChangeListManager">
     <list default="true" id="02489307-c035-4c67-9461-f0c26aeaa784" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/components/admin-header/admin-header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/admin-header/admin-header.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/components/admin-header/admin-header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/admin-header/admin-header.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/components/card/card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/card/card.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/components/links/links.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/links/links.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/components/links/links.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/links/links.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/admin-dashboard/admin-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-dashboard/admin-dashboard.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/admin-hitokotos2/admin-hitokotos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-hitokotos2/admin-hitokotos.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/header/header.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/app/pages/admin-settings/admin-settings.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-settings/admin-settings.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/app/pages/admin-settings/admin-settings.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/admin-settings/admin-settings.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/dynamic/dynamic.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/dynamic/dynamic.resolver.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/app/pages/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/home/home.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/pages/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/pages/home/home.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/app/services/api.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/services/api.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/services/cache.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/services/cache.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/app/shared/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/shared/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/shared/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/shared/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/music_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/music_cache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constant.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/constant.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/prelude.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/prelude.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_characters.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_characters.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_fields.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_hitokotos2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_hitokotos2.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_news.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_news.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/romi_posts.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/romi_posts.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/hitokoto.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/hitokoto.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/info.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/info.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/news.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/news.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/post.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/post.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/hitokoto.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/hitokoto.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/shared/title-strategy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/shared/title-strategy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/info.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/info.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/cache.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/cache.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uno.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/uno.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,11 +188,11 @@
       <recent name="G:\Repos\romichan\client\app\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\Repos\romichan\client\app\components" />
       <recent name="G:\Repos\romichan\src\entity" />
       <recent name="G:\Repos\romichan\client\app\pages" />
       <recent name="G:\Repos\romichan\src\routes" />
       <recent name="G:\Repos\romichan\src\models" />
-      <recent name="G:\Repos\romichan\client\app\shared" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -410,7 +388,7 @@
       <workItem from="1777545404210" duration="10556000" />
       <workItem from="1777603608853" duration="999000" />
       <workItem from="1777618860792" duration="967000" />
-      <workItem from="1777619845912" duration="6683000" />
+      <workItem from="1777619845912" duration="10472000" />
     </task>
     <servers />
   </component>

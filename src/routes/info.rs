@@ -10,7 +10,6 @@ use fetcher::playlist::SongInfo;
 use roga::{l_error, l_info};
 use sea_orm::{
     ActiveValue, ColumnTrait, EntityTrait, IntoActiveModel, PaginatorTrait, QueryFilter,
-    sea_query::Expr,
 };
 use sysinfo::System;
 use tokio::try_join;
