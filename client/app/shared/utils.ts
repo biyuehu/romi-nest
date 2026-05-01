@@ -14,7 +14,7 @@ export function randomRTagType() {
 
 export function formatDate(date: Date) {
   const addZero = (num: number) => (num < 10 ? `0${num}` : num)
-  return `${date.getFullYear()}-${addZero(date.getMonth() + 1)}-${addZero(date.getDate())}T${addZero(date.getHours())}:${addZero(date.getMinutes())}`
+  return `${date.getFullYear()}-${addZero(date.getMonth() + 1)}-${addZero(date.getDate())} ${addZero(date.getHours())}:${addZero(date.getMinutes())}`
 }
 
 export function randomSelect<T>(arr: T[]) {

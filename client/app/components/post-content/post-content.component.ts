@@ -3,6 +3,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnDestroy, OnInit } from '@an
 import { FormsModule } from '@angular/forms'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { RouterLink } from '@angular/router'
+import { katex } from '@mdit/plugin-katex'
 import markdownIt from 'markdown-it'
 import MarkdownIt from 'markdown-it'
 import { Subject } from 'rxjs'
@@ -241,7 +242,7 @@ class PostContentComponent implements OnInit, OnDestroy {
           return ''
         }
       }
-    })
+    }).use(katex)
     const defaultHeadRender =
       // biome-ignore lint: *
       mdParser.renderer.rules['heading_open'] ||

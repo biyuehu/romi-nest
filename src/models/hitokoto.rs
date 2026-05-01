@@ -47,5 +47,5 @@ pub struct ResHitokoto2Data {
     pub r#type: u8,
     pub likes: u32,
     pub public: bool,
-    pub created: u32,
+    pub created: u64,
 }
