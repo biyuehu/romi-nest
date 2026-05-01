@@ -12,9 +12,9 @@ pub struct Model {
     #[sea_orm(column_type = "Text")]
     pub text: String,
     pub private: String,
-    pub views: i32,
-    pub likes: i32,
-    pub comments: i32,
+    pub views: u32,
+    pub likes: u32,
+    pub comments: u32,
     #[sea_orm(column_type = "Text", nullable)]
     pub imgs: Option<String>,
 }

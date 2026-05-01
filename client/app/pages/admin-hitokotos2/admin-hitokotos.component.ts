@@ -88,7 +88,6 @@ export class AdminHitokotosComponent extends AbstractAdminBaseListComponent<ResH
     }
     const { msg, msgOrigin, public: isPublic, from, fromWho } = this.newHitokoto
 
-    // TODO: better handle msg and check msg format
     this.apiService
       .createHitokoto2({
         msg: msg.trim(),

@@ -322,36 +322,41 @@ export class ApiService {
   public getProjects() {
     return this.cacheService.wrap(
       'projects',
-      RHour(12),
       () => this.http.get<ResProjectData[]>(`${environment.api_base_url}/info/projects`),
-      (data) => data.length > 0
+      (data) => data.length > 0,
+      RHour(12),
+      RHour(6)
     )
   }
 
   public getLanguageColors() {
     return this.cacheService.wrap(
       'language-colors',
-      RDay(31),
+
       () => this.http.get<LanguageColors>('https://cdn.jsdelivr.net/gh/ozh/github-colors/colors.json'),
-      () => true
+      () => true,
+      RDay(31),
+      RDay(31)
     )
   }
 
   public getMusic() {
     return this.cacheService.wrap(
       'music',
-      RHour(12),
       () => this.http.get<ResMusicData[]>(`${environment.api_base_url}/info/music`),
-      (data) => data.length > 0
+      (data) => data.length > 0,
+      RHour(12),
+      RHour(1)
     )
   }
 
   public getVideos() {
     return this.cacheService.wrap(
       'videos',
-      RDay(7),
       () => this.http.get<Video[]>('/data/bilibili.json'),
-      (data) => data.length > 0
+      (data) => data.length > 0,
+      RHour(12),
+      RHour(1)
     )
   }
 }

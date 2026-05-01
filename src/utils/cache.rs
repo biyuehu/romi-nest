@@ -1,15 +1,12 @@
 use std::time::{Duration, SystemTime};
 
 use anyhow::{Context, anyhow};
-use sea_orm::{ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter};
+use sea_orm::{DatabaseConnection, EntityTrait};
 use tokio::sync::RwLock;
 
 use crate::{
-    constant::{
-        GITHUB_USER, HTTP_CLIENT_AGENT, PROJECTS_CACHE_TIMEOUT, SETTINGS_CACHE_TIMEOUT,
-        SETTINGS_FIELDS,
-    },
-    entity::romi_fields,
+    constant::{GITHUB_USER, HTTP_CLIENT_AGENT, PROJECTS_CACHE_TIMEOUT, SETTINGS_CACHE_TIMEOUT},
+    entity::romi_settings,
     models::info::{ResProjectData, ResSettingsData},
 };
 
@@ -69,16 +66,28 @@ define_cache!(SETTINGS_CACHE, ResSettingsData, SETTINGS_CACHE_TIMEOUT);
 pub async fn get_settings_cache(db: &DatabaseConnection) -> Result<ResSettingsData, anyhow::Error> {
     SETTINGS_CACHE
         .get_or_update(|| async {
-            let record = romi_fields::Entity::find()
-                .filter(romi_fields::Column::Key.eq(SETTINGS_FIELDS))
+            let settings = romi_settings::Entity::find()
                 .one(db)
                 .await
                 .context("Failed to fetch settings")?
                 .ok_or_else(|| anyhow!("Settings not found"))?;
 
-            let parsed: ResSettingsData =
-                serde_json::from_str(&record.value).context("Failed to parse settings")?;
-            Ok(parsed)
+            Ok(ResSettingsData {
+                site_title: settings.site_title,
+                site_description: settings.site_description,
+                site_keywords: settings.site_keywords,
+                site_name: settings.site_name,
+                site_favicon: settings.site_favicon,
+                site_logo: settings.site_logo,
+                home_avatar: settings.home_avatar,
+                home_title: settings.home_title,
+                home_subtitle: settings.home_subtitle,
+                home_links: serde_json::from_value(settings.home_links)
+                    .context("Failed to parse home_links")?,
+                independent_pages: serde_json::from_value(settings.independent_pages)
+                    .context("Failed to parse independent_pages")?,
+                links: serde_json::from_value(settings.links).context("Failed to parse links")?,
+            })
         })
         .await
 }

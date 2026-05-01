@@ -1,19 +1,19 @@
 <app-layout imageHeight="min-h-screen">
   <div background class="bg-black/35 rounded-xl p-8 overflow-hidden hover:bg-black/40 hover:shadow-md">
     <div class="relative z-1 flex items-center gap-8">
-      <img width="128" height="128" [ngSrc]="header.avatarUrl" alt="Avatar"
+      <img width="128" height="128" [ngSrc]="apiService.settings().homeAvatar" alt="Avatar"
            class="hidden md:block rounded-full border-4 border-brand"/>
       <div class="flex-1 max-w-2xl">
         <h1 class="text-brand text-8 font-bold font-sans font-350 break-words m-0 mb-4 line-height-relaxed">
-          {{ header.title }}
+          {{ apiService.settings().homeTitle }}
         </h1>
         <ul class="text-brand text-5 list-none space-y-2 text-left">
-          @for (subTitle of header.subTitle; track $index) {
+          @for (subTitle of apiService.settings().homeSubtitle.split("\n"); track $index) {
             <li class="font-sans">{{ subTitle }}</li>
           }
         </ul>
         <div class="flex flex-wrap gap-2 mt-4">
-          @for (link of header.links; track $index) {
+          @for (link of apiService.settings().homeLinks; track $index) {
             <a [href]="link[2]" target="_blank"
                class="flex items-center text-accent hover:text-brand transition-colors">
               <i [class]="link[0] + ' text-2xl'" [title]="link[1]"></i>

@@ -8,16 +8,18 @@ use axum::{
 };
 use fetcher::playlist::SongInfo;
 use roga::{l_error, l_info};
-use sea_orm::{ColumnTrait, EntityTrait, PaginatorTrait, QueryFilter, sea_query::Expr};
+use sea_orm::{
+    ActiveValue, ColumnTrait, EntityTrait, IntoActiveModel, PaginatorTrait, QueryFilter,
+    sea_query::Expr,
+};
 use sysinfo::System;
 use tokio::try_join;
 
 use crate::{
     app::RomiState,
-    constant::SETTINGS_FIELDS,
     entity::{
-        romi_comments, romi_fields, romi_hitokotos, romi_metas, romi_news, romi_news_comments,
-        romi_posts, romi_seimgs, romi_users,
+        romi_comments, romi_hitokotos, romi_metas, romi_news, romi_news_comments, romi_posts,
+        romi_seimgs, romi_settings, romi_users,
     },
     guards::admin::AdminUser,
     models::info::{ResDashboardData, ResMusicData, ResProjectData, ResSettingsData},
@@ -99,25 +101,38 @@ async fn update_settings(
     State(RomiState { ref conn, ref logger, .. }): State<RomiState>,
     Json(settings): Json<ResSettingsData>,
 ) -> ApiResult {
-    let model = romi_fields::Entity::find()
-        .filter(romi_fields::Column::Key.eq(SETTINGS_FIELDS))
-        .one(conn)
-        .await
-        .context("Failed to fetch settings")?;
-
+    let model =
+        romi_settings::Entity::find().one(conn).await.context("Failed to fetch settings")?;
     if let Some(model) = model {
-        romi_fields::Entity::update_many()
-            .col_expr(
-                romi_fields::Column::Value,
-                Expr::value(
-                    serde_json::to_string(&settings).context("Failed to serialize settings")?,
-                ),
-            )
-            .filter(romi_fields::Column::Fid.eq(model.fid))
+        let settings2 = settings.clone();
+
+        let mut active_model = model.into_active_model();
+        active_model.site_title = ActiveValue::Set(settings.site_title);
+        active_model.site_description = ActiveValue::Set(settings.site_description);
+        active_model.site_keywords = ActiveValue::Set(settings.site_keywords);
+        active_model.site_name = ActiveValue::Set(settings.site_name);
+        active_model.site_favicon = ActiveValue::Set(settings.site_favicon);
+        active_model.site_logo = ActiveValue::Set(settings.site_logo);
+        active_model.home_avatar = ActiveValue::Set(settings.home_avatar);
+        active_model.home_title = ActiveValue::Set(settings.home_title);
+        active_model.home_subtitle = ActiveValue::Set(settings.home_subtitle);
+        active_model.home_links = ActiveValue::Set(
+            serde_json::to_value(settings.home_links).context("Failed to serialize home_links")?,
+        );
+        active_model.independent_pages = ActiveValue::Set(
+            serde_json::to_value(settings.independent_pages)
+                .context("Failed to serialize independent_pages")?,
+        );
+        active_model.links = ActiveValue::Set(
+            serde_json::to_value(settings.links).context("Failed to serialize links")?,
+        );
+
+        romi_settings::Entity::update(active_model)
             .exec(conn)
             .await
             .context("Failed to update settings")?;
-        update_settings_cache(settings.clone()).await;
+        update_settings_cache(settings2).await;
+
         l_info!(logger, "Updated settings by admin {} ({})", admin_user.id, admin_user.username);
         api_ok(())
     } else {
@@ -127,15 +142,8 @@ async fn update_settings(
             admin_user.id,
             admin_user.username
         );
-        Err(ApiError::internal("Fields table has no settings data"))
+        Err(ApiError::internal("Settings table has no settings data"))
     }
-
-    // let record = romi_fields::Entity::update()
-    //     .filter(romi_fields::Column::Key.eq(SETTINGS_FIELDS))
-    //     .one(conn)
-    //     .await
-    //     .context("Failed to fetch settings")?
-    //     .ok_or_else(|| anyhow!("Settings not found"))?;
 }
 
 async fn fetch_projects() -> ApiResult<Vec<ResProjectData>> {

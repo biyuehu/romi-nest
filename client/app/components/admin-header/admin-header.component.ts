@@ -1,6 +1,7 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common'
 import { Component, computed, Input, WritableSignal } from '@angular/core'
 import { RouterLink } from '@angular/router'
+import { ApiService } from '../../services/api.service'
 import { AuthService } from '../../services/auth.service'
 
 @Component({
@@ -13,8 +14,10 @@ export class AdminHeaderComponent {
 
   public readonly createDate
 
-  public readonly avatarUrl = '/api/utils/qqavatar' // TODO: github avatar
-  public constructor(public readonly authService: AuthService) {
+  public constructor(
+    public readonly authService: AuthService,
+    public readonly apiService: ApiService
+  ) {
     this.createDate = computed(() => new Date((this.authService.user$()?.created ?? 0) * 1000))
   }
 
