@@ -1,7 +1,7 @@
 pre-commit:
   commands:
     biome:
-      run: bun biome check --write --staged
+      run: bun fix --staged
       stage_fixed: true
       glob: "**/*.{js,ts,json,jsonc,css}"
     rustfmt:
