@@ -2,6 +2,7 @@ use utoipa::OpenApi;
 
 use crate::models::{
   hitokoto::ResHitokotoData,
+  seimg::{QuerySeimgData, ResSeimgData},
   utils::{
     QueryAgentData, QueryViewBadgeData, ResBingData, ResMcskinData, ResMotdData, ResViewData,
     ResWordsData,
@@ -19,6 +20,7 @@ use crate::models::{
     super::utils::agent_get,
     super::utils::agent_post,
     super::hitokoto::get_random,
+    super::seimg::list,
     super::utils::motd,
     super::utils::motd_default_port,
     super::utils::motdbe,
@@ -42,6 +44,8 @@ use crate::models::{
   components(schemas(
     QueryAgentData,
     QueryViewBadgeData,
+    QuerySeimgData,
+    ResSeimgData,
     ResViewData,
     ResMcskinData,
     ResBingData,

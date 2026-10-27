@@ -4,12 +4,11 @@ use axum::{
   routing::{delete, get, post, put},
 };
 use roga::*;
-use std::collections::HashMap;
 
 use crate::{
   app::RomiState,
   guards::admin::AdminUser,
-  models::seimg::{ReqSeimgData, ResSeimgData},
+  models::seimg::{QuerySeimgData, ReqSeimgData, ResSeimgData},
   service::seimg::{self, SeimgError},
   utils::api::{ApiError, ApiResult, api_ok},
 };
@@ -22,13 +21,20 @@ pub fn routes() -> Router<RomiState> {
     .route("/{id}", delete(remove))
 }
 
-async fn list(
-  Query(params): Query<HashMap<String, String>>,
+/// Returns a random list of illustrations/seimgs based on query filters.
+#[utoipa::path(
+  get,
+  path = "/api/seimg",
+  params(QuerySeimgData),
+  responses((status = 200, description = "List of seimgs", body = Vec<ResSeimgData>))
+)]
+pub async fn list(
+  Query(params): Query<QuerySeimgData>,
   State(RomiState { ref conn, ref logger, .. }): State<RomiState>,
 ) -> ApiResult<Vec<ResSeimgData>> {
-  let limit = params.get("limit").and_then(|l| l.parse().ok()).unwrap_or(1).clamp(1, 10) as u32;
-  let tag = params.get("tag").cloned();
-  let r18 = params.get("r18").cloned();
+  let limit = params.limit.unwrap_or(1).clamp(1, 10);
+  let tag = params.tag;
+  let r18 = params.r18;
 
   match seimg::list(conn, limit, tag, r18).await {
     Ok(data) => api_ok(data),

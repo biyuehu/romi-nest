@@ -1,7 +1,16 @@
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;
+use utoipa::{IntoParams, ToSchema};
 
-#[derive(Deserialize, TS)]
+#[derive(Deserialize, TS, IntoParams, ToSchema)]
+#[ts(export, export_to = "../client/output.ts")]
+pub struct QuerySeimgData {
+  pub limit: Option<u32>,
+  pub tag: Option<String>,
+  pub r18: Option<String>,
+}
+
+#[derive(Deserialize, TS, ToSchema)]
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ReqSeimgData {
   pub pixiv_pid: u32,
@@ -16,7 +25,7 @@ pub struct ReqSeimgData {
   pub url: String,
 }
 
-#[derive(Serialize, TS)]
+#[derive(Serialize, TS, ToSchema)]
 #[ts(export, export_to = "../client/output.ts")]
 pub struct ResSeimgData {
   pub pid: u32,
