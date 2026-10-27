@@ -30,7 +30,7 @@ export class ArchiveComponent implements OnInit {
       let index = acc.findIndex(([target]) => target === year)
       index = index === -1 ? acc.push([year, []]) - 1 : index
       acc[index][1].push({
-        date: `${((result) => (result > 10 ? result : `0${result}`))(date.getMonth() + 1)}-${((result) => (result > 10 ? result : `0${result}`))(date.getDate())}`,
+        date: `${((result) => (result >= 10 ? result : `0${result}`))(date.getMonth() + 1)}-${((result) => (result >= 10 ? result : `0${result}`))(date.getDate())}`,
         title: post.title,
         id: post.strId ? post.strId : post.id
       })
