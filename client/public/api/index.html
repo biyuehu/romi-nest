@@ -14,9 +14,10 @@
 
 <body>
   <div id="redoc-container"></div>
-  <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
-  <script>
-    Redoc.init('./openapi-utils.json', {
+  <script type="module">
+    import { init } from 'https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js'
+
+    init('./openapi-utils.json', {
       theme: {
         colors: {
           primary: {
