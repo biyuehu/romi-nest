@@ -21,7 +21,7 @@ import {
   lineNumbers,
   rectangularSelection
 } from '@codemirror/view'
-import { defaultValueCtx, Editor, rootCtx } from '@milkdown/kit/core'
+import { defaultValueCtx, Editor, remarkStringifyOptionsCtx, rootCtx } from '@milkdown/kit/core'
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener'
 import { commonmark } from '@milkdown/kit/preset/commonmark'
 import { replaceAll } from '@milkdown/kit/utils'
@@ -193,7 +193,7 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
   private pendingValue: string | null = null
   private isInternalUpdate = false
   private cmHasFocus = false
-  private pendingCmSync: string | null = null
+  private milkdownHasFocus = false
 
   public readonly currentMode = signal<EditorMode>(EditorMode.Preview)
   public readonly isFullscreen = signal(false)
@@ -206,6 +206,7 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
   public async ngAfterViewInit() {
     this.initCodemirror()
     await this.initEditor()
+    this.bindEditorEvents()
     if (!this.pendingValue) return
     this.applyContent(this.pendingValue)
     this.pendingValue = null
@@ -237,12 +238,39 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
     })
   }
 
+  private isMilkdownFocused(): boolean {
+    if (this.cmHasFocus) return false
+    return this.milkdownHasFocus || !!this.editorContainer?.nativeElement.contains(document.activeElement)
+  }
+
+  private bindEditorEvents() {
+    const el = this.editorContainer?.nativeElement
+    if (!el) return
+
+    el.addEventListener('focusin', () => {
+      this.milkdownHasFocus = true
+    })
+    el.addEventListener('focusout', (e) => {
+      if (!el.contains(e.relatedTarget as Node | null)) {
+        this.milkdownHasFocus = false
+      }
+    })
+  }
+
   private async initEditorWithValue(initialValue: string = '') {
     try {
       this.editor = await Editor.make()
         .config((ctx) => {
           ctx.set(rootCtx, this.editorContainer.nativeElement)
           ctx.set(defaultValueCtx, initialValue)
+          ctx.update(remarkStringifyOptionsCtx, (prev) => ({
+            ...prev,
+            bullet: '-' as const,
+            bulletOther: '+' as const,
+            fence: '`' as const,
+            fences: true,
+            rule: '-' as const
+          }))
         })
         .use(commonmark)
         .use(listener)
@@ -252,9 +280,11 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
         const listener = ctx.get(listenerCtx)
         listener.markdownUpdated((_, markdown) => {
           if (this.isInternalUpdate) return
+          // 仅当用户主动在 Milkdown 区域编辑获焦时，才同步回 CodeMirror 和表单模型
+          if (!this.isMilkdownFocused()) return
 
           this.isInternalUpdate = true
-          this.syncToCm(markdown)
+          this.applySyncToCm(markdown)
           this.onChange(markdown)
           this.onTouched()
           this.isInternalUpdate = false
@@ -289,23 +319,11 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
         }),
         EditorView.focusChangeEffect.of((_, focusing) => {
           this.cmHasFocus = focusing
-          if (!focusing && this.pendingCmSync !== null) {
-            const pending = this.pendingCmSync
-            this.pendingCmSync = null
-            this.applySyncToCm(pending)
-          }
           return null
         })
       ],
       parent: this.codemirrorContainer.nativeElement
     })
-  }
-
-  private syncToCm(markdown: string) {
-    if (!this.cm) return
-
-    if (!this.cmHasFocus) this.applySyncToCm(markdown)
-    this.pendingCmSync = markdown
   }
 
   private applySyncToCm(markdown: string) {
@@ -328,6 +346,7 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
     }
 
     if (start < endCurrent || start < endNew) {
+      this.isInternalUpdate = true
       this.cm.dispatch({
         changes: { from: start, to: endCurrent, insert: markdown.slice(start, endNew) },
         selection: {
@@ -337,6 +356,7 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
           )
         }
       })
+      this.isInternalUpdate = false
     }
   }
 
@@ -375,14 +395,20 @@ export class MarkdownEditorComponent implements AfterViewInit, OnDestroy, Contro
     if (!this.cm) return
     const content = this.cm.state.doc.toString()
     this.lint((errors) => {
-      this.writeValue(applyFixes(content, errors))
+      const fixed = applyFixes(content, errors)
+      this.writeValue(fixed)
+      this.onChange(fixed)
+      this.onTouched()
       this.notifyService.showMessage('修复完成')
     })
   }
 
   public pangu() {
     if (!this.cm) return
-    this.writeValue(pangu.spacingText(this.cm.state.doc.toString()))
+    const fixed = pangu.spacingText(this.cm.state.doc.toString())
+    this.writeValue(fixed)
+    this.onChange(fixed)
+    this.onTouched()
     this.notifyService.showMessage('盘古完成')
   }
 
