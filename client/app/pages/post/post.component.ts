@@ -17,7 +17,7 @@ import { formatDate } from '../../shared/utils'
 })
 export class PostComponent implements OnInit, OnChanges {
   @Input() public readonly id!: string
-  public post?: ResPostSingleData
+  @Input() public post?: ResPostSingleData
 
   public constructor(
     private readonly apiService: ApiService,
@@ -27,11 +27,11 @@ export class PostComponent implements OnInit, OnChanges {
   ) {}
 
   public ngOnInit() {
-    this.loadPost()
+    if (!this.post) this.loadPost()
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes['id'] && !changes['id'].firstChange) this.loadPost()
+    if (changes['id'] && !changes['id'].firstChange && !changes['post']) this.loadPost()
   }
 
   private loadPost() {

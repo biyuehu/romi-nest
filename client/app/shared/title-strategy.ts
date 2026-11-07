@@ -1,12 +1,13 @@
 import { Injectable, signal } from '@angular/core'
-import { Title } from '@angular/platform-browser'
+import { Meta, Title } from '@angular/platform-browser'
 import { ResolveFn, RouterStateSnapshot, TitleStrategy } from '@angular/router'
 import { pipe } from 'fp-ts/function'
-import { ResCharacterData, ResHitokotoData, ResNewsData, ResPostData } from '../models/api.model'
+import { ResCharacterData, ResHitokotoData, ResNewsData, ResPostData, ResPostSingleData } from '../models/api.model'
 import { dynamicResolver } from '../pages/dynamic/dynamic.resolver'
 import { ApiService } from '../services/api.service'
 import { BrowserService } from '../services/browser.service'
 import { UrlPattern } from './types'
+import { formatDate } from './utils'
 
 const { Full, Starts, All } = UrlPattern
 
@@ -23,7 +24,8 @@ export class AppTitleStrategy extends TitleStrategy {
   public constructor(
     private readonly title: Title,
     private readonly browserService: BrowserService,
-    private readonly apiService: ApiService
+    private readonly apiService: ApiService,
+    private readonly meta: Meta
   ) {
     super()
   }
@@ -58,6 +60,7 @@ export class AppTitleStrategy extends TitleStrategy {
       UrlPattern.dispatch(snapshot.url, [
         [Full('/'), () => this.homePage()],
         [Full('/posts'), () => this.postsPage(title ?? '', route.data['posts'])],
+        [Full('/post'), () => this.postsPage(title ?? '', route.data['posts'])],
         [Full('/newses'), () => this.newsesPage(title ?? '', route.data['newses'])],
         [Full('/chars'), () => this.charsPage(title ?? '', route.data['chars'])],
         [Full('/project'), () => this.projectPage(title ?? '')],
@@ -66,7 +69,7 @@ export class AppTitleStrategy extends TitleStrategy {
         [Starts('/tag/'), () => this.tagPage(route.paramMap.get('tag') ?? '', route.data['posts'])],
         [Starts('/category/'), () => this.categoryPage(route.paramMap.get('category') ?? '', route.data['posts'])],
         [Starts('/char/'), () => this.charPage(route.data['char'])],
-        // [Starts('/post/'), () => this.postPage(route.data['post'])],
+        [Starts('/post/'), () => this.postPage(route.data['post'])],
         [Starts('/hitokoto/'), () => this.hitokotoPage(route.data['hitokoto'])],
         [
           All,
@@ -106,6 +109,22 @@ export class AppTitleStrategy extends TitleStrategy {
 
   private projectPage(title: string) {
     this.updateHeader({ title, subTitle: ['这里是我的一些开源作品，大部分都是练手或者实用的小工具'] })
+  }
+
+  private postPage(post?: ResPostSingleData) {
+    if (!post) return
+    this.setTitle(post.title)
+    this.meta.updateTag({ name: 'keywords', content: [post.categories, ...post.tags].join(',') })
+    this.meta.updateTag({ name: 'description', content: post.text.slice(0, 150) })
+    this.updateHeader({
+      title: post.title,
+      subTitle: [
+        `创建时间：${formatDate(new Date(post.created * 1000))}`,
+        `更新时间：${formatDate(new Date(post.modified * 1000))}`,
+        `${post.views} 次阅读 ${post.allowComment ? `•  ${post.comments} 条评论 ` : ''}•  ${post.likes} 人喜欢`
+      ],
+      ...(post.banner ? { imageUrl: post.banner } : {})
+    })
   }
 
   private tagPage(tag: string, posts: ResPostData[]) {
