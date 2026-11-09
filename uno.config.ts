@@ -1,3 +1,5 @@
+if ('VSCODE_CWD' in process.env) delete process.env['VSCODE_CWD']
+
 import { resolve } from 'node:path'
 import { defineConfig, presetIcons, presetUno } from 'unocss'
 import { presetRomiUI } from './ui/src/preset'
