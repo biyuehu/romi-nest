@@ -12,3 +12,11 @@ pre-commit:
       run: cargo clippy --fix --allow-dirty --allow-staged -- -D warnings
       stage_fixed: true
       glob: "*.rs"
+    ruff-check:
+      run: uv run ruff check --fix --
+      stage_fixed: true
+      glob: "*.py"
+    ruff-format:
+      run: uv run ruff format --
+      stage_fixed: true
+      glob: "*.py"

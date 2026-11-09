@@ -7,3 +7,19 @@ requires-python = ">=3.11"
 dependencies = [
     "tomli>=2.4.1",
 ]
+
+[tool.ruff]
+indent-width = 2
+line-length = 120
+
+[tool.ruff.lint]
+ignore = ["BLE001", "EXE001"]
+
+[tool.ruff.format]
+indent-style = "space"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17.4",
+]
+

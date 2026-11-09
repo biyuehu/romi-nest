@@ -9,6 +9,8 @@ on:
       - '**.html'
       - '**.lock'
       - 'Cargo.toml'
+      - 'pyproject.toml'
+      - '**.py'
       - '**.json'
       - '.github/**/*'
 
@@ -92,6 +94,14 @@ jobs:
       - name: Set up uv
         if: matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64'
         uses: astral-sh/setup-uv@v5
+
+      - name: Check Python formatting
+        if: matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64'
+        run: uv run ruff format --check
+
+      - name: Run ruff
+        if: matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64'
+        run: uv run ruff check
 
       - name: Build frontend
         if: matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64'
