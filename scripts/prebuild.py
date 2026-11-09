@@ -1,13 +1,14 @@
-import subprocess
 import json
+import subprocess
+from datetime import UTC, datetime
 from pathlib import Path
-from datetime import datetime, timezone
 
 try:
   import tomli as toml_parser
 except ImportError:
   print("Error: 'tomli' not found. Please run 'pip install tomli'")
   toml_parser = None
+
 
 def get_git_hash() -> str:
   try:
@@ -22,8 +23,10 @@ def get_git_hash() -> str:
     print("Warning: Unable to get git hash. Using 'unknown'.")
     return "unknown"
 
+
 def get_build_time() -> int:
-  return int(datetime.now(timezone.utc).timestamp() * 1000)
+  return int(datetime.now(UTC).timestamp() * 1000)
+
 
 def get_api_port(root: Path) -> int:
   default_port = 8000
@@ -43,14 +46,13 @@ def get_api_port(root: Path) -> int:
         print(f"Success: Read API port {port} from {toml_path}.")
         return port
 
-      print(
-        f"Warning: Port field not found or invalid in {toml_path}. Using default {default_port}."
-      )
+      print(f"Warning: Port field not found or invalid in {toml_path}. Using default {default_port}.")
       return default_port
 
   except Exception as e:
     print(f"Error reading {toml_path}: {e}. Using default API port {default_port}.")
     return default_port
+
 
 def write_meta_file(path: Path, data: dict[str, object]) -> None:
   path.parent.mkdir(parents=True, exist_ok=True)
@@ -59,6 +61,7 @@ def write_meta_file(path: Path, data: dict[str, object]) -> None:
     encoding="utf-8",
   )
   print(f"Generated build meta {path} ->", json.dumps(data))
+
 
 def write_proxy_conf(path: Path, target_url: str) -> None:
   path.write_text(
@@ -77,6 +80,7 @@ def write_proxy_conf(path: Path, target_url: str) -> None:
   )
   print(f"Generated proxy config {path} -> Target: {target_url}")
 
+
 def main() -> None:
   root = Path(__file__).resolve().parents[1]
   subprocess.run(["cargo", "test", "export_utils_api_doc"], cwd=str(root), check=True)
@@ -89,6 +93,7 @@ def main() -> None:
     },
   )
   write_proxy_conf(root / "proxy.conf.json", f"http://localhost:{get_api_port(root)}")
+
 
 if __name__ == "__main__":
   main()
