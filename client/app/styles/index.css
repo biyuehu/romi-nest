@@ -9,10 +9,6 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-*::selection {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
 :root {
   --brand-base: #d87cb6;
   --accent-base: #9573a2;
@@ -41,7 +37,7 @@
   --bg-page: #f7f7f7; /* 整页最底层背景 */
   --bg-surface: #ffffff; /* 卡片、文章容器 */
   --bg-elevated: #f0f0f0; /* 代码块、引用块、略凹陷的区域 */
-  --bg-subtle: #e8e8e8; /* 分割线区域、hover 背景的底 */
+  --bg-subtle: #dedede; /* 分割线区域、hover 背景的底 */
 
   --text-base: #1a1a1a; /* 标题、正文 */
   --text-sub: #5a5a5a; /* 日期、作者、描述等次要信息 */
@@ -59,6 +55,7 @@
 
   --hover-overlay: rgba(0, 0, 0, 0.04); /* 通用 hover 背景叠加 */
   --press-overlay: rgba(0, 0, 0, 0.08); /* 点击态 */
+  --selection-bg: color-mix(in srgb, var(--brand-base) 28%, transparent); /* 文字选区高亮色 */
 
   scrollbar-color: var(--brand) var(--accent);
   scrollbar-width: thin;
@@ -90,10 +87,19 @@
 
   --hover-overlay: rgba(255, 255, 255, 0.05);
   --press-overlay: rgba(255, 255, 255, 0.1);
+  --selection-bg: color-mix(in srgb, var(--brand-base) 45%, transparent);
 }
 
 ::selection {
-  background-color: var(--brand-subtle);
+  background-color: var(--selection-bg);
+}
+
+/* 确保斑马纹交替行在 hover 态必定能触发高亮背景，不被 nth-child(even) 默认底色覆盖 */
+.hover\:bg-bg-subtle:hover,
+.hover\:even\:bg-bg-subtle:hover,
+.even\:hover\:bg-bg-subtle:hover,
+[class*="hover:bg-bg-subtle"]:hover {
+  background-color: var(--bg-subtle) !important;
 }
 
 a {

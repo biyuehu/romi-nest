@@ -75,7 +75,7 @@
   <div list-content>
     @for (hitokoto of pagedItems; track hitokoto.uuid) {
     <div
-      class="border-b border-border-strong p-6 transition-colors hover:bg-brand-subtle even:bg-bg-page hover:even:bg-brand-subtle">
+      class="border-b border-border-strong p-6 transition-colors hover:bg-bg-subtle even:bg-bg-page even:hover:bg-bg-subtle hover:even:bg-bg-subtle">
       @if (editingHitokoto?.uuid === hitokoto.uuid) {
       <div class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

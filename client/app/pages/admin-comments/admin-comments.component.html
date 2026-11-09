@@ -30,7 +30,7 @@
       <tbody
         class="bg-bg-surface [&_td]:border-b-2 [&_td]:border-r-2 [&_td]:border-border-strong [&_td:last-child]:border-r-0 [&_tr:last-child_td]:border-b-0">
         @for (comment of pagedItems; track comment.cid) {
-        <tr class="bg-bg-surface even:bg-bg-page transition-colors hover:bg-brand-subtle hover:even:bg-brand-subtle">
+        <tr class="bg-bg-surface even:bg-bg-page transition-colors hover:bg-bg-subtle even:hover:bg-bg-subtle hover:even:bg-bg-subtle">
           <td class="px-6 py-4 max-w-xs">
             <a [routerLink]="['/post', comment.pid]" class="text-text-base hover:text-brand line-clamp-2 break-words">
               {{ formatText(comment.text) }}
